@@ -20,4 +20,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Arpe-fitness"
-include(":")
+include(":app")
