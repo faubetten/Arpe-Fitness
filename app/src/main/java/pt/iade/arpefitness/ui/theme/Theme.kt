@@ -1,4 +1,4 @@
-package eu.plcoding.composecourseyt.ui.theme
+package pt.iade.arpefitness.ui.theme
 
 import android.app.Activity
 import android.os.Build
@@ -34,7 +34,7 @@ private val LightColorScheme = lightColorScheme(
 )
 
 @Composable
-fun ComposeCourseYtTheme(
+fun ArpefitnessTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,

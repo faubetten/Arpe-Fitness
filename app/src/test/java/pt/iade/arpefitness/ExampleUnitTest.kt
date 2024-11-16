@@ -1,4 +1,4 @@
-package pt.iade.ari.fau.ped.arpefitness
+package pt.iade.arpefitness
 
 import org.junit.Test
 

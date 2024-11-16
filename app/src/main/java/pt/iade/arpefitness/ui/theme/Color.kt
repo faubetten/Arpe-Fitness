@@ -1,4 +1,4 @@
-package eu.plcoding.composecourseyt.ui.theme
+package pt.iade.arpefitness.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

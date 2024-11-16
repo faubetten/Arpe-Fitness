@@ -1,5 +1,3 @@
 <resources>
-    <string name="app_name">Arpe fitness</string>
-    <string name="title_activity_home_page">HomePage</string>
-    <string name="title_activity_home_page2">HomePage2</string>
+    <string name="app_name">Arpe-fitness</string>
 </resources>

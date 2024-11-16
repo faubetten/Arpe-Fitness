@@ -1,4 +1,4 @@
-package pt.iade.ari.fau.ped.arpefitness
+package pt.iade.arpefitness
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("pt.iade.ari.fau.ped.arpefitness", appContext.packageName)
+        assertEquals("pt.iade.arpefitness", appContext.packageName)
     }
 }
