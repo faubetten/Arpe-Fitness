@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Arpe-fitness</string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <string name="title_activity_screen_create_account">screenCreateAccount</string>
+    <string name="title_activity_main3">MainActivity3</string>
+    <string name="title_activity_main">MainActivity</string>
 </resources>
