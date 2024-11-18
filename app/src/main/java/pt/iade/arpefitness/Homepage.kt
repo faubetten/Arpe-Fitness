@@ -49,7 +49,7 @@ fun MainView() {
             modifier = Modifier.fillMaxWidth().padding(vertical = 16.dp)
         )
 
-        // O conteúdo original da página
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
