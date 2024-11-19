@@ -65,11 +65,11 @@ VALUES
     ('Leg Curl', 'Machine-based exercise for hamstrings', 7);
 
 
-INSERT INTO train (train_name) 
+INSERT INTO train (train_name, train_rest_between_exercises) 
 VALUES 
-    ('Full Body'), 
-    ('Upper Body'), 
-    ('Lower Body');
+    ('Hypertrophy', 45), 
+    ('Muscle Definition', 30), 
+    ('Lose Weight', 30 );
 
 
 INSERT INTO user (user_name, user_password, user_bdate, user_gender, user_email) 

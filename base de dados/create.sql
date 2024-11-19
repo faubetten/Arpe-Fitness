@@ -18,6 +18,7 @@ CREATE TABLE exercise_category (
 CREATE TABLE train (
     train_id INT NOT NULL AUTO_INCREMENT,
     train_name VARCHAR(40) NOT NULL,
+    train_rest_between_exercises INT NOT NULL DEFAULT 120,
     PRIMARY KEY (train_id)
 );
 
