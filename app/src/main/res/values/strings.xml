@@ -1,0 +1,11 @@
+<resources>
+<<<<<<< HEAD:Codigo-Fonte/App/app/src/main/res/values/strings.xml
+    <string name="app_name">ArpeFitness</string>
+=======
+    <string name="app_name">Arpe-fitness</string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <string name="title_activity_screen_create_account">screenCreateAccount</string>
+    <string name="title_activity_main3">MainActivity3</string>
+    <string name="title_activity_main">MainActivity</string>
+>>>>>>> edbb66bb4f7d7094281b16b939e63aaba8969e12:app/src/main/res/values/strings.xml
+</resources>
