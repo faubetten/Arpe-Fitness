@@ -85,5 +85,4 @@ public class User {
         this.user_email = user_email;
     }
 
-    // Getters and Setters
-}
+}    
