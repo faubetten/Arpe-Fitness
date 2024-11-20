@@ -88,7 +88,11 @@ dependencies {
 <<<<<<< HEAD:Codigo-Fonte/App/app/build.gradle.kts
 =======
     implementation(libs.androidx.room.runtime.android)
+<<<<<<< HEAD
 >>>>>>> edbb66bb4f7d7094281b16b939e63aaba8969e12:app/build.gradle.kts
+=======
+    implementation(libs.androidx.navigation.compose)
+>>>>>>> bf8047e7e10bac7db29cc3709aa2ff1ecab9fa81
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
