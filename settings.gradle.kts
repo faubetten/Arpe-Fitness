@@ -19,11 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-<<<<<<< HEAD:Codigo-Fonte/App/settings.gradle.kts
-rootProject.name = "ArpeFitness"
-include(":app")
- 
-=======
 rootProject.name = "Arpe-fitness"
 include(":app")
->>>>>>> edbb66bb4f7d7094281b16b939e63aaba8969e12:settings.gradle.kts
