@@ -1,10 +1,12 @@
 package pt.iade.arpefitness
 
+
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -38,22 +40,24 @@ fun Home() {
 
     Scaffold(
         bottomBar = { BottomNavigationBar(navController) }
-    ) {padding ->
-
+    ) { padding ->
         NavHost(
             navController = navController,
             startDestination = "home",
             modifier = Modifier.padding(padding)
         ) {
-            composable("home") { HomeScreen() }
+            composable("home") { HomeScreen(navController) }
             composable("statistics") { StatisticsScreen() }
             composable("profile") { Profilescreen() }
+            composable("custom") { Customworkout() }
         }
     }
 }
 
+
+
 @Composable
-fun HomeScreen() {
+fun HomeScreen(navController: NavController) { 
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -67,7 +71,9 @@ fun HomeScreen() {
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
             color = Color.Black,
-            modifier = Modifier.fillMaxWidth().padding(vertical = 16.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 16.dp)
         )
 
         Column(
@@ -77,9 +83,12 @@ fun HomeScreen() {
                 .padding(8.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
+            // Primeiro card
             WorkoutCard(
+                navController = navController,
                 imageRes = R.drawable.custom, // Imagem de exemplo
-                description = "Custom workout"
+                description = "Custom workout",
+                destination = "custom"
             )
 
             Text(
@@ -89,9 +98,12 @@ fun HomeScreen() {
                 color = Color(0xFF000000).copy(alpha = 0.9f)
             )
 
+
             WorkoutCard(
+                navController = navController,
                 imageRes = R.drawable.plan, // Imagem de exemplo
-                description = "Hypertrophy"
+                description = "Hypertrophy",
+                destination = "statistics" // Definir um destino válido
             )
         }
     }
@@ -99,13 +111,15 @@ fun HomeScreen() {
 
 
 
+
 @Composable
-fun WorkoutCard(imageRes: Int, description: String) {
+fun WorkoutCard(navController: NavController, imageRes: Int, description: String, destination: String) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .aspectRatio(2f)
-            .height(60.dp),
+            .height(60.dp)
+            .clickable { navController.navigate(destination) }, // Adicionado clique
         elevation = CardDefaults.cardElevation(4.dp)
     ) {
         Box {
@@ -128,6 +142,7 @@ fun WorkoutCard(imageRes: Int, description: String) {
     }
 }
 
+
 @Composable
 fun BottomNavigationBar(navController: NavController) {
     NavigationBar(
@@ -135,25 +150,29 @@ fun BottomNavigationBar(navController: NavController) {
     ) {
         // Botão Home
         NavigationBarItem(
-            icon = { Icon(painter = painterResource(R.drawable.home_icon), contentDescription = "Home") },
+            icon = { Icon(painter = painterResource(R.drawable.home_icon),
+                contentDescription = "Home",
+                modifier = Modifier.size(20.dp)) },
             label = { Text("Home") },
-            modifier = Modifier.size(30.dp),
             selected = false,
             onClick = { navController.navigate("home") }
         )
         // Botão Estatísticas
         NavigationBarItem(
-            icon = { Icon(painter = painterResource(R.drawable.statics_icon), contentDescription = "Statistics") },
+            icon = { Icon(painter = painterResource(R.drawable.statics_icon),
+                contentDescription = "Statistics",
+                modifier = Modifier.size(20.dp)) },
             label = { Text("Statistics") },
-            modifier = Modifier.size(30.dp),
             selected = false,
             onClick = { navController.navigate("statistics") }
         )
         // Botão Perfil
         NavigationBarItem(
-            icon = { Icon(painter = painterResource(R.drawable.profile_icon), contentDescription = "Profile") },
+            icon = { Icon(painter = painterResource(R.drawable.profile_icon),
+                contentDescription = "Profile",
+                modifier = Modifier.size(20.dp)) },
             label = { Text("Profile") },
-            modifier = Modifier.size(30.dp),
+
             selected = false,
             onClick = { navController.navigate("profile") }
         )

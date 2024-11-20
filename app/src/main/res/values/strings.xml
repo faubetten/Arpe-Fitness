@@ -8,4 +8,6 @@
     <string name="title_activity_screenp3">Screenp_3</string>
     <string name="title_activity_teste">teste</string>
     <string name="title_activity_static_screen">StaticScreen</string>
+    <string name="title_activity_custom_workout">CustomWorkout</string>
+    <string name="title_activity_select_exercise">SelectExercise</string>
 </resources>
