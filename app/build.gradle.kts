@@ -1,17 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-<<<<<<< HEAD:Codigo-Fonte/App/app/build.gradle.kts
-    alias(libs.plugins.kotlin.compose)
-}
-
-android {
-    namespace = "com.example.arpefitness"
-    compileSdk = 34
-
-    defaultConfig {
-        applicationId = "com.example.arpefitness"
-=======
 }
 
 android {
@@ -20,19 +9,15 @@ android {
 
     defaultConfig {
         applicationId = "pt.iade.arpefitness"
->>>>>>> edbb66bb4f7d7094281b16b939e63aaba8969e12:app/build.gradle.kts
         minSdk = 24
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-<<<<<<< HEAD:Codigo-Fonte/App/app/build.gradle.kts
-=======
         vectorDrawables {
             useSupportLibrary = true
         }
->>>>>>> edbb66bb4f7d7094281b16b939e63aaba8969e12:app/build.gradle.kts
     }
 
     buildTypes {
@@ -45,25 +30,15 @@ android {
         }
     }
     compileOptions {
-<<<<<<< HEAD:Codigo-Fonte/App/app/build.gradle.kts
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-    kotlinOptions {
-        jvmTarget = "11"
-=======
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
         jvmTarget = "1.8"
->>>>>>> edbb66bb4f7d7094281b16b939e63aaba8969e12:app/build.gradle.kts
     }
     buildFeatures {
         compose = true
     }
-<<<<<<< HEAD:Codigo-Fonte/App/app/build.gradle.kts
-=======
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
     }
@@ -72,7 +47,6 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
->>>>>>> edbb66bb4f7d7094281b16b939e63aaba8969e12:app/build.gradle.kts
 }
 
 dependencies {
@@ -85,14 +59,8 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-<<<<<<< HEAD:Codigo-Fonte/App/app/build.gradle.kts
-=======
     implementation(libs.androidx.room.runtime.android)
-<<<<<<< HEAD
->>>>>>> edbb66bb4f7d7094281b16b939e63aaba8969e12:app/build.gradle.kts
-=======
     implementation(libs.androidx.navigation.compose)
->>>>>>> bf8047e7e10bac7db29cc3709aa2ff1ecab9fa81
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
