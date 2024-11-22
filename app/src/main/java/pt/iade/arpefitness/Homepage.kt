@@ -49,7 +49,7 @@ fun Home() {
             composable("home") { HomeScreen(navController) }
             composable("statistics") { StatisticsScreen() }
             composable("profile") { Profilescreen() }
-            composable("custom") { Customworkout() }
+            composable("custom") { CustomWorkoutScreen(navController) }
         }
     }
 }

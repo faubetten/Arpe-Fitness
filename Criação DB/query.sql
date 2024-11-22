@@ -1,4 +1,4 @@
--- 1. Exibir todos os exercícios, incluindo o nome da categoria
+-- 1. Exibir todos os exercícios com o nome da categoria e descrição
 SELECT 
     e.exer_name, 
     e.exer_description, 
@@ -10,19 +10,20 @@ JOIN
 ORDER BY 
     ec.cat_name, e.exer_name;
 
--- 2. Exibir os planos de treino com as descrições e os usuários associados
+-- 2. Exibir todos os treinos e os usuários associados a esses treinos
 SELECT 
-    p.plan_name, 
-    p.plan_desc, 
+    t.train_name, 
     u.user_name
 FROM 
-    plan p
+    train t
 JOIN 
-    user u ON p.user_id = u.user_id
+    user_train ut ON t.train_id = ut.train_id
+JOIN 
+    user u ON ut.user_id = u.user_id
 ORDER BY 
-    p.plan_name;
+    t.train_name;
 
--- 3. Exibir todas as séries de exercícios, com detalhes do exercício, treino e plano
+-- 3. Exibir todas as séries de exercícios com detalhes do exercício, treino e plano
 SELECT 
     s.serie_order, 
     s.serie_rep, 
@@ -34,13 +35,15 @@ FROM
 JOIN 
     exercise ex ON s.serie_exer_id = ex.exer_id
 JOIN 
-    train t ON s.serie_train_id = t.train_id
+    serie_train st ON s.serie_id = st.serie_id
+JOIN 
+    train t ON st.train_id = t.train_id
 JOIN 
     plan p ON s.plan_id = p.plan_id
 ORDER BY 
     p.plan_name, s.serie_order;
 
--- 4. Exibir todos os usuários e seus respectivos planos de treino
+-- 4. Exibir todos os usuários e os planos de treino aos quais estão associados
 SELECT 
     u.user_name, 
     p.plan_name
@@ -66,7 +69,7 @@ GROUP BY
 ORDER BY 
     num_exercises DESC;
 
--- 6. Exibir todos os treinos com o tempo de descanso entre exercícios
+-- 6. Exibir todos os treinos com o tempo de descanso entre os exercícios
 SELECT 
     train_name, 
     train_rest_between_exercises
@@ -114,16 +117,24 @@ JOIN
 WHERE 
     p.plan_name = 'Plano Full Body';
 
--- 10. Exibir todos os planos de treino e seus respectivos treinos com tempo de descanso
+-- 10. Exibir todos os exercícios e o número de séries, pesos e repetições para um usuário específico
 SELECT 
-    p.plan_name, 
-    t.train_name, 
-    t.train_rest_between_exercises
+    u.user_name,
+    e.exer_name,
+    es.num_series,
+    es.weight_kg,
+    es.num_reps
 FROM 
-    plan p
+    user u
 JOIN 
-    serie s ON p.plan_id = s.plan_id
+    user_train ut ON u.user_id = ut.user_id
 JOIN 
-    train t ON s.serie_train_id = t.train_id
+    serie_train st ON ut.train_id = st.train_id
+JOIN 
+    exer_serie es ON st.serie_id = es.serie_id
+JOIN 
+    exercise e ON es.exer_id = e.exer_id
+WHERE 
+    u.user_name = 'João Silva'
 ORDER BY 
-    p.plan_name, t.train_name;
+    e.exer_name;

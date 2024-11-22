@@ -149,3 +149,6 @@ A crescente necessidade de soluções digitais que ajudem as pessoas a manterem-
 ## Conclusão
 O principal objetivo da Arpe-Fitness é oferecer uma ferramenta eficiente e fácil de usar que ajude os utilizadores a manterem um estilo de vida saudável por meio de treinos personalizados. Com desenvolvimento bem estruturado, buscamos maximizar o engajamento e a satisfação dos utilizadores.
 
+# Notas
+
+        android:theme="@style/Theme.ArpeFitness"

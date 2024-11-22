@@ -9,22 +9,13 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-<<<<<<< HEAD
         android:supportsRtl="true"
-<<<<<<< HEAD:Codigo-Fonte/App/app/src/main/AndroidManifest.xml
-        android:theme="@style/Theme.ArpeFitness"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".MainActivity2"
             android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.ArpeFitness">
-=======
-=======
-        android:supportsRtl="false"
->>>>>>> bf8047e7e10bac7db29cc3709aa2ff1ecab9fa81
-        android:theme="@style/Theme.Arpefitness"
-        tools:targetApi="31">
+            android:label="@string/title_activity_main2"
+            android:theme="@style/Theme.Arpefitness" />
         <activity
             android:name=".SelectExercise"
             android:exported="false"
@@ -45,15 +36,12 @@
             android:exported="true"
             android:label="@string/title_activity_main"
             android:theme="@style/Theme.Arpefitness">
->>>>>>> edbb66bb4f7d7094281b16b939e63aaba8969e12:app/src/main/AndroidManifest.xml
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<<<<<<< HEAD:Codigo-Fonte/App/app/src/main/AndroidManifest.xml
-=======
         <activity
             android:name=".StatisticScreen"
             android:exported="false"
@@ -84,7 +72,6 @@
             android:exported="false"
             android:label="@string/title_activity_main2"
             android:theme="@style/Theme.Arpefitness" />
->>>>>>> edbb66bb4f7d7094281b16b939e63aaba8969e12:app/src/main/AndroidManifest.xml
     </application>
 
 </manifest>
