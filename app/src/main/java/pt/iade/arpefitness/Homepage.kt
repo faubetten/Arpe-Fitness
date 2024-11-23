@@ -50,6 +50,8 @@ fun Home() {
             composable("statistics") { StatisticsScreen() }
             composable("profile") { Profilescreen() }
             composable("custom") { CustomWorkoutScreen(navController) }
+            composable ("select_exercise"){ExercisesScreen()}
+
         }
     }
 }
@@ -83,7 +85,7 @@ fun HomeScreen(navController: NavController) {
                 .padding(8.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            // Primeiro card
+
             WorkoutCard(
                 navController = navController,
                 imageRes = R.drawable.custom, // Imagem de exemplo
@@ -101,7 +103,7 @@ fun HomeScreen(navController: NavController) {
 
             WorkoutCard(
                 navController = navController,
-                imageRes = R.drawable.plan, // Imagem de exemplo
+                imageRes = R.drawable.plan,
                 description = "Hypertrophy",
                 destination = "statistics" // Definir um destino válido
             )

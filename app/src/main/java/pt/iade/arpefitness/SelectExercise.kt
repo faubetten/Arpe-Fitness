@@ -16,19 +16,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.rememberNavController
+
 
 class SelectExercise : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            ExerciseScreen()
+            ExercisesScreen()
         }
     }
 }
 
 @Composable
-fun ExerciseScreen() {
+fun ExercisesScreen() {
 
     val selectedExercises = remember { mutableStateMapOf<String, MutableSet<String>>() }
 
@@ -46,7 +48,7 @@ fun ExerciseScreen() {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Gray)
+            .background(Color(0xFFD3D3D3))
             .padding(8.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
@@ -62,15 +64,29 @@ fun ExerciseScreen() {
         item {
             Button(
                 onClick = {
-                    // Processar os exercícios selecionados
-                    println("Exercícios Selecionados: $selectedExercises")
-                },
+                    // Filtrar exercícios selecionados
+                    /* val selectedExercises = mutableMapOf<String, List<Exercise>>()
+                     selectedExercisesMap.forEach { (category, exercises) ->
+                         if (exercises.isNotEmpty()) {
+                             selectedExercises[category] = exercises.map { Exercise(it, getImageForExercise(it)) }
+                         }
+                     }
+
+                     navController.navigate("selected_exercises") {
+                         SelectedExercisesScreen(selectedExercises)
+                     }
+                */ },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp)
+                    .padding(16.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFF999999),
+                    contentColor = Color.White
+                )
             ) {
                 Text(text = "Apply", fontSize = 18.sp)
             }
+
         }
     }
 }
@@ -84,7 +100,7 @@ fun ExerciseCategory(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(Color.DarkGray)
+            .background(Color(0xFF999999))
             .padding(8.dp)
     ) {
         // Header com nome da categoria
@@ -103,7 +119,7 @@ fun ExerciseCategory(
             )
         }
 
-        // Lista de exercícios com checkboxes
+
         exercises.forEach { exercise ->
             val isChecked = remember { mutableStateOf(false) }
             Row(
@@ -118,7 +134,12 @@ fun ExerciseCategory(
                         isChecked.value = checked
                         val selectedSet = selectedExercises.getOrPut(categoryName) { mutableSetOf() }
                         if (checked) selectedSet.add(exercise) else selectedSet.remove(exercise)
-                    }
+                    },
+                    colors = CheckboxDefaults.colors(
+                        checkedColor = Color.LightGray, // Cor da caixa quando marcada
+                        uncheckedColor = Color.LightGray, // Cor da caixa quando desmarcada
+                        checkmarkColor = Color.DarkGray // Cor do checkmark (✓)
+                    )
                 )
                 Text(
                     text = exercise,
@@ -133,7 +154,7 @@ fun ExerciseCategory(
 
 @Preview(showBackground = true)
 @Composable
-fun ExerciseScreenPreview(){
-    ExerciseScreen()
+fun ExerciseScreenPreview() {
+    ExercisesScreen()
 
 }

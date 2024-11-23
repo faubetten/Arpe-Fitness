@@ -10,5 +10,6 @@
     <string name="title_activity_static_screen">StaticScreen</string>
     <string name="title_activity_custom_workout">CustomWorkout</string>
     <string name="title_activity_select_exercise">SelectExercise</string>
+    <string name="title_activity_selected_exercises">Selected_exercises</string>
 
 </resources>
