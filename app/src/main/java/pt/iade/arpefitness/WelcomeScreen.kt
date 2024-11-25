@@ -40,7 +40,7 @@ fun WelcomeScreen(onWelcomeScreenComplete: () -> Unit) {
             .fillMaxSize()
             .background(Color(0xFFD9D9D9))
     ) {
-        // Imagem no canto superior direito
+
         Image(
             painter = painterResource(id = R.drawable.halter_icon),
             contentDescription = "Icone de Halteres",

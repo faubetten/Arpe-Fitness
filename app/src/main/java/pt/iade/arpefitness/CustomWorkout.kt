@@ -86,7 +86,7 @@ fun CustomWorkoutScreen(navController: NavController) {
                     .height(60.dp)
             ) {
                 Text(
-                    text = "Create Your Own Workout Routine",
+                    text = "Create Your Own Workout",
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold
                 )

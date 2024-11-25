@@ -1,6 +1,7 @@
 package pt.iade.arpefitness
 
 
+import BMICalculator
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -47,7 +48,7 @@ fun Home() {
             modifier = Modifier.padding(padding)
         ) {
             composable("home") { HomeScreen(navController) }
-            composable("statistics") { StatisticsScreen() }
+            composable("statistics") { BMICalculator() }
             composable("profile") { Profilescreen() }
             composable("custom") { CustomWorkoutScreen(navController) }
             composable ("select_exercise"){ExercisesScreen()}
@@ -59,7 +60,7 @@ fun Home() {
 
 
 @Composable
-fun HomeScreen(navController: NavController) { 
+fun HomeScreen(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -88,40 +89,49 @@ fun HomeScreen(navController: NavController) {
 
             WorkoutCard(
                 navController = navController,
-                imageRes = R.drawable.custom, // Imagem de exemplo
+                imageRes = R.drawable.custom,
                 description = "Custom workout",
-                destination = "custom"
+                destination = "custom",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(200.dp)
             )
 
-            Text(
-                text = "My training plan",
-                fontSize = 25.sp,
-                fontWeight = FontWeight.SemiBold,
-                color = Color(0xFF000000).copy(alpha = 0.9f)
-            )
+            Spacer(modifier = Modifier.height(2.dp))
 
+            Text(text = "My training plan",
+                fontSize = 30.sp,
+                fontWeight = FontWeight.SemiBold
+                )
 
             WorkoutCard(
                 navController = navController,
                 imageRes = R.drawable.plan,
-                description = "Hypertrophy",
-                destination = "statistics" // Definir um destino válido
+                description = "plan",
+                destination = "statistics",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(190.dp)
             )
+
+            Spacer(modifier = Modifier.height(5.dp))
+
+            WorkoutRow(navController)
         }
     }
 }
 
-
-
-
 @Composable
-fun WorkoutCard(navController: NavController, imageRes: Int, description: String, destination: String) {
+fun WorkoutCard(
+    navController: NavController,
+    imageRes: Int,
+    description: String,
+    destination: String,
+    modifier: Modifier = Modifier
+) {
     Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .aspectRatio(2f)
-            .height(60.dp)
-            .clickable { navController.navigate(destination) }, // Adicionado clique
+        modifier = modifier
+            .clickable { navController.navigate(destination) },
         elevation = CardDefaults.cardElevation(4.dp)
     ) {
         Box {
@@ -133,7 +143,7 @@ fun WorkoutCard(navController: NavController, imageRes: Int, description: String
             )
             Text(
                 text = description,
-                fontSize = 16.sp,
+                fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White,
                 modifier = Modifier
@@ -144,13 +154,48 @@ fun WorkoutCard(navController: NavController, imageRes: Int, description: String
     }
 }
 
+@Composable
+fun WorkoutRow(navController: NavController) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 12.dp, end = 12.dp),
+        horizontalArrangement = Arrangement.spacedBy(10.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+
+        Spacer (modifier = Modifier.height(10.dp))
+
+        WorkoutCard(
+            navController = navController,
+            imageRes = R.drawable.hit,
+            description = "Hit",
+            destination = "statistics",
+            modifier = Modifier
+                .weight(0.5f)
+                .aspectRatio(1f)
+        )
+
+        WorkoutCard(
+            navController = navController,
+            imageRes = R.drawable.abs,
+            description = "Abs",
+            destination = "statistics",
+            modifier = Modifier
+                .weight(0.5f)
+                .aspectRatio(1f)
+        )
+    }
+}
+
+
 
 @Composable
 fun BottomNavigationBar(navController: NavController) {
     NavigationBar(
         containerColor = Color(0xFF999999)
     ) {
-        // Botão Home
+
         NavigationBarItem(
             icon = { Icon(painter = painterResource(R.drawable.home_icon),
                 contentDescription = "Home",
@@ -159,7 +204,7 @@ fun BottomNavigationBar(navController: NavController) {
             selected = false,
             onClick = { navController.navigate("home") }
         )
-        // Botão Estatísticas
+
         NavigationBarItem(
             icon = { Icon(painter = painterResource(R.drawable.statics_icon),
                 contentDescription = "Statistics",
@@ -168,7 +213,7 @@ fun BottomNavigationBar(navController: NavController) {
             selected = false,
             onClick = { navController.navigate("statistics") }
         )
-        // Botão Perfil
+
         NavigationBarItem(
             icon = { Icon(painter = painterResource(R.drawable.profile_icon),
                 contentDescription = "Profile",
