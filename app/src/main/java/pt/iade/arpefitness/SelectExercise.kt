@@ -1,6 +1,7 @@
 package pt.iade.arpefitness
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -64,7 +65,11 @@ fun ExercisesScreen() {
         item {
             Button(
                 onClick = {
+<<<<<<< HEAD
 
+=======
+                    //Log.i("t", selectedExercises.toString());
+>>>>>>> main
                     // Filtrar exercícios selecionados
                     /* val selectedExercises = mutableMapOf<String, List<Exercise>>()
                      selectedExercisesMap.forEach { (category, exercises) ->

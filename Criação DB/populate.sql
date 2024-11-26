@@ -1,41 +1,56 @@
 -- Populando a tabela exercise_category
 INSERT INTO exercise_category (cat_name) VALUES
-('Cardio'),
-('Força'),
-('Flexibilidade');
+('Chest'),
+('Back'),
+('Leg');
 
 -- Populando a tabela exercise
-INSERT INTO exercise (exer_name, exer_description, exer_cat_id) VALUES
-('Corrida na esteira', 'Corrida moderada por 30 minutos', 1),
-('Supino reto', 'Fortalecimento do peitoral com barra', 2),
-('Prancha abdominal', 'Fortalecimento do core e postura', 3);
+INSERT INTO exercise (exer_name, exer_description, exer_cat_id, exer_photo_path) VALUES
+('Bench Press', 'Classic chest exercise using barbell', 1, 'path/to/bench_press.jpg'),
+('Pull-Ups', 'Bodyweight back and biceps exercise', 2, 'path/to/pull_ups.jpg'),
+('Squat', 'Compound exercise for legs and glutes', 3, 'path/to/squat.jpg');
 
 -- Populando a tabela train
-INSERT INTO train (train_name, train_rest_between_exercises) VALUES
-('Treino de Cardio Intenso', 60),
-('Treino Full Body', 120),
-('Treino de Flexibilidade', 90);
+INSERT INTO train (train_name) VALUES
+('Hypertrophy'),
+('Muscle Definition'),
+('Lose Weight');
 
 -- Populando a tabela user
-INSERT INTO user (user_name, user_password, user_bdate, user_gender, user_email) VALUES
-('João Silva', 'senha123', '1990-01-15', 'M', 'joao.silva@gmail.com'),
-('Mariana Oliveira', 'senha456', '1985-06-20', 'F', 'mariana.oliveira@gmail.com'),
-('Carlos Pereira', 'senha789', '2000-03-05', 'M', 'carlos.pereira@hotmail.com');
-
--- Populando a tabela plan
-INSERT INTO plan (plan_name, plan_desc, user_id) VALUES
-('Plano Cardio para Iniciantes', 'Treino de cardio leve para iniciantes', 1),
-('Plano de Fortalecimento Avançado', 'Fortalecimento muscular para avançados', 2),
-('Plano Full Body', 'Treino completo para todo o corpo', 3);
+INSERT INTO user (user_name, user_password, user_bdate, user_gender, user_email, user_height, user_weight) VALUES
+('João Silva', 'senha123', '1990-01-15', 'M', 'joao.silva@gmail.com', 1.75, 80),
+('Mariana Oliveira', 'senha456', '1985-06-20', 'F', 'mariana.oliveira@gmail.com', 1.65, 58),
+('Carlos Pereira', 'senha789', '2000-03-05', 'M', 'carlos.pereira@hotmail.com', 1.80, 75);
 
 -- Populando a tabela serie
-INSERT INTO serie (serie_order, serie_rep, serie_exer_id, serie_train_id, plan_id) VALUES
-(1, 10, 1, 1, 1), -- Corrida na esteira no plano de João
-(2, 12, 2, 2, 2), -- Supino reto no plano de Mariana
-(3, 5, 3, 3, 3);  -- Prancha abdominal no plano de Carlos
+INSERT INTO serie (serie_order, serie_rep) VALUES
+(1, 12), 
+(2, 10),  
+(3, 15);
 
--- Populando a tabela user_plan
-INSERT INTO user_plan (user_id, plan_id) VALUES
-(1, 1), -- João associado ao plano Cardio para Iniciantes
-(2, 2), -- Mariana associada ao plano de Fortalecimento Avançado
-(3, 3); -- Carlos associado ao plano Full Body
+-- Populando a tabela series_reps
+INSERT INTO series_reps (serie_id, rep_order, rep_weight_kg, rep_num_reps, rest_time_seconds) VALUES
+(1, 1, 50.0, 12, 60),  
+(2, 1, 60.0, 10, 90),
+(3, 1, 40.0, 15, 60);
+
+-- Populando a tabela exer_serie
+INSERT INTO exer_serie (exer_id, serie_id, num_series, weight_kg, num_reps) 
+VALUES
+(1, 1, 4, 50.0, 12),  
+(2, 2, 3, 60.0, 10),  
+(3, 3, 4, 40.0, 15);
+
+-- Populando a tabela serie_train
+INSERT INTO serie_train (serie_id, train_id, train_rest_between_exercises) 
+VALUES
+(1, 1, 120), 
+(2, 2, 90),   
+(3, 3, 150);
+
+-- Populando a tabela user_train
+INSERT INTO user_train (user_id, train_id) 
+VALUES
+(1, 1),  
+(2, 2),  
+(3, 3);

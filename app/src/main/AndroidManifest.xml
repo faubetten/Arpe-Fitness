@@ -9,9 +9,11 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
+        android:supportsRtl="false"
+        android:theme="@style/Theme.Arpefitness"
         tools:targetApi="31">
         <activity
+
             android:name=".ScreenLogin"
             android:exported="false"
             android:label="@string/title_activity_screen_login"
@@ -21,11 +23,7 @@
             android:exported="false"
             android:label="@string/title_activity_selected_exercises"
             android:theme="@style/Theme.Arpefitness" />
-        <activity
-            android:name=".SelectExercise"
-            android:exported="false"
-            android:label="@string/title_activity_select_exercise"
-            android:theme="@style/Theme.Arpefitness" />
+
         <activity
             android:name=".CustomWorkout"
             android:exported="false"
