@@ -65,11 +65,7 @@ fun ExercisesScreen() {
         item {
             Button(
                 onClick = {
-<<<<<<< HEAD
 
-=======
-                    //Log.i("t", selectedExercises.toString());
->>>>>>> main
                     // Filtrar exercícios selecionados
                     /* val selectedExercises = mutableMapOf<String, List<Exercise>>()
                      selectedExercisesMap.forEach { (category, exercises) ->
