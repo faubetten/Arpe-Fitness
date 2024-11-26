@@ -42,7 +42,7 @@ class Selected_exercises : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SelectedExercisesScreen(navController: NavController) {
-    // Usando dados estáticos para visualização em Preview
+    // Usando dados estáticos para visualização em Preview, tentando fazer um teste
     val selectedExercises = listOf(
         Exercise("Flexão", "https://media.musclewiki.com/media/uploads/videos/branded/male-Machine-machine-pec-fly-front.mp4#t=0.1"),
         Exercise("Agachamento", "https://media.musclewiki.com/media/uploads/videos/branded/male-Machine-machine-pec-fly-front.mp4#t=0.1"),
@@ -108,9 +108,9 @@ fun ExerciseItem(exercise: Exercise) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             exercise.imageUrl?.let { imageUrl ->
-                // Usando Image como exemplo, caso queira imagens reais, troque para AsyncImage
+
                 Image(
-                    painter = painterResource(id = android.R.drawable.ic_menu_camera), // Exemplo de imagem
+                    painter = painterResource(id = android.R.drawable.ic_menu_camera),
                     contentDescription = exercise.name,
                     modifier = Modifier
                         .size(100.dp)
@@ -140,7 +140,7 @@ fun ExerciseItem(exercise: Exercise) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewSelectedExercisesScreen() {
-    // Exemplo de dados para a preview
+
     val navController = rememberNavController()
 
     SelectedExercisesScreen(navController)
