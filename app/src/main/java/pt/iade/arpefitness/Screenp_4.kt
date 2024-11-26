@@ -96,7 +96,7 @@ fun ScreenProfilefour(){
 
         Spacer(modifier = Modifier.height(100.dp))
 
-        Button(onClick = {},
+        Button(onClick = {Homepage()},
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color(0xFF999999),
                 contentColor = Color.White ),
@@ -122,7 +122,7 @@ fun LevelCard(title:String, description:String, onClick : () -> Unit){
         .padding(start = 12.dp, end = 12.dp)
         .background(Color(0XFF999999), shape = RoundedCornerShape(8.dp))
         .clickable { onClick() }
-        .padding(16.dp) //faz o card ser clicável
+        .padding(16.dp)
     ){
 
         Text(modifier = Modifier,

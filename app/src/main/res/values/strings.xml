@@ -4,4 +4,12 @@
     <string name="title_activity_screen_create_account">screenCreateAccount</string>
     <string name="title_activity_main3">MainActivity3</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_welcome_screen">WelcomeScreen</string>
+    <string name="title_activity_screenp3">Screenp_3</string>
+    <string name="title_activity_teste">teste</string>
+    <string name="title_activity_static_screen">StaticScreen</string>
+    <string name="title_activity_custom_workout">CustomWorkout</string>
+    <string name="title_activity_select_exercise">SelectExercise</string>
+    <string name="title_activity_selected_exercises">Selected_exercises</string>
+
 </resources>
