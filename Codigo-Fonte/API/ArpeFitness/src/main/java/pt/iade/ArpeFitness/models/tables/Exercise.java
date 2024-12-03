@@ -15,7 +15,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "exercise")
 public class Exercise {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue
     @Column(name = "exer_id")
     private int exer_id;
 
@@ -65,5 +65,5 @@ public class Exercise {
     }
 
 
-    
+
 }

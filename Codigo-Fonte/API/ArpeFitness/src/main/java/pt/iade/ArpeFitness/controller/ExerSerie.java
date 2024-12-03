@@ -1,5 +1,4 @@
 package pt.iade.ArpeFitness.controller;
 
-public class PlanController {
-    
+public class ExerSerie {
 }
