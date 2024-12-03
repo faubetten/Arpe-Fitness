@@ -1,5 +1,4 @@
 package pt.iade.ArpeFitness.controller;
 
-public class TrainController {
-    
+public class SerieTrainController {
 }
