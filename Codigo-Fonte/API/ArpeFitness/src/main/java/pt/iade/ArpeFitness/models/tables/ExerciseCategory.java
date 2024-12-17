@@ -36,5 +36,5 @@ public class ExerciseCategory {
         this.cat_name = cat_name;
     }
 
-    
+
 }

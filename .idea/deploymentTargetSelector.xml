@@ -4,7 +4,13 @@
     <selectionStates>
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
+<<<<<<< HEAD
         <DropdownSelection timestamp="2024-12-14T14:09:57.274868Z">
+=======
+<<<<<<< HEAD
+=======
+        <DropdownSelection timestamp="2024-11-18T22:12:15.072071Z">
+>>>>>>> 4601cd6e1d5380a5a6af35aec36c6f984ddfb837
           <Target type="DEFAULT_BOOT">
             <handle>
               <DeviceId pluginId="LocalEmulator" identifier="path=/Users/arielcosta/.android/avd/Pixel_7_API_34.avd" />
@@ -12,6 +18,7 @@
           </Target>
         </DropdownSelection>
         <DialogSelection />
+>>>>>>> main
       </SelectionState>
       <SelectionState runConfigName="ExerciseScreenPreview">
         <option name="selectionMode" value="DROPDOWN" />
