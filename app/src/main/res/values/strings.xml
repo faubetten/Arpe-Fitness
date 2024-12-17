@@ -12,5 +12,7 @@
     <string name="title_activity_select_exercise">SelectExercise</string>
     <string name="title_activity_selected_exercises">Selected_exercises</string>
     <string name="title_activity_screen_login">ScreenLogin</string>
+    <string name="title_activity_add_sets">AddSets</string>
+    <string name="title_activity_add_setss">AddSetss</string>
 
 </resources>

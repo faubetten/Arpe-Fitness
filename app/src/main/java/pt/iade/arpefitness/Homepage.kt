@@ -1,7 +1,5 @@
 package pt.iade.arpefitness
 
-
-
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -51,13 +49,11 @@ fun Home() {
             composable("statistics") { BMICalculator() }
             composable("profile") { Profilescreen() }
             composable("custom") { CustomWorkoutScreen(navController) }
-            composable ("select_exercise"){ExercisesScreen()}
-
+            composable("select_exercise") { ExercisesScreen() }
+            composable("add_sets"){ AddSetsScreen() }
         }
     }
 }
-
-
 
 @Composable
 fun HomeScreen(navController: NavController) {
@@ -86,7 +82,6 @@ fun HomeScreen(navController: NavController) {
                 .padding(8.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-
             WorkoutCard(
                 navController = navController,
                 imageRes = R.drawable.custom,
@@ -99,15 +94,16 @@ fun HomeScreen(navController: NavController) {
 
             Spacer(modifier = Modifier.height(2.dp))
 
-            Text(text = "My training plan",
+            Text(
+                text = "My training plan",
                 fontSize = 30.sp,
                 fontWeight = FontWeight.SemiBold
-                )
+            )
 
             WorkoutCard(
                 navController = navController,
                 imageRes = R.drawable.plan,
-                description = "plan",
+                description = "Plan",
                 destination = "statistics",
                 modifier = Modifier
                     .fillMaxWidth()
@@ -159,12 +155,11 @@ fun WorkoutRow(navController: NavController) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 12.dp, end = 12.dp),
+            .padding(horizontal = 12.dp),
         horizontalArrangement = Arrangement.spacedBy(10.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-
-        Spacer (modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(10.dp))
 
         WorkoutCard(
             navController = navController,
@@ -188,38 +183,46 @@ fun WorkoutRow(navController: NavController) {
     }
 }
 
-
-
 @Composable
 fun BottomNavigationBar(navController: NavController) {
     NavigationBar(
         containerColor = Color(0xFF999999)
     ) {
-
         NavigationBarItem(
-            icon = { Icon(painter = painterResource(R.drawable.home_icon),
-                contentDescription = "Home",
-                modifier = Modifier.size(20.dp)) },
+            icon = {
+                Icon(
+                    painter = painterResource(R.drawable.home_icon),
+                    contentDescription = "Home",
+                    modifier = Modifier.size(20.dp)
+                )
+            },
             label = { Text("Home") },
             selected = false,
             onClick = { navController.navigate("home") }
         )
 
         NavigationBarItem(
-            icon = { Icon(painter = painterResource(R.drawable.statics_icon),
-                contentDescription = "Statistics",
-                modifier = Modifier.size(20.dp)) },
+            icon = {
+                Icon(
+                    painter = painterResource(R.drawable.statics_icon),
+                    contentDescription = "Statistics",
+                    modifier = Modifier.size(20.dp)
+                )
+            },
             label = { Text("Statistics") },
             selected = false,
             onClick = { navController.navigate("statistics") }
         )
 
         NavigationBarItem(
-            icon = { Icon(painter = painterResource(R.drawable.profile_icon),
-                contentDescription = "Profile",
-                modifier = Modifier.size(20.dp)) },
+            icon = {
+                Icon(
+                    painter = painterResource(R.drawable.profile_icon),
+                    contentDescription = "Profile",
+                    modifier = Modifier.size(20.dp)
+                )
+            },
             label = { Text("Profile") },
-
             selected = false,
             onClick = { navController.navigate("profile") }
         )

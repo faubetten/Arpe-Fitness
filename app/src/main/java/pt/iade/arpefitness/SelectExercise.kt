@@ -1,5 +1,6 @@
 package pt.iade.arpefitness
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -13,6 +14,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -30,8 +32,10 @@ class SelectExercise : ComponentActivity() {
     }
 }
 
+
 @Composable
 fun ExercisesScreen() {
+    val context = LocalContext.current
 
     val selectedExercises = remember { mutableStateMapOf<String, MutableSet<String>>() }
 
@@ -65,19 +69,15 @@ fun ExercisesScreen() {
         item {
             Button(
                 onClick = {
+                    val selectedExercisesList = selectedExercises.values.flatten()
 
-                    // Filtrar exercícios selecionados
-                    /* val selectedExercises = mutableMapOf<String, List<Exercise>>()
-                     selectedExercisesMap.forEach { (category, exercises) ->
-                         if (exercises.isNotEmpty()) {
-                             selectedExercises[category] = exercises.map { Exercise(it, getImageForExercise(it)) }
-                         }
-                     }
 
-                     navController.navigate("selected_exercises") {
-                         SelectedExercisesScreen(selectedExercises)
-                     }
-                */ },
+                    val intent = Intent(context, Selected_exercises::class.java).apply {
+                        putStringArrayListExtra("selected_exercises", ArrayList(selectedExercisesList))
+                    }
+
+                    context.startActivity(intent) // Iniciar a nova Activity
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp),
@@ -88,10 +88,10 @@ fun ExercisesScreen() {
             ) {
                 Text(text = "Apply", fontSize = 18.sp)
             }
-
         }
     }
 }
+
 
 @Composable
 fun ExerciseCategory(
