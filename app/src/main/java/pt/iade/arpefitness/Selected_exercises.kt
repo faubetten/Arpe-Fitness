@@ -185,7 +185,7 @@ fun ExerciseItem(exercise: Exercise, navController: NavController) {
 fun NavigateToAddSets() {
     val context = LocalContext.current // Obtenha o contexto atual
     Text(
-        text = "Go to AddSets",
+        text = "Click to add sets",
         modifier = Modifier.clickable {
             val intent = Intent(context, AddSets::class.java)
             context.startActivity(intent)
