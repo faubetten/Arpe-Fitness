@@ -27,7 +27,7 @@ class WelcomeScreen : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             WelcomeScreen() {
-                Screenp_2()
+
             }
         }
     }

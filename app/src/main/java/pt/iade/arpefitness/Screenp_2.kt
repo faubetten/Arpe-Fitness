@@ -1,12 +1,10 @@
-package pt.iade.arpefitness
+package pt.iade.arpefitness.screens
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -18,22 +16,41 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import pt.iade.arpefitness.models.objetive
+import pt.iade.arpefitness.ui.components.ObjetiveCard
 
 class Screenp_2 : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            Screenp_2(){}
+            Screenp_2 {}
         }
     }
 }
 
 @Composable
-fun  Screenp_2(onNavigateToNextScreen: () -> Unit) {
+fun Screenp_2(onNavigateToNextScreen: () -> Unit) {
+    val objectives = listOf(
+        objetive(
+            title = "Beginner",
+            description = "Starting practice or less than 6 months experiences",
+            onClick = {  }
+        ),
+        objetive(
+            title = "Intermediary",
+            description = "Have been practicing bodybuilding for more than 6 months and less than 2 years",
+            onClick = {  }
+        ),
+        objetive(
+            title = "Advanced",
+            description = "Have been practicing bodybuilding for more than 2 years consistently",
+            onClick = { }
+        )
+    )
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -71,27 +88,11 @@ fun  Screenp_2(onNavigateToNextScreen: () -> Unit) {
 
         Spacer(modifier = Modifier.height(30.dp))
 
-        ObjetiveCard(
-            title = "Beginner",
-            description = "Starting practice or less than 6 months experiences",
-            onClick = {}
-        )
+        objectives.forEach { objective ->
+            ObjetiveCard(objetive = objective)
 
-        Spacer(modifier = Modifier.height(13.dp))
-
-        ObjetiveCard(
-            title = "Intermediary",
-            description = "Have been practicing bodybuilding for more than 6 months and less than 2 years",
-            onClick = {}
-        )
-
-        Spacer(modifier = Modifier.height(13.dp))
-
-        ObjetiveCard(
-            title = "Advanced",
-            description = "Have been practicing bodybuilding for more than 2 years consistently",
-            onClick = {}
-        )
+            Spacer(modifier = Modifier.height(13.dp))
+        }
 
         Spacer(modifier = Modifier.height(60.dp))
 
@@ -107,7 +108,6 @@ fun  Screenp_2(onNavigateToNextScreen: () -> Unit) {
                 .fillMaxWidth()
                 .height(60.dp)
                 .padding(horizontal = 90.dp)
-                .border(1.dp, Color.Black, RoundedCornerShape(4.dp))
         ) {
             Text(
                 text = "Next",
@@ -116,38 +116,4 @@ fun  Screenp_2(onNavigateToNextScreen: () -> Unit) {
             )
         }
     }
-}
-
-@Composable
-fun ObjetiveCard(title: String, description: String, onClick: () -> Unit) {
-    Column(
-        modifier = Modifier
-            .padding(start = 12.dp, end = 12.dp)
-            .fillMaxWidth()
-            .background(Color(0XFF999999), shape = RoundedCornerShape(8.dp))
-            .clickable { onClick() } // Faz o card ser clicável
-            .padding(16.dp)
-    ) {
-        Text(
-            text = title,
-            fontSize = 22.sp,
-            fontWeight = FontWeight.SemiBold,
-            color = Color.White
-        )
-
-        Spacer(modifier = Modifier.height(10.dp))
-
-        Text(
-            text = description,
-            fontSize = 20.sp,
-            fontWeight = FontWeight.SemiBold,
-            color = Color.Black
-        )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun  Screenp_2Preview() {
-    Screenp_2(){}
 }
