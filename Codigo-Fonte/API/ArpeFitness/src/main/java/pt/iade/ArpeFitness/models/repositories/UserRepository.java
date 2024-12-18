@@ -7,7 +7,7 @@ import pt.iade.ArpeFitness.models.tables.User;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
 
-    @Query(value = "SELECT * FROM users WHERE user_name = :name", nativeQuery = true)
+    @Query(value = "SELECT * FROM user WHERE user_name = :name", nativeQuery = true)
     Iterable<User> findUserByName(@Param("name") String name);
     
 }
