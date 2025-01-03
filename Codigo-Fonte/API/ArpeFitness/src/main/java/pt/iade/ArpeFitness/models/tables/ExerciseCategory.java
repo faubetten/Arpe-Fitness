@@ -1,30 +1,32 @@
 package pt.iade.ArpeFitness.models.tables;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore; // Importando a anotação
+
+import java.util.List;
 
 @Entity
 @Table(name = "exercise_category")
-
 public class ExerciseCategory {
-    @Id @GeneratedValue
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cat_id")
-    private int cat_id;
+    private long cat_id;
 
     @Column(name = "cat_name", nullable = false)
     private String cat_name;
 
-    public ExerciseCategory() {
-    }
+    @OneToMany(mappedBy = "exerciseCategory")
+    private List<Exercise> exercises;
 
-    public int getCat_id() {
+    public ExerciseCategory() {}
+
+    public long getCat_id() {
         return cat_id;
     }
 
-    public void setCat_id(int cat_id) {
+    public void setCat_id(long cat_id) {
         this.cat_id = cat_id;
     }
 
@@ -36,5 +38,11 @@ public class ExerciseCategory {
         this.cat_name = cat_name;
     }
 
+    public List<Exercise> getExercises() {
+        return exercises;
+    }
 
+    public void setExercises(List<Exercise> exercises) {
+        this.exercises = exercises;
+    }
 }

@@ -1,33 +1,30 @@
 package pt.iade.ArpeFitness.controller;
 
-import pt.iade.ArpeFitness.models.tables.User;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import pt.iade.ArpeFitness.models.repositories.UserRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import pt.iade.ArpeFitness.models.tables.User;
+import pt.iade.ArpeFitness.service.UserService;
 
 @RestController
-@RequestMapping(path = "/api/user")
-
+@RequestMapping("/api/users")
 public class UserController {
 
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
-
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
-    @GetMapping(path = "/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<User> getUserByName(@PathVariable("name") String name) {
-        logger.info("Sending user data by name: " + name);
-        return userRepository.findUserByName(name);
+    // Endpoint para cadastrar a primeira parte do usuário (nome, email, senha)
+    @PostMapping("/create")
+    public ResponseEntity<User> createUser(@RequestBody User user) {
+        User createdUser = userService.createUserInitial(user);
+        return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }
 
-
-    
+    // Endpoint para atualizar as informações do usuário após o cadastro (data de nascimento, gênero, etc)
+    @PutMapping("/{userId}/update")
+    public ResponseEntity<User> updateUserInfo(@PathVariable Integer userId, @RequestBody User updatedUser) {
+        User updated = userService.updateUserInfo(userId, updatedUser);
+        return new ResponseEntity<>(updated, HttpStatus.OK);
+    }
 }

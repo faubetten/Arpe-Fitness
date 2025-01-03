@@ -1,14 +1,5 @@
 package pt.iade.ArpeFitness.models.tables;
-
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "serie")
@@ -17,24 +8,12 @@ public class Serie {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "serie_id")
     private int serie_id;
-    
-    @Column(nullable = false, name = "serie_order")
+
+    @Column(name = "serie_order", nullable = false)
     private int serie_order;
-    
-    @Column(nullable = false, name = "serie_rep")
+
+    @Column(name = "serie_rep", nullable = false)
     private int serie_rep;
-    
-    @ManyToOne
-    @JoinColumn(name = "serie_exer_id", nullable = false)
-    private Exercise serie_exer_id;
-    
-    @ManyToOne
-    @JoinColumn(name = "serie_train_id", nullable = false)
-    private Train serie_train_id;
-    
-    @ManyToOne
-    @JoinColumn(name = "plan_id", nullable = false)
-    private Plan plan_id;
 
     public Serie() {
     }
@@ -62,29 +41,4 @@ public class Serie {
     public void setSerie_rep(int serie_rep) {
         this.serie_rep = serie_rep;
     }
-
-    public Exercise getSerie_exer_id() {
-        return serie_exer_id;
-    }
-
-    public void setSerie_exer_id(Exercise serie_exer_id) {
-        this.serie_exer_id = serie_exer_id;
-    }
-
-    public Train getSerie_train_id() {
-        return serie_train_id;
-    }
-
-    public void setSerie_train_id(Train serie_train_id) {
-        this.serie_train_id = serie_train_id;
-    }
-
-    public Plan getPlan_id() {
-        return plan_id;
-    }
-
-    public void setPlan_id(Plan plan_id) {
-        this.plan_id = plan_id;
-    }
-    
 }

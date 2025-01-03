@@ -1,23 +1,16 @@
 package pt.iade.ArpeFitness.models.tables;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Table;
-
-
-
+import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "exercise")
 public class Exercise {
-    @Id @GeneratedValue
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "exer_id")
-    private int exer_id;
+    private Long exer_id;
 
     @Column(name = "exer_name", nullable = false)
     private String exer_name;
@@ -26,17 +19,20 @@ public class Exercise {
     private String exer_description;
 
     @ManyToOne
-    @JoinColumn(name = "exer_cat_id")
-    private ExerciseCategory exer_cat_id;
+    @JoinColumn(name = "exer_cat_id", nullable = false)
+    @JsonIgnore // Ignora a serialização da categoria para evitar loops
+    private ExerciseCategory exerciseCategory;
 
-    public Exercise() {
-    }
+    @Column(name = "exer_photo_path")
+    private String exer_photo_path;
 
-    public int getExer_id() {
+    public Exercise() {}
+
+    public Long getExer_id() {
         return exer_id;
     }
 
-    public void setExer_id(int exer_id) {
+    public void setExer_id(Long exer_id) {
         this.exer_id = exer_id;
     }
 
@@ -56,14 +52,19 @@ public class Exercise {
         this.exer_description = exer_description;
     }
 
-    public ExerciseCategory getExer_cat_id() {
-        return exer_cat_id;
+    public ExerciseCategory getExerciseCategoryd() {
+        return exerciseCategory;
     }
 
-    public void setExer_cat_id(ExerciseCategory exer_cat_id) {
-        this.exer_cat_id = exer_cat_id;
+    public void setExerciseCategory(ExerciseCategory exerciseCategory) {
+        this.exerciseCategory = exerciseCategory;
     }
 
+    public String getExer_photo_path() {
+        return exer_photo_path;
+    }
 
-
+    public void setExer_photo_path(String exer_photo_path) {
+        this.exer_photo_path = exer_photo_path;
+    }
 }
