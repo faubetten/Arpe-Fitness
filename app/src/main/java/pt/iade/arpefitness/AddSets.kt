@@ -1,11 +1,11 @@
 package pt.iade.arpefitness
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -16,27 +16,39 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 class AddSets : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val selectedExercises = intent.getStringArrayListExtra("selected_exercises") ?: arrayListOf()
         setContent {
-            AddSetsScreen()
+            AddSetsScreen(selectedExercises)
         }
     }
 }
 
 @Composable
-fun AddSetsScreen() {
+fun AddSetsScreen(selectedExercises: List<String>) {
     var sets by remember { mutableStateOf(3) }
+    val reps = remember { mutableStateListOf("", "", "") } // Inicializa com valores vazios para reps
+    val weights = remember { mutableStateListOf("", "", "") } // Inicializa com valores vazios para weights
     var restTime by remember { mutableStateOf(60) }
-    val weights = remember { mutableStateListOf("", "", "") } // Lista para armazenar pesos
     val context = LocalContext.current as Activity
+
+    // Ajusta o tamanho das listas quando o número de sets muda
+    LaunchedEffect(sets) {
+        if (reps.size < sets) {
+            reps.addAll(List(sets - reps.size) { "" })
+            weights.addAll(List(sets - weights.size) { "" })
+        } else if (reps.size > sets) {
+            reps.removeRange(sets, reps.size)
+            weights.removeRange(sets, weights.size)
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -44,11 +56,16 @@ fun AddSetsScreen() {
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Text(
+            text = "Add Series and Weights",
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(bottom = 16.dp)
+        )
 
+        Spacer(modifier = Modifier.height(15.dp))
 
-        Text(text = "Triceps Pushdown", fontSize = 24.sp, modifier = Modifier.padding(bottom = 16.dp))
-
-
+        // Controle para número de sets
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text("Number of sets")
 
@@ -63,9 +80,10 @@ fun AddSetsScreen() {
             }
         }
 
-        // Ajuste do tempo de descanso
-        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier
-            .padding(top = 16.dp)) {
+        // Controle para tempo de descanso
+        Row(
+            verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(top = 16.dp)
+        ) {
             Text("Rest between sets")
 
             Spacer(modifier = Modifier.width(16.dp))
@@ -79,21 +97,20 @@ fun AddSetsScreen() {
             }
         }
 
-
+        // Entrada para sets (reps e weights)
         Text("Sets", fontSize = 20.sp, modifier = Modifier.padding(vertical = 16.dp))
         for (i in 1..sets) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
+                // Campo para reps
                 Text("${i} Reps:")
                 BasicTextField(
-                    value = weights.getOrNull(i - 1) ?: "",
+                    value = reps.getOrNull(i - 1) ?: "",
                     onValueChange = { value ->
-                        if (i - 1 < weights.size) {
-                            weights[i - 1] = value
-                        } else {
-                            weights.add(value)
+                        if (i - 1 < reps.size) {
+                            reps[i - 1] = value
                         }
                     },
                     modifier = Modifier
@@ -102,14 +119,13 @@ fun AddSetsScreen() {
                     singleLine = true
                 )
 
-                Text("kg")
+                // Campo para weights
+                Text("Load:")
                 BasicTextField(
                     value = weights.getOrNull(i - 1) ?: "",
                     onValueChange = { value ->
                         if (i - 1 < weights.size) {
                             weights[i - 1] = value
-                        } else {
-                            weights.add(value)
                         }
                     },
                     modifier = Modifier
@@ -117,22 +133,27 @@ fun AddSetsScreen() {
                         .padding(8.dp),
                     singleLine = true
                 )
-
+                Text(text = "kg")
             }
         }
 
-
-        Button(onClick = { context.finish() }, modifier = Modifier.fillMaxWidth().padding(start = 12.dp, end = 12.dp, top = 16.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color.LightGray),
-            shape = RoundedCornerShape(4.dp)
+        // Botão "Iniciar treino"
+        Button(
+            onClick = {
+                val intent = Intent(context, DoExercise::class.java).apply {
+                    putExtra("sets", sets)
+                    putStringArrayListExtra("weights", ArrayList(weights))
+                    putStringArrayListExtra("reps", ArrayList(reps))
+                    putStringArrayListExtra("selected_exercises", ArrayList(selectedExercises))
+                }
+                context.startActivity(intent)
+            },
+            modifier = Modifier.fillMaxWidth().padding(16.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = Color.LightGray)
         ) {
-            Text("Save")
+            Text("Iniciar treino")
         }
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun TricepsPushdownScreenPreview() {
-    AddSetsScreen()
-}
+

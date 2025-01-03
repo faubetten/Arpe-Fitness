@@ -13,6 +13,11 @@
         android:theme="@style/Theme.Arpefitness"
         tools:targetApi="31">
         <activity
+            android:name=".DoExercise"
+            android:exported="false"
+            android:label="@string/title_activity_do_exercise"
+            android:theme="@style/Theme.Arpefitness" />
+        <activity
             android:name=".AddSets"
             android:exported="false"
             android:label="@string/title_activity_main3"

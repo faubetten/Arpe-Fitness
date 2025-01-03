@@ -74,7 +74,9 @@ fun ExercisesScreen() {
 
                     val intent = Intent(context, Selected_exercises::class.java).apply {
                         putStringArrayListExtra("selected_exercises", ArrayList(selectedExercisesList))
+
                     }
+
 
                     context.startActivity(intent) // Iniciar a nova Activity
                 },

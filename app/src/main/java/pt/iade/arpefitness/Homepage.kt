@@ -50,10 +50,13 @@ fun Home() {
             composable("profile") { Profilescreen() }
             composable("custom") { CustomWorkoutScreen(navController) }
             composable("select_exercise") { ExercisesScreen() }
-            composable("add_sets"){ AddSetsScreen() }
+            composable("add_sets") {
+                AddSetsScreen(selectedExercises = listOf("Exercise 1", "Exercise 2"))
+            }
         }
     }
 }
+
 
 @Composable
 fun HomeScreen(navController: NavController) {
