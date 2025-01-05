@@ -63,7 +63,7 @@ fun  Screenp_2(onNavigateToNextScreen: () -> Unit) {
 
         Text(
             modifier = Modifier.padding(start = 24.dp, end = 12.dp),
-            text = "What is your experience practicing bodybuilding?",
+            text = "What is your objetive? ",
             fontSize = 30.sp,
             fontWeight = FontWeight.SemiBold,
             color = Color(0xFF000000).copy(alpha = 0.6f)
@@ -72,48 +72,42 @@ fun  Screenp_2(onNavigateToNextScreen: () -> Unit) {
         Spacer(modifier = Modifier.height(30.dp))
 
         ObjetiveCard(
-            title = "Beginner",
-            description = "Starting practice or less than 6 months experiences",
+            title = "Hypertrophy",
+            description = "Gain muscle mass and bulky muscles",
             onClick = {}
         )
 
         Spacer(modifier = Modifier.height(13.dp))
 
         ObjetiveCard(
-            title = "Intermediary",
-            description = "Have been practicing bodybuilding for more than 6 months and less than 2 years",
+            title = "Muscle Definition",
+            description = "Stronger, more rigid and visible muscles",
             onClick = {}
         )
 
         Spacer(modifier = Modifier.height(13.dp))
 
         ObjetiveCard(
-            title = "Advanced",
-            description = "Have been practicing bodybuilding for more than 2 years consistently",
+            title = "To lose weight",
+            description = "Lose body fat",
             onClick = {}
         )
 
         Spacer(modifier = Modifier.height(60.dp))
 
-        Button(
-            onClick = onNavigateToNextScreen,
+        Button(onClick = {onNavigateToNextScreen},
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color(0xFF999999),
-                contentColor = Color.White
-            ),
+                contentColor = Color.White ),
             shape = RoundedCornerShape(4.dp),
-            modifier = Modifier
-                .padding(horizontal = 90.dp)
+            modifier = Modifier.padding(horizontal = 90.dp)
                 .fillMaxWidth()
                 .height(60.dp)
-                .padding(horizontal = 90.dp)
-                .border(1.dp, Color.Black, RoundedCornerShape(4.dp))
+                .border(1.dp, Color.Black, RoundedCornerShape(4.dp)),
         ) {
-            Text(
-                text = "Next",
+            Text( text = "Next",
                 fontSize = 20.sp,
-                fontWeight = FontWeight.SemiBold
-            )
+                fontWeight = FontWeight.SemiBold)
         }
     }
 }

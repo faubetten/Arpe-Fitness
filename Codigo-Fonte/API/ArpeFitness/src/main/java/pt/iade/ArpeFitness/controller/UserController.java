@@ -27,4 +27,14 @@ public class UserController {
         User updated = userService.updateUserInfo(userId, updatedUser);
         return new ResponseEntity<>(updated, HttpStatus.OK);
     }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<User> getUserById(@PathVariable Integer userId) {
+        User user = userService.findUserById(userId);
+        if (user != null) {
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }

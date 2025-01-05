@@ -33,4 +33,8 @@ public class UserService {
 
         return userRepository.save(user);
     }
+    public User findUserById(Integer userId) {
+        return userRepository.findById(userId)
+                .orElse(null); // Retorna null se o ID não for encontrado
+    }
 }
