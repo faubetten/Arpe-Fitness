@@ -1,5 +1,6 @@
 package pt.iade.arpefitness
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -19,16 +20,21 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 
-class Screenp_4 : ComponentActivity() {
+class Screenp4 : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -42,6 +48,9 @@ class Screenp_4 : ComponentActivity() {
 
 @Composable
 fun ScreenProfilefour(){
+    var includeCardio by remember{ mutableStateOf(true) }
+    val context = LocalContext.current
+
     Column(modifier = Modifier
         .fillMaxSize()
         .background(Color(0xFFD9D9D9)),
@@ -80,7 +89,10 @@ fun ScreenProfilefour(){
         LevelCard(
             title = "include cardio in your workouts",
             description = "Cardio exercises will be added before or after workouts",
-            onClick = {
+            onClick = { val intent = Intent(context, Homepage::class.java)
+                intent.putExtra("includeCardio",includeCardio )
+                context.startActivity(intent)
+
 
             })
 
@@ -89,8 +101,9 @@ fun ScreenProfilefour(){
         LevelCard(
             title = "I don't want cardio exercises",
             description = "Cardio exercises will not be added on training days",
-            onClick = {
-
+            onClick = { val intent = Intent(context, Homepage::class.java)
+                intent.putExtra("includeCardio",includeCardio )
+                context.startActivity(intent)
             }
         )
 

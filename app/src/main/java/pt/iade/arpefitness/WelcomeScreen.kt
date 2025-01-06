@@ -1,5 +1,6 @@
 package pt.iade.arpefitness
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -15,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -26,15 +28,16 @@ class WelcomeScreen : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            WelcomeScreen() {
-                Screenp_2()
-            }
+            WelScreen()
         }
     }
 }
 
 @Composable
-fun WelcomeScreen(onWelcomeScreenComplete: () -> Unit) {
+fun WelScreen() {
+
+    val context = LocalContext.current
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -52,10 +55,10 @@ fun WelcomeScreen(onWelcomeScreenComplete: () -> Unit) {
         )
 
         Column(
-            modifier = Modifier.padding(start = 12.dp, end = 12.dp)
+            modifier = Modifier
+                .padding(start = 12.dp, end = 12.dp)
                 .padding(top = 160.dp)
                 .fillMaxWidth()
-
         ) {
             Text(
                 text = "Welcome to",
@@ -68,7 +71,7 @@ fun WelcomeScreen(onWelcomeScreenComplete: () -> Unit) {
                 text = "Arpe Fitness",
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(bottom =60.dp)
+                modifier = Modifier.padding(bottom = 60.dp)
             )
 
             Text(
@@ -95,7 +98,10 @@ fun WelcomeScreen(onWelcomeScreenComplete: () -> Unit) {
             )
 
             Button(
-                onClick = onWelcomeScreenComplete,
+                onClick = {
+                    val intent = Intent(context, Screenp1::class.java)
+                    context.startActivity(intent)
+                },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Gray,
                     contentColor = Color.White
@@ -120,8 +126,5 @@ fun WelcomeScreen(onWelcomeScreenComplete: () -> Unit) {
 @Preview(showBackground = true)
 @Composable
 fun WelcomeScreenPreview() {
-    WelcomeScreen() {
-
-    }
+    WelScreen()
 }
-

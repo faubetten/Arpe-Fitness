@@ -1,5 +1,6 @@
 package pt.iade.arpefitness
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -14,26 +15,36 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-class Screenp_2 : ComponentActivity() {
+class Screenp2 : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            Screenp_2(){}
+            ProfileTwo(){}
         }
     }
 }
 
 @Composable
-fun  Screenp_2(onNavigateToNextScreen: () -> Unit) {
+fun  ProfileTwo(onNavigateToNextScreen: () -> Unit) {
+
+    var Objective by remember { mutableStateOf("") }
+
+    val context = LocalContext.current
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -63,7 +74,7 @@ fun  Screenp_2(onNavigateToNextScreen: () -> Unit) {
 
         Text(
             modifier = Modifier.padding(start = 24.dp, end = 12.dp),
-            text = "What is your objetive? ",
+            text = "What is your objective? ",
             fontSize = 30.sp,
             fontWeight = FontWeight.SemiBold,
             color = Color(0xFF000000).copy(alpha = 0.6f)
@@ -74,7 +85,11 @@ fun  Screenp_2(onNavigateToNextScreen: () -> Unit) {
         ObjetiveCard(
             title = "Hypertrophy",
             description = "Gain muscle mass and bulky muscles",
-            onClick = {}
+            onClick = { Objective = "Hypertrophy"
+                val intent = Intent(context, Screenp3::class.java)
+                context.startActivity(intent)
+
+            }
         )
 
         Spacer(modifier = Modifier.height(13.dp))
@@ -82,7 +97,12 @@ fun  Screenp_2(onNavigateToNextScreen: () -> Unit) {
         ObjetiveCard(
             title = "Muscle Definition",
             description = "Stronger, more rigid and visible muscles",
-            onClick = {}
+            onClick = { Objective = "Muscle Definition"
+                val intent = Intent(context, Screenp3::class.java)
+
+
+
+                context.startActivity(intent)}
         )
 
         Spacer(modifier = Modifier.height(13.dp))
@@ -90,7 +110,13 @@ fun  Screenp_2(onNavigateToNextScreen: () -> Unit) {
         ObjetiveCard(
             title = "To lose weight",
             description = "Lose body fat",
-            onClick = {}
+            onClick = { Objective = "To lose weight"
+                val intent = Intent(context, Screenp3::class.java)
+
+
+
+                context.startActivity(intent)
+            }
         )
 
         Spacer(modifier = Modifier.height(60.dp))
@@ -143,5 +169,5 @@ fun ObjetiveCard(title: String, description: String, onClick: () -> Unit) {
 @Preview(showBackground = true)
 @Composable
 fun  Screenp_2Preview() {
-    Screenp_2(){}
+    ProfileTwo(){}
 }

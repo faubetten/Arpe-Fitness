@@ -69,17 +69,28 @@
             android:label="@string/title_activity_welcome_screen"
             android:theme="@style/Theme.Arpefitness" />
         <activity
-            android:name=".Screenp_2"
-            android:exported="false"
-            android:label="@string/title_activity_main3"
-            android:theme="@style/Theme.Arpefitness" />
-        <activity
-            android:name=".Screenp_3"
+            android:name=".ScreenCreateAccount"
             android:exported="false"
             android:label="@string/title_activity_screen_create_account"
             android:theme="@style/Theme.Arpefitness" />
         <activity
-            android:name=".Screenp_4"
+            android:name=".Screenp1"
+            android:exported="false"
+            android:label="@string/title_activity_screenp1"
+            android:theme="@style/Theme.Arpefitness" />
+
+        <activity
+            android:name=".Screenp2"
+            android:exported="false"
+            android:label="@string/title_activity_main3"
+            android:theme="@style/Theme.Arpefitness" />
+        <activity
+            android:name=".Screenp3"
+            android:exported="false"
+            android:label="@string/title_activity_screen_create_account"
+            android:theme="@style/Theme.Arpefitness" />
+        <activity
+            android:name=".Screenp4"
             android:exported="false"
             android:label="@string/title_activity_main2"
             android:theme="@style/Theme.Arpefitness" />

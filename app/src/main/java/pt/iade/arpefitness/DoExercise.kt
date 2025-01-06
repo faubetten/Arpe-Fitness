@@ -1,6 +1,7 @@
 package pt.iade.arpefitness
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -12,28 +13,23 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.runtime.*
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 
 class DoExercise : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        // Receber os valores passados pelo Intent
-      //  val exercises = intent.getStringArrayListExtra("exercises") ?: arrayListOf()
+        val restTime = intent.getIntExtra("restTime", 30)
         val sets = intent.getIntExtra("sets", 0)
         val weights = intent.getStringArrayListExtra("weights") ?: arrayListOf()
         val reps = intent.getStringArrayListExtra("reps") ?: arrayListOf()
@@ -41,18 +37,37 @@ class DoExercise : ComponentActivity() {
 
 
         setContent {
-            var currentExerciseIndex by remember { mutableStateOf(0) } // Índice atual do exercício
+            // Aqui, envolvemos o valor de restTime em mutableStateOf para torná-lo reativo
+            val restTimeState = remember { mutableIntStateOf(restTime) }
+            var currentExerciseIndex by remember { mutableIntStateOf(0) }
+            var showRestTimer by remember { mutableStateOf(false) }
 
-            DoingExercise(
-                exercises = selectedExercises,
-                sets = sets,
-                weights = weights,
-                reps = reps,
-                currentExerciseIndex = currentExerciseIndex,
-                onPrevious = { if (currentExerciseIndex > 0) currentExerciseIndex-- },
-                onNext = { if (currentExerciseIndex < selectedExercises.size - 1) currentExerciseIndex++ },
-                onFinish = { finish() }
-            )
+            if (showRestTimer) {
+                RestTimerActivity(
+                    restTime = restTimeState.intValue, // Passando o valor de restTime obtido na Intent
+                    onRestFinish = {
+                        // Quando o descanso terminar, mostre o próximo exercício
+                        if (currentExerciseIndex < selectedExercises.size - 1) {
+                            currentExerciseIndex++
+                        }
+                        showRestTimer = false
+                    }
+                )
+            } else {
+                DoingExercise(
+                    exercises = selectedExercises,
+                    sets = sets,
+                    weights = weights,
+                    reps = reps,
+                    currentExerciseIndex = currentExerciseIndex,
+                    onPrevious = { if (currentExerciseIndex > 0) currentExerciseIndex-- },
+                    onNext = {
+                        // Exiba o timer de descanso antes de ir para o próximo exercício
+                        showRestTimer = true
+                    },
+                    onFinish = { finish() }
+                )
+            }
         }
     }
 }
@@ -68,6 +83,7 @@ fun DoingExercise(
     onNext: () -> Unit,
     onFinish: () -> Unit
 ) {
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -131,14 +147,12 @@ fun DoingExercise(
                 }
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
-
             // Como executar o exercício
-            Text(
-                text = "How to perform this exercise",
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold
-            )
+                Text(
+                    text = "How to perform this exercise",
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold
+                )
 
             Spacer(modifier = Modifier.height(8.dp))
 
@@ -167,6 +181,10 @@ fun DoingExercise(
                 }
             }
 
+
+
+            Spacer(modifier = Modifier.height(16.dp))
+
             // Navegação entre exercícios
             Row(
                 modifier = Modifier
@@ -194,7 +212,7 @@ fun DoingExercise(
                     ),
                     shape = RoundedCornerShape(4.dp)
                 ) {
-                    Text(text = "Finalizar treino")
+                    Text(text = "Finish")
                 }
 
                 Button(
@@ -207,6 +225,96 @@ fun DoingExercise(
                     shape = RoundedCornerShape(4.dp)
                 ) {
                     Text(text = ">")
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun RestTimerActivity(
+    restTime: Int,
+    onRestFinish: () -> Unit
+) {
+    var timeLeft by remember { mutableStateOf(restTime) }
+    var isRunning by remember { mutableStateOf(false) }
+    var timer: CountDownTimer? by remember { mutableStateOf(null) }
+
+    // Função para iniciar o cronômetro
+    fun startTimer() {
+        if (isRunning) return
+
+        timer = object : CountDownTimer(timeLeft * 1000L, 1000L) {
+            override fun onTick(millisUntilFinished: Long) {
+                timeLeft = (millisUntilFinished / 1000).toInt()
+            }
+
+            override fun onFinish() {
+                timeLeft = 0
+                onRestFinish() // Chama a função para ir para o próximo exercício
+            }
+        }
+        timer?.start()
+        isRunning = true
+    }
+
+    fun stopTimer() {
+        timer?.cancel()
+        isRunning = false
+    }
+
+    fun SkipRest(){
+        stopTimer()
+        timeLeft = 0
+        onRestFinish()
+    }
+
+    // Layout para exibir o cronômetro
+    Box(
+        modifier = Modifier
+            .fillMaxSize().
+            background(Color(0xFFEEEEEE)
+            )
+    ) {
+        Column(
+            modifier = Modifier.align(Alignment.Center),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = "Time left: $timeLeft s",
+                fontSize = 48.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.Gray
+            )
+
+            Spacer(modifier = Modifier.width(16.dp))
+
+            Row {
+                Button(
+                    onClick = { startTimer() },
+                    enabled = !isRunning,
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.Green)
+                ) {
+                    Text(text = "Start")
+                }
+
+                Spacer(modifier = Modifier.width(16.dp))
+
+                Button(
+                    onClick = { SkipRest() },
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.DarkGray, contentColor = Color.LightGray)
+                ) {
+                    Text(text = "Skip")
+                }
+
+                Spacer(modifier = Modifier.width(16.dp))
+
+                Button(
+                    onClick = { stopTimer() },
+                    enabled = isRunning,
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.Red)
+                ) {
+                    Text(text = "Stop")
                 }
             }
         }

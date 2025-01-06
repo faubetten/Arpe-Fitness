@@ -1,5 +1,6 @@
 package pt.iade.arpefitness
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -16,6 +17,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -23,22 +25,24 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 
 
-class MainActivity11 : ComponentActivity() {
+class ScreenCreateAccount : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            ScreenCreateAccount() {}
+            CreateAccount()
         }
     }
 }
 
 @Composable
-fun ScreenCreateAccount(onCreateAccountComplete: () -> Unit = {}) {
+fun CreateAccount(onCreateAccountComplete: () -> Unit = {}) {
     // Variáveis de estado para armazenar as entradas do usuário
     var firstName by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+
+    val context = LocalContext.current
 
     Box(
         modifier = Modifier
@@ -175,7 +179,8 @@ fun ScreenCreateAccount(onCreateAccountComplete: () -> Unit = {}) {
             Spacer(modifier = Modifier.height(20.dp))
 
             Button(
-                onClick = onCreateAccountComplete,
+                onClick = {val intent = Intent(context,ScreenLogin::class.java)
+                          context.startActivity(intent)},
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Black,
                     contentColor = Color.White
@@ -207,7 +212,8 @@ fun ScreenCreateAccount(onCreateAccountComplete: () -> Unit = {}) {
                     fontWeight = FontWeight.Normal
                 )
                 TextButton(
-                    onClick = onCreateAccountComplete,
+                    onClick = {val intent = Intent(context, ScreenLogin::class.java)
+                              context.startActivity(intent)},
                     modifier = Modifier.padding(start = 8.dp)
                 ) {
                     Text(
@@ -225,7 +231,7 @@ fun ScreenCreateAccount(onCreateAccountComplete: () -> Unit = {}) {
 @Preview(showBackground = true)
 @Composable
 fun ScreenCreateAccountPreview() {
-    ScreenCreateAccount()
+    CreateAccount()
 }
 
 

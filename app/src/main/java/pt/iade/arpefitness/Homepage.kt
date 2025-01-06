@@ -47,7 +47,7 @@ fun Home() {
         ) {
             composable("home") { HomeScreen(navController) }
             composable("statistics") { BMICalculator() }
-            composable("profile") { Profilescreen() }
+            composable("profile") { UserProfileScreenContent() }
             composable("custom") { CustomWorkoutScreen(navController) }
             composable("select_exercise") { ExercisesScreen() }
             composable("add_sets") {

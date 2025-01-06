@@ -1,5 +1,6 @@
 package pt.iade.arpefitness
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -14,15 +15,20 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-class Screenp_3 : ComponentActivity() {
+class Screenp3 : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -34,6 +40,11 @@ class Screenp_3 : ComponentActivity() {
 
 @Composable
 fun  Screenp_3(onNavigateToNextScreen: () -> Unit) {
+
+    var level by remember { mutableStateOf("") }
+
+    val context = LocalContext.current
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -74,7 +85,11 @@ fun  Screenp_3(onNavigateToNextScreen: () -> Unit) {
         ObjetiveCard2(
             title = "Beginner",
             description = "Starting practice or less than 6 months experiences",
-            onClick = {}
+            onClick = {level = "Beginner"
+
+                val intent = Intent(context, Screenp4::class.java)
+                intent.putExtra("level", level)
+                context.startActivity(intent)}
         )
 
         Spacer(modifier = Modifier.height(13.dp))
@@ -82,7 +97,11 @@ fun  Screenp_3(onNavigateToNextScreen: () -> Unit) {
         ObjetiveCard2(
             title = "Intermediary",
             description = "Have been practicing bodybuilding for more than 6 months and less than 2 years",
-            onClick = {}
+            onClick = {level = "Intermediary"
+
+                val intent = Intent(context, Screenp4::class.java)
+                intent.putExtra("level", level)
+                context.startActivity(intent)}
         )
 
         Spacer(modifier = Modifier.height(13.dp))
@@ -90,7 +109,10 @@ fun  Screenp_3(onNavigateToNextScreen: () -> Unit) {
         ObjetiveCard2(
             title = "Advanced",
             description = "Have been practicing bodybuilding for more than 2 years consistently",
-            onClick = {}
+            onClick = {level = "Advanced"
+                val intent = Intent(context, Screenp4::class.java)
+                intent.putExtra("level", level)
+                context.startActivity(intent)}
         )
 
         Spacer(modifier = Modifier.height(60.dp))
@@ -120,7 +142,7 @@ fun ObjetiveCard2(title: String, description: String, onClick: () -> Unit) {
             .padding(start = 12.dp, end = 12.dp)
             .fillMaxWidth()
             .background(Color(0XFF999999), shape = RoundedCornerShape(8.dp))
-            .clickable { onClick() } // Faz o card ser clicável
+            .clickable { onClick() }
             .padding(16.dp)
     ) {
         Text(
@@ -140,7 +162,6 @@ fun ObjetiveCard2(title: String, description: String, onClick: () -> Unit) {
         )
     }
 }
-
 @Preview(showBackground = true)
 @Composable
 fun  Screenp_3Preview() {

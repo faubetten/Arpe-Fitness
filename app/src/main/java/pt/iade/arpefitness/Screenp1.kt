@@ -1,6 +1,7 @@
 package pt.iade.arpefitness
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -25,13 +26,13 @@ import java.util.*
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 
-class MainActivity2 : ComponentActivity() {
+class Screenp1 : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                Screenp_1(
+                ProfileOne(
                     modifier = Modifier.padding(innerPadding)
                 )
             }
@@ -41,8 +42,8 @@ class MainActivity2 : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Screenp_1(modifier: Modifier = Modifier) {
-    var gender by remember { mutableStateOf("M") } // Default to Male
+fun ProfileOne(modifier: Modifier = Modifier) {
+    var gender by remember { mutableStateOf("M") }
     var dob by remember { mutableStateOf("") }
     var weight by remember { mutableStateOf("") }
     var height by remember { mutableStateOf("") }
@@ -57,7 +58,7 @@ fun Screenp_1(modifier: Modifier = Modifier) {
         { _, selectedYear, selectedMonth, selectedDay ->
             // Formata a data por "ano/Mes/Dia"
             dob = "$selectedYear/${(selectedMonth + 1).toString().padStart(2, '0')}/" +
-                    "${selectedDay.toString().padStart(2, '0')}"
+                    selectedDay.toString().padStart(2, '0')
         },
         year,
         month,
@@ -186,8 +187,23 @@ fun Screenp_1(modifier: Modifier = Modifier) {
 
         Spacer(modifier = Modifier.height(150.dp))
 
+        val context = LocalContext.current
+
         Button(
-            onClick = {  },
+            onClick = {
+
+                // Criação do Intent para navegar para a próxima activity
+                val intent = Intent(context, Screenp2::class.java)
+
+                // Passando os dados para a próxima Activity
+                intent.putExtra("gender", gender)
+                intent.putExtra("dob", dob)
+                intent.putExtra("weight", weight)
+                intent.putExtra("height", height)
+
+                // Iniciando a próxima Activity
+                context.startActivity(intent)
+             },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(60.dp)
@@ -228,6 +244,6 @@ fun RadioButtonWithLabel(selected: Boolean, label: String, onClick: () -> Unit) 
 
 @Preview(showBackground = true)
 @Composable
-fun Screenp_1Preview() {
-    Screenp_1()
+fun Screenp1Preview() {
+    ProfileOne()
 }
