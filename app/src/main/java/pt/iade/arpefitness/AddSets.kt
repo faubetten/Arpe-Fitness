@@ -33,10 +33,10 @@ class AddSets : ComponentActivity() {
 
 @Composable
 fun AddSetsScreen(selectedExercises: List<String>) {
-    var sets by remember { mutableStateOf(3) }
+    var sets by remember { mutableIntStateOf(3) }
     val reps = remember { mutableStateListOf("", "", "") } // Inicializa com valores vazios para reps
     val weights = remember { mutableStateListOf("", "", "") } // Inicializa com valores vazios para weights
-    var restTime by remember { mutableStateOf(60) }
+    var restTime by remember { mutableIntStateOf(60) }
     val context = LocalContext.current as Activity
 
     // Ajusta o tamanho das listas quando o número de sets muda
@@ -145,6 +145,7 @@ fun AddSetsScreen(selectedExercises: List<String>) {
                     putStringArrayListExtra("weights", ArrayList(weights))
                     putStringArrayListExtra("reps", ArrayList(reps))
                     putStringArrayListExtra("selected_exercises", ArrayList(selectedExercises))
+                    putExtra("restTime", restTime)
                 }
                 context.startActivity(intent)
             },
@@ -155,5 +156,6 @@ fun AddSetsScreen(selectedExercises: List<String>) {
         }
     }
 }
+
 
 
