@@ -1,49 +1,168 @@
 package pt.iade.arpefitness
 
 import android.os.Bundle
-import android.text.Layout
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import pt.iade.arpefitness.ui.theme.ArpefitnessTheme
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import pt.iade.arpefitness.models.UserData
 
 class ProfileScreen : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            Profilescreen()
-
+            UserProfileScreenContent()
         }
     }
 }
 
 @Composable
-fun Profilescreen() {
-    Box(
-        modifier = Modifier.fillMaxSize().background(Color(0XFFD9D9D9)),
-        contentAlignment = Alignment.Center
+fun UserProfileScreenContent() {
+    var userData by remember {
+        mutableStateOf(
+            UserData(
+                id = 0,
+                name = "John Doe",
+                email = "john.doe@example.com",
+                password = "",
+                gender = "Male",
+                dob = 1990,
+                weight = 70,
+                height = 175,
+                objective = "Build muscle",
+                level = "Intermediate",
+                includeCardio = true
+            )
+        )
+    }
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color(0xFFF5F5F5))
     ) {
-        Text(text = "Profile Screen")
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            // Cabeçalho
+            item {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 24.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.profile_icon),
+                        contentDescription = "Profile Icon",
+                        modifier = Modifier
+                            .size(90.dp)
+                            .background(Color(0XFF607D8B), CircleShape)
+                            .padding(8.dp)
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Text(
+                        text = userData.name,
+                        fontSize = 24.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color(0xFF333333)
+                    )
+                    Text(
+                        text = userData.email,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Normal,
+                        color = Color(0xFF666666)
+                    )
+                }
+            }
 
+            // Itens de Perfil
+            item { ProfileItem(label = "Gender", value = userData.gender) }
+            item { ProfileItem(label = "Year of Birth", value = userData.dob.toString()) }
+            item { ProfileItem(label = "Weight (kg)", value = userData.weight.toString()) }
+            item { ProfileItem(label = "Height (cm)", value = userData.height.toString()) }
+            item { ProfileItem(label = "Objective", value = userData.objective) }
+            item { ProfileItem(label = "Level", value = userData.level) }
+            item {
+                ProfileItem(
+                    label = "Include Cardio",
+                    value = if (userData.includeCardio) "Yes" else "No"
+                )
+            }
 
+            // Botão Logout
+            item {
+                Spacer(modifier = Modifier.height(24.dp))
+                Button(
+                    onClick = {
+                        // Ação para logout
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0XFF607D8B),
+                        contentColor = Color.White
+                    ),
+                    shape = RoundedCornerShape(12.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 32.dp)
+                        .height(50.dp)
+                ) {
+                    Text(
+                        text = "Log Out",
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+            }
+        }
     }
 }
+
+@Composable
+fun ProfileItem(label: String, value: String) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color(0xFF607DB8).copy(alpha = 0.1f), RoundedCornerShape(12.dp)) // Fundo claro
+            .padding(16.dp)
+    ) {
+        Text(
+            text = label,
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color(0XFF607D8B)
+        )
+        Spacer(modifier = Modifier.height(4.dp))
+        Text(
+            text = value,
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Normal,
+            color = Color.DarkGray
+        )
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
-fun ProfilescreencPreview(){
-    Profilescreen()
-
+fun UserProfileScreenPreview() {
+    UserProfileScreenContent()
 }

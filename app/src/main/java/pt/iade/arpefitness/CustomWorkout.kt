@@ -49,9 +49,10 @@ fun CustomWorkoutScreen(navController: NavController) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Custom Workout") },
+                title = { Text("Custom Workout",
+                    fontWeight = FontWeight.SemiBold) },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color(0xFF999999),
+                    containerColor = Color(0xFF607D8B),
                     titleContentColor = Color.White
                 )
             )
@@ -63,12 +64,13 @@ fun CustomWorkoutScreen(navController: NavController) {
                 .padding(paddingValues)
                 .padding(16.dp)
         ) {
-            Spacer(modifier = Modifier.height(30.dp))
+            Spacer(modifier = Modifier.height(15.dp))
 
             Text(
                 text = "My Workout",
                 fontSize = 22.sp,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                color = Color(0xFF444444)
             )
 
             Spacer(modifier = Modifier.height(10.dp))
@@ -77,7 +79,7 @@ fun CustomWorkoutScreen(navController: NavController) {
             Button(
                 onClick = { navController.navigate("select_exercise") },
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFF999999),
+                    containerColor = Color(0xFF607D8B),
                     contentColor = Color.White
                 ),
                 shape = RoundedCornerShape(4.dp),
