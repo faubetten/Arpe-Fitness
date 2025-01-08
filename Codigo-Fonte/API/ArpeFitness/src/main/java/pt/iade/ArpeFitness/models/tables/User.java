@@ -10,93 +10,93 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private int id;  // Remover o prefixo 'user_' para maior clareza
+    private int userId;  // Remover o prefixo 'user_' para maior clareza
 
     @Column(name = "user_name", nullable = false)
-    private String name;  // Renomeado para 'name'
+    private String userName;  // Renomeado para 'name'
 
     @Column(name = "user_password")
-    private String password;  // Renomeado para 'password'
+    private String userPassword;  // Renomeado para 'password'
 
     @Column(name = "user_bdate", nullable = true)
-    private LocalDate birthDate;  // Usando LocalDate para datas
+    private LocalDate userBirthDate;  // Usando LocalDate para datas
 
     @Column(name = "user_gender", nullable = true)
-    private String gender;  // Renomeado para 'gender'
+    private String userGender;  // Renomeado para 'gender'
 
     @Column(name = "user_email")
-    private String email;  // Renomeado para 'email'
+    private String userEmail;  // Renomeado para 'email'
 
     @Column(name = "user_height")
-    private double height;  // Renomeado para 'height'
+    private double userHeight;  // Renomeado para 'height'
 
     @Column(name = "user_weight")
-    private double weight;  // Renomeado para 'weight'
+    private double userWeight;  // Renomeado para 'weight'
 
     public User() {}
 
     // Getters e Setters
-    public int getId() {
-        return id;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public String getName() {
-        return name;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getPassword() {
-        return password;
+    public String getUserPassword() {
+        return userPassword;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
     }
 
-    public LocalDate getBirthDate() {
-        return birthDate;
+    public LocalDate getUserBirthDate() {
+        return userBirthDate;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
+    public void setUserBirthDate(LocalDate userBirthDate) {
+        this.userBirthDate = userBirthDate;
     }
 
-    public String getGender() {
-        return gender;
+    public String getUserGender() {
+        return userGender;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setUserGender(String userGender) {
+        this.userGender = userGender;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUserEmail() {
+        return userEmail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 
-    public double getHeight() {
-        return height;
+    public double getUserHeight() {
+        return userHeight;
     }
 
-    public void setHeight(double height) {
-        this.height = height;
+    public void setUserHeight(double userHeight) {
+        this.userHeight = userHeight;
     }
 
-    public double getWeight() {
-        return weight;
+    public double getUserWeight() {
+        return userWeight;
     }
 
-    public void setWeight(double weight) {
-        this.weight = weight;
+    public void setUserWeight(double userWeight) {
+        this.userWeight = userWeight;
     }
 }

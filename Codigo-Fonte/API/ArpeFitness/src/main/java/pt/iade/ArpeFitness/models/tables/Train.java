@@ -4,32 +4,31 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "train")
-
 public class Train {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "train_id")
-    private int train_id;
+    private int id; // Altere o nome do atributo para "id"
 
-    @Column(name = "train_name", nullable = false)
-    private String train_name;
+    @Column(name = "train_name", nullable = false, length = 40)
+    private String trainName;
 
-    public Train() {
+    public Train() {}
+
+    public int getId() {
+        return id; // Ajustado para refletir o novo nome
     }
 
-    public int getTrain_id() {
-        return train_id;
+    public void setId(int id) {
+        this.id = id; // Ajustado para refletir o novo nome
     }
 
-    public void setTrain_id(int train_id) {
-        this.train_id = train_id;
+    public String getTrainName() {
+        return trainName;
     }
 
-    public String getTrain_name() {
-        return train_name;
-    }
-
-    public void setTrain_name(String train_name) {
-        this.train_name = train_name;
+    public void setTrainName(String trainName) {
+        this.trainName = trainName;
     }
 }

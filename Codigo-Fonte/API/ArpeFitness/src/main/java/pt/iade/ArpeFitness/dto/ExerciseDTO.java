@@ -1,25 +1,21 @@
 package pt.iade.ArpeFitness.dto;
 
 public class ExerciseDTO {
-    private Long id;
+    private int id;
     private String name;
     private String description;
-    private String photoPath;
 
-    // Construtores, getters e setters
-    public ExerciseDTO(Long id, String name, String description, String photoPath) {
+    public ExerciseDTO(int id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.photoPath = photoPath;
     }
 
-    // Getters e Setters
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -39,11 +35,4 @@ public class ExerciseDTO {
         this.description = description;
     }
 
-    public String getPhotoPath() {
-        return photoPath;
-    }
-
-    public void setPhotoPath(String photoPath) {
-        this.photoPath = photoPath;
-    }
 }

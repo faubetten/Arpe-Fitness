@@ -1,7 +1,6 @@
 package pt.iade.ArpeFitness.models.tables;
 
 import jakarta.persistence.*;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "exercise")
@@ -10,49 +9,48 @@ public class Exercise {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "exer_id")
-    private Long exer_id;
+    private int exerId;
 
-    @Column(name = "exer_name", nullable = false)
-    private String exer_name;
+    @Column(name = "exer_name", nullable = false, length = 60)
+    private String exerName;
 
-    @Column(name = "exer_description", nullable = false)
-    private String exer_description;
+    @Column(name = "exer_description", nullable = false, length = 100)
+    private String exerDescription;
 
     @ManyToOne
     @JoinColumn(name = "exer_cat_id", nullable = false)
-    @JsonIgnore // Ignora a serialização da categoria para evitar loops
     private ExerciseCategory exerciseCategory;
 
-    @Column(name = "exer_photo_path")
-    private String exer_photo_path;
+    @Column(name = "exer_photo_path", length = 255)
+    private String exerPhotoPath;
 
     public Exercise() {}
 
-    public Long getExer_id() {
-        return exer_id;
+    public int getExerId() {
+        return exerId;
     }
 
-    public void setExer_id(Long exer_id) {
-        this.exer_id = exer_id;
+    public void setExerId(int exerId) {
+        this.exerId = exerId;
     }
 
-    public String getExer_name() {
-        return exer_name;
+    public String getExerName() {
+        return exerName;
     }
 
-    public void setExer_name(String exer_name) {
-        this.exer_name = exer_name;
+    public void setExerName(String exerName) {
+        this.exerName = exerName;
     }
 
-    public String getExer_description() {
-        return exer_description;
+    public String getExerDescription() {
+        return exerDescription;
     }
 
-    public void setExer_description(String exer_description) {
-        this.exer_description = exer_description;
+    public void setExerDescription(String exerDescription) {
+        this.exerDescription = exerDescription;
     }
 
-    public ExerciseCategory getExerciseCategoryd() {
+    public ExerciseCategory getExerciseCategory() {
         return exerciseCategory;
     }
 
@@ -60,11 +58,11 @@ public class Exercise {
         this.exerciseCategory = exerciseCategory;
     }
 
-    public String getExer_photo_path() {
-        return exer_photo_path;
+    public String getExerPhotoPath() {
+        return exerPhotoPath;
     }
 
-    public void setExer_photo_path(String exer_photo_path) {
-        this.exer_photo_path = exer_photo_path;
+    public void setExerPhotoPath(String exerPhotoPath) {
+        this.exerPhotoPath = exerPhotoPath;
     }
 }

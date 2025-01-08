@@ -1,11 +1,16 @@
 package pt.iade.ArpeFitness.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pt.iade.ArpeFitness.service.AuthenticationService;
+import pt.iade.ArpeFitness.service.UserService;
 
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
+
+    @Autowired
+    private UserService userService;
 
     private final AuthenticationService authenticationService;
 

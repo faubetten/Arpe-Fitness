@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pt.iade.ArpeFitness.dto.LoginRequestDTO;
 import pt.iade.ArpeFitness.models.tables.User;
 import pt.iade.ArpeFitness.service.UserService;
 
@@ -27,4 +28,18 @@ public class UserController {
         User updated = userService.updateUserInfo(userId, updatedUser);
         return new ResponseEntity<>(updated, HttpStatus.OK);
     }
+
+    // Endpoint para login
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginRequestDTO request) {
+        try {
+            User user = userService.login(request);
+            return ResponseEntity.ok(user); // Retorna o usuário autenticado (ajuste conforme necessário)
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(401).body(e.getMessage());
+        }
+    }
+
+
+
 }

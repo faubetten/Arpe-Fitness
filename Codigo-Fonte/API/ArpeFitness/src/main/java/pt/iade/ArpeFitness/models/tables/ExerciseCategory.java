@@ -1,8 +1,6 @@
 package pt.iade.ArpeFitness.models.tables;
 
 import jakarta.persistence.*;
-import com.fasterxml.jackson.annotation.JsonIgnore; // Importando a anotação
-
 import java.util.List;
 
 @Entity
@@ -12,30 +10,30 @@ public class ExerciseCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cat_id")
-    private long cat_id;
+    private Integer catId; // Alterado de int para Integer
 
-    @Column(name = "cat_name", nullable = false)
-    private String cat_name;
+    @Column(name = "cat_name", nullable = false, length = 40)
+    private String catName;
 
-    @OneToMany(mappedBy = "exerciseCategory")
+    @OneToMany(mappedBy = "exerciseCategory", cascade = CascadeType.ALL)
     private List<Exercise> exercises;
 
     public ExerciseCategory() {}
 
-    public long getCat_id() {
-        return cat_id;
+    public Integer getCatId() { // Alterado para Integer
+        return catId;
     }
 
-    public void setCat_id(long cat_id) {
-        this.cat_id = cat_id;
+    public void setCatId(Integer catId) { // Alterado para Integer
+        this.catId = catId;
     }
 
-    public String getCat_name() {
-        return cat_name;
+    public String getCatName() {
+        return catName;
     }
 
-    public void setCat_name(String cat_name) {
-        this.cat_name = cat_name;
+    public void setCatName(String catName) {
+        this.catName = catName;
     }
 
     public List<Exercise> getExercises() {

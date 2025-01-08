@@ -1,47 +1,47 @@
 package pt.iade.ArpeFitness.models.ids;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
 import java.io.Serializable;
+import java.util.Objects;
 
+@Embeddable
 public class ExerSerieId implements Serializable {
 
-    private int exerId;   // Renomeado para refletir claramente que é o ID de Exercise
-    private int serieId;  // Renomeado para refletir claramente que é o ID de Serie
+    @Column(name = "exer_id") // Nome físico correto
+    private Integer exerId;
 
-    public ExerSerieId() {
-        // Construtor sem parâmetros é necessário para JPA
-    }
+    @Column(name = "serie_id") // Nome físico correto
+    private Integer serieId;
 
-    public ExerSerieId(int exerId, int serieId) {
-        this.exerId = exerId;
-        this.serieId = serieId;
-    }
-
-    public int getExerId() {
+    // Getters, Setters, equals e hashCode
+    public Integer getExerId() {
         return exerId;
     }
 
-    public void setExerId(int exerId) {
+    public void setExerId(Integer exerId) {
         this.exerId = exerId;
     }
 
-    public int getSerieId() {
+    public Integer getSerieId() {
         return serieId;
     }
 
-    public void setSerieId(int serieId) {
+    public void setSerieId(Integer serieId) {
         this.serieId = serieId;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        ExerSerieId that = (ExerSerieId) obj;
-        return exerId == that.exerId && serieId == that.serieId;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ExerSerieId that = (ExerSerieId) o;
+        return Objects.equals(exerId, that.exerId) &&
+                Objects.equals(serieId, that.serieId);
     }
 
     @Override
     public int hashCode() {
-        return 31 * exerId + serieId;
+        return Objects.hash(exerId, serieId);
     }
 }

@@ -1,4 +1,7 @@
 package pt.iade.ArpeFitness.models.repositories;
 
-public interface UserTrainRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import pt.iade.ArpeFitness.models.tables.UserTrain;
+
+public interface UserTrainRepository extends JpaRepository<UserTrain, Integer> {
 }

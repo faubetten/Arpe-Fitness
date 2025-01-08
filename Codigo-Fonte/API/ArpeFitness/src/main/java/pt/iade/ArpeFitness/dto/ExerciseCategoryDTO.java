@@ -3,23 +3,21 @@ package pt.iade.ArpeFitness.dto;
 import java.util.List;
 
 public class ExerciseCategoryDTO {
-    private Long id;
+    private int id;
     private String name;
     private List<ExerciseDTO> exercises;
 
-    // Construtores, getters e setters
-    public ExerciseCategoryDTO(Long id, String name, List<ExerciseDTO> exercises) {
+    public ExerciseCategoryDTO(int id, String name, List<ExerciseDTO> exercises) {
         this.id = id;
         this.name = name;
         this.exercises = exercises;
     }
 
-    // Getters e Setters
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

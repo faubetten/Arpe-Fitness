@@ -1,44 +1,62 @@
 package pt.iade.ArpeFitness.models.tables;
+
 import jakarta.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "serie")
 public class Serie {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "serie_id")
-    private int serie_id;
+    private int serieId;
 
     @Column(name = "serie_order", nullable = false)
-    private int serie_order;
+    private int serieOrder;
 
     @Column(name = "serie_rep", nullable = false)
-    private int serie_rep;
+    private int serieRep;
 
-    public Serie() {
+    @ManyToMany
+    @JoinTable(
+            name = "exer_serie",
+            joinColumns = @JoinColumn(name = "serie_id"),
+            inverseJoinColumns = @JoinColumn(name = "exer_id")
+    )
+    private Set<Exercise> exercises;
+
+    public Serie() {}
+
+    public int getSerieId() {
+        return serieId;
     }
 
-    public int getSerie_id() {
-        return serie_id;
+    public void setSerieId(int serieId) {
+        this.serieId = serieId;
     }
 
-    public void setSerie_id(int serie_id) {
-        this.serie_id = serie_id;
+    public int getSerieOrder() {
+        return serieOrder;
     }
 
-    public int getSerie_order() {
-        return serie_order;
+    public void setSerieOrder(int serieOrder) {
+        this.serieOrder = serieOrder;
     }
 
-    public void setSerie_order(int serie_order) {
-        this.serie_order = serie_order;
+    public int getSerieRep() {
+        return serieRep;
     }
 
-    public int getSerie_rep() {
-        return serie_rep;
+    public void setSerieRep(int serieRep) {
+        this.serieRep = serieRep;
     }
 
-    public void setSerie_rep(int serie_rep) {
-        this.serie_rep = serie_rep;
+    public Set<Exercise> getExercises() {
+        return exercises;
+    }
+
+    public void setExercises(Set<Exercise> exercises) {
+        this.exercises = exercises;
     }
 }

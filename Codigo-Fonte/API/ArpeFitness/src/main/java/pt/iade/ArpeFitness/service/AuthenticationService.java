@@ -19,9 +19,9 @@ public class AuthenticationService {
 
     // Método para verificar as credenciais
     public boolean authenticate(String email, String password) {
-        User user = userRepository.findByEmail(email).orElse(null);
+        User user = userRepository.findByUserEmail(email).orElse(null);
         if (user != null) {
-            return passwordEncoder.matches(password, user.getPassword());
+            return passwordEncoder.matches(password, user.getUserPassword());
         }
         return false;  // Caso não encontre o usuário
     }
