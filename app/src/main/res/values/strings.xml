@@ -16,5 +16,7 @@
     <string name="title_activity_add_setss">AddSetss</string>
     <string name="title_activity_do_exercise">DoExercise</string>
     <string name="title_activity_screenp1" />
+    <string name="title_activity_workout_plan">WorkoutPlan</string>
+    <string name="title_activity_training_completed">TrainingCompleted</string>
 
 </resources>

@@ -1,4 +1,11 @@
 package pt.iade.arpefitness.models
 
-class WorkoutPlan {
-}
+
+import java.io.Serializable
+
+class WorkoutPlan (
+    val id: String,
+    val userId: String,
+    val exercises: List<ExercisePlan>
+
+) : Serializable

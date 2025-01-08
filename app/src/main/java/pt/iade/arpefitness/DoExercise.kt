@@ -1,5 +1,6 @@
 package pt.iade.arpefitness
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import androidx.activity.ComponentActivity
@@ -21,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.runtime.*
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 
@@ -35,18 +37,20 @@ class DoExercise : ComponentActivity() {
         val reps = intent.getStringArrayListExtra("reps") ?: arrayListOf()
         val selectedExercises = intent.getStringArrayListExtra("selected_exercises") ?: arrayListOf()
 
+        // Calculando o tempo total estimado de treino
+        val totalTrainingTime = (restTime * sets * selectedExercises.size) + (selectedExercises.size * 2) // Exemplo
 
         setContent {
-            // Aqui, envolvemos o valor de restTime em mutableStateOf para torná-lo reativo
+            val context = LocalContext.current
             val restTimeState = remember { mutableIntStateOf(restTime) }
             var currentExerciseIndex by remember { mutableIntStateOf(0) }
             var showRestTimer by remember { mutableStateOf(false) }
+            var caloriesBurned by remember { mutableStateOf(0.0) } // Armazenar calorias queimadas
 
             if (showRestTimer) {
                 RestTimerActivity(
-                    restTime = restTimeState.intValue, // Passando o valor de restTime obtido na Intent
+                    restTime = restTimeState.intValue,
                     onRestFinish = {
-                        // Quando o descanso terminar, mostre o próximo exercício
                         if (currentExerciseIndex < selectedExercises.size - 1) {
                             currentExerciseIndex++
                         }
@@ -62,15 +66,25 @@ class DoExercise : ComponentActivity() {
                     currentExerciseIndex = currentExerciseIndex,
                     onPrevious = { if (currentExerciseIndex > 0) currentExerciseIndex-- },
                     onNext = {
-                        // Exiba o timer de descanso antes de ir para o próximo exercício
+                        // Adicionar calorias queimadas para o exercício atual (exemplo simples)
+                        caloriesBurned += 5.0 // Ajustar de acordo com a lógica de cálculo real
                         showRestTimer = true
                     },
-                    onFinish = { finish() }
+                    onFinish = {
+                        // Redirecionar para a tela TrainingCompleted
+                        val intent = Intent(context, TrainingCompleted::class.java).apply {
+                            putExtra("caloriesBurned", caloriesBurned)
+                            putExtra("trainingTime", totalTrainingTime / 60) // Tempo em minutos
+                        }
+                        context.startActivity(intent)
+                        finish()
+                    }
                 )
             }
         }
     }
 }
+
 
 @Composable
 fun DoingExercise(
@@ -87,7 +101,7 @@ fun DoingExercise(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF999999))
+            .background(Color(0XFFF9F9F9))
     ) {
         Column(
             modifier = Modifier
@@ -101,6 +115,7 @@ fun DoingExercise(
                 text = exercises[currentExerciseIndex],
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
+                color = Color(0XFF607D8B),
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             )
 
@@ -196,8 +211,8 @@ fun DoingExercise(
                     onClick = onPrevious,
                     enabled = currentExerciseIndex > 0,
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Color.LightGray,
-                        contentColor = Color.Black
+                        containerColor = Color(0XFF607D8B),
+                        contentColor = Color.White
                     ),
                     shape = RoundedCornerShape(4.dp)
                 ) {
@@ -207,8 +222,8 @@ fun DoingExercise(
                 Button(
                     onClick = onFinish,
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Color.LightGray,
-                        contentColor = Color.Black
+                        containerColor = Color(0XFF607D8B),
+                        contentColor = Color.White
                     ),
                     shape = RoundedCornerShape(4.dp)
                 ) {
@@ -219,8 +234,8 @@ fun DoingExercise(
                     onClick = onNext,
                     enabled = currentExerciseIndex < exercises.size - 1,
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Color.LightGray,
-                        contentColor = Color.Black
+                        containerColor = Color(0XFF607D8B),
+                        contentColor = Color.White
                     ),
                     shape = RoundedCornerShape(4.dp)
                 ) {

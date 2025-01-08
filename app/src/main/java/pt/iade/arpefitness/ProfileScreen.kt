@@ -34,13 +34,13 @@ class ProfileScreen : ComponentActivity() {
 
 @Composable
 fun UserProfileScreenContent() {
-    // Estado do usuário
     var userData by remember {
         mutableStateOf(
             UserData(
-                name = "",
-                email = "" ,
-                password = "" ,
+                id = 0,
+                name = "John Doe",
+                email = "john.doe@example.com",
+                password = "",
                 gender = "Male",
                 dob = 1990,
                 weight = 70,
@@ -52,75 +52,85 @@ fun UserProfileScreenContent() {
         )
     }
 
-    // Tela do perfil
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFD9D9D9))
+            .background(Color(0xFFF5F5F5))
     ) {
-        // LazyColumn para conteúdo scrollable
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Cabeçalho com ícone de perfil e nome
+            // Cabeçalho
             item {
-                Row(
+                Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(bottom = 20.dp),
-                    verticalAlignment = Alignment.CenterVertically
+                        .padding(bottom = 24.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    // Ícone de perfil
                     Image(
                         painter = painterResource(id = R.drawable.profile_icon),
                         contentDescription = "Profile Icon",
                         modifier = Modifier
-                            .size(64.dp)
-                            .background(Color.Gray, CircleShape)
+                            .size(90.dp)
+                            .background(Color(0XFF607D8B), CircleShape)
                             .padding(8.dp)
                     )
-
-                    Spacer(modifier = Modifier.width(16.dp))
-
-                    // Nome do usuário
+                    Spacer(modifier = Modifier.height(16.dp))
                     Text(
-                        text = "John Doe", // Substitua pelo nome do usuário
+                        text = userData.name,
                         fontSize = 24.sp,
                         fontWeight = FontWeight.Bold,
-                        color = Color(0xFF000000).copy(alpha = 0.8f)
+                        color = Color(0xFF333333)
+                    )
+                    Text(
+                        text = userData.email,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Normal,
+                        color = Color(0xFF666666)
                     )
                 }
             }
 
-            // Exibição dos dados do usuário como itens scrollable
+            // Itens de Perfil
             item { ProfileItem(label = "Gender", value = userData.gender) }
             item { ProfileItem(label = "Year of Birth", value = userData.dob.toString()) }
             item { ProfileItem(label = "Weight (kg)", value = userData.weight.toString()) }
             item { ProfileItem(label = "Height (cm)", value = userData.height.toString()) }
             item { ProfileItem(label = "Objective", value = userData.objective) }
             item { ProfileItem(label = "Level", value = userData.level) }
-            item { ProfileItem(label = "Include Cardio", value = if (userData.includeCardio) "Yes" else "No") }
-
-            // Botão para deslogar
             item {
-                Spacer(modifier = Modifier.height(20.dp))
+                ProfileItem(
+                    label = "Include Cardio",
+                    value = if (userData.includeCardio) "Yes" else "No"
+                )
+            }
+
+            // Botão Logout
+            item {
+                Spacer(modifier = Modifier.height(24.dp))
                 Button(
                     onClick = {
-                        // Ação para terminar a sessão
+                        // Ação para logout
                     },
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFF999999),
+                        containerColor = Color(0XFF607D8B),
                         contentColor = Color.White
                     ),
-                    shape = RoundedCornerShape(4.dp),
+                    shape = RoundedCornerShape(12.dp),
                     modifier = Modifier
                         .fillMaxWidth()
+                        .padding(horizontal = 32.dp)
                         .height(50.dp)
                 ) {
-                    Text(text = "Log out", fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
+                    Text(
+                        text = "Log Out",
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold
+                    )
                 }
             }
         }
@@ -132,21 +142,21 @@ fun ProfileItem(label: String, value: String) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp)
-            .background(Color(0xFF999999), shape = RoundedCornerShape(8.dp))
+            .background(Color(0xFF607DB8).copy(alpha = 0.1f), RoundedCornerShape(12.dp)) // Fundo claro
             .padding(16.dp)
     ) {
         Text(
             text = label,
-            fontSize = 16.sp,
+            fontSize = 14.sp,
             fontWeight = FontWeight.Bold,
-            color = Color.White
+            color = Color(0XFF607D8B)
         )
+        Spacer(modifier = Modifier.height(4.dp))
         Text(
             text = value,
-            fontSize = 18.sp,
+            fontSize = 16.sp,
             fontWeight = FontWeight.Normal,
-            color = Color(0xFF000000).copy(alpha = 0.8f)
+            color = Color.DarkGray
         )
     }
 }

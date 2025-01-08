@@ -13,6 +13,16 @@
         android:theme="@style/Theme.Arpefitness"
         tools:targetApi="31">
         <activity
+            android:name=".TrainingCompleted"
+            android:exported="false"
+            android:label="@string/title_activity_training_completed"
+            android:theme="@style/Theme.Arpefitness" />
+        <activity
+            android:name=".WorkoutPlan"
+            android:exported="false"
+            android:label="@string/title_activity_workout_plan"
+            android:theme="@style/Theme.Arpefitness" />
+        <activity
             android:name=".DoExercise"
             android:exported="false"
             android:label="@string/title_activity_do_exercise"
@@ -36,11 +46,6 @@
             android:name=".CustomWorkout"
             android:exported="false"
             android:label="@string/title_activity_custom_workout"
-            android:theme="@style/Theme.Arpefitness" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="false"
-            android:label="@string/title_activity_main"
             android:theme="@style/Theme.Arpefitness" />
         <activity
             android:name=".Homepage"
@@ -78,7 +83,6 @@
             android:exported="false"
             android:label="@string/title_activity_screenp1"
             android:theme="@style/Theme.Arpefitness" />
-
         <activity
             android:name=".Screenp2"
             android:exported="false"

@@ -99,7 +99,8 @@ fun LoginScreen () {
                     color = Color.White,
                     fontSize = 48.sp,
                     fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
+
                 )
             )
 
@@ -159,7 +160,7 @@ fun LoginScreen () {
                     .height(50.dp),
                 shape = RoundedCornerShape(8.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Gray
+                    containerColor = Color(0XFF607D8B)
                 )
             ) {
                 Text(
@@ -192,7 +193,7 @@ fun LoginScreen () {
                     .height(50.dp),
                 shape = RoundedCornerShape(8.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFF908E8E)
+                    containerColor = Color(0XFF607D8B)
                 )
             ) {
                 Text(

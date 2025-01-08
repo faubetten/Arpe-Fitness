@@ -3,6 +3,7 @@ package pt.iade.arpefitness
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -16,25 +17,46 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import pt.iade.arpefitness.models.ExercisePlan
+import pt.iade.arpefitness.models.UserData
 
 class Homepage : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+
+        val userData = intent.getSerializableExtra("UserData") as? UserData
+
+
+
         setContent {
-            Home()
+            
+            Home(userData ?: UserData(
+                id = 0,
+                name = "",
+                email = "",
+                password = "",
+                gender = "",
+                dob = 0,
+                weight = 0,
+                height = 0,
+                objective = "",
+                level = "",
+                includeCardio = false
+            ))
         }
     }
 }
 
 @Composable
-fun Home() {
+fun Home(userData: UserData) {
     val navController = rememberNavController()
 
     Scaffold(
@@ -45,25 +67,26 @@ fun Home() {
             startDestination = "home",
             modifier = Modifier.padding(padding)
         ) {
-            composable("home") { HomeScreen(navController) }
-            composable("statistics") { BMICalculator() }
+            composable("home") { HomeScreen(navController, userData) }
+            composable("profileone") { ProfileOne() }
+            composable("statistics") { StatisticsContent() }
+            composable("select_exercise"){ExercisesScreen()}
             composable("profile") { UserProfileScreenContent() }
             composable("custom") { CustomWorkoutScreen(navController) }
-            composable("select_exercise") { ExercisesScreen() }
-            composable("add_sets") {
-                AddSetsScreen(selectedExercises = listOf("Exercise 1", "Exercise 2"))
+            composable("WorkoutPlan") {
+                val workoutPlan = generateWorkoutPlan(userData.objective)
+                WorkoutSelectionScreen(workoutPlan = workoutPlan)
+            }
             }
         }
     }
-}
-
 
 @Composable
-fun HomeScreen(navController: NavController) {
+fun HomeScreen(navController: NavController, userData: UserData) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFE0E0E0))
+            .background(Color(0XFFF5F5F5))
             .padding(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -90,9 +113,8 @@ fun HomeScreen(navController: NavController) {
                 imageRes = R.drawable.custom,
                 description = "Custom workout",
                 destination = "custom",
+                userData = userData,
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(200.dp)
             )
 
             Spacer(modifier = Modifier.height(2.dp))
@@ -107,29 +129,30 @@ fun HomeScreen(navController: NavController) {
                 navController = navController,
                 imageRes = R.drawable.plan,
                 description = "Plan",
-                destination = "statistics",
+                destination = "WorkoutPlan",
+                userData = userData,
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(190.dp)
             )
 
             Spacer(modifier = Modifier.height(5.dp))
 
-            WorkoutRow(navController)
+            WorkoutRow(navController, userData)
         }
     }
 }
 
 @Composable
 fun WorkoutCard(
+    modifier: Modifier,
     navController: NavController,
     imageRes: Int,
     description: String,
     destination: String,
-    modifier: Modifier = Modifier
+    userData: UserData
 ) {
     Card(
         modifier = modifier
+            .height(200.dp)
             .clickable { navController.navigate(destination) },
         elevation = CardDefaults.cardElevation(4.dp)
     ) {
@@ -153,8 +176,9 @@ fun WorkoutCard(
     }
 }
 
+
 @Composable
-fun WorkoutRow(navController: NavController) {
+fun WorkoutRow(navController: NavController, userData: UserData) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -162,16 +186,14 @@ fun WorkoutRow(navController: NavController) {
         horizontalArrangement = Arrangement.spacedBy(10.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Spacer(modifier = Modifier.height(10.dp))
-
         WorkoutCard(
             navController = navController,
             imageRes = R.drawable.hit,
             description = "Hit",
             destination = "statistics",
+            userData = userData,
             modifier = Modifier
-                .weight(0.5f)
-                .aspectRatio(1f)
+                .weight(1f) // Cada card ocupa metade do espaço disponível
         )
 
         WorkoutCard(
@@ -179,17 +201,19 @@ fun WorkoutRow(navController: NavController) {
             imageRes = R.drawable.abs,
             description = "Abs",
             destination = "statistics",
+            userData = userData,
             modifier = Modifier
-                .weight(0.5f)
-                .aspectRatio(1f)
+                .weight(1f) // Cada card ocupa metade do espaço disponível
         )
     }
 }
 
+
+
 @Composable
 fun BottomNavigationBar(navController: NavController) {
     NavigationBar(
-        containerColor = Color(0xFF999999)
+        containerColor = Color(0xFFD9D9D9)
     ) {
         NavigationBarItem(
             icon = {
@@ -231,9 +255,16 @@ fun BottomNavigationBar(navController: NavController) {
         )
     }
 }
-
 @Preview(showBackground = true)
 @Composable
 fun PreviewHome() {
-    Home()
+    val userData = UserData( 1, name = "John",
+        email = "john@doe.com",
+        password = "password",
+        objective = "Hypertrophy",
+        level = "Beginner",
+        includeCardio = true)
+
+
+    Home(userData = userData )
 }

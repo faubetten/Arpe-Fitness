@@ -60,7 +60,9 @@ fun AddSetsScreen(selectedExercises: List<String>) {
             text = "Add Series and Weights",
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
+            color = Color(0XFF607D8B),
             modifier = Modifier.padding(bottom = 16.dp)
+
         )
 
         Spacer(modifier = Modifier.height(15.dp))
@@ -150,7 +152,7 @@ fun AddSetsScreen(selectedExercises: List<String>) {
                 context.startActivity(intent)
             },
             modifier = Modifier.fillMaxWidth().padding(16.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color.LightGray)
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0XFF607D8B))
         ) {
             Text("Iniciar treino")
         }

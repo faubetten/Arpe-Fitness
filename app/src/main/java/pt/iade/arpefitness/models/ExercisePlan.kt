@@ -1,4 +1,8 @@
 package pt.iade.arpefitness.models
 
-class Exerciseplan {
-}
+class ExercisePlan(
+    val name: String,
+    val sets: Int,
+    val reps: IntRange,
+    val restTimePlan: Int // Em segundos
+)

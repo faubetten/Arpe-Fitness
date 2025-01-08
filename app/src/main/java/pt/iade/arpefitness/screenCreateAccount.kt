@@ -19,11 +19,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-
 
 class ScreenCreateAccount : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,93 +46,45 @@ fun CreateAccount(onCreateAccountComplete: () -> Unit = {}) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFD9D9D9))
+            .background(Color(0xFFECEFF1))
+            .padding(top = 150.dp)
     ) {
         Column(
             modifier = Modifier
-                .padding(top = 80.dp)
+                .padding(top = 60.dp)
                 .fillMaxWidth()
         ) {
             Text(
                 modifier = Modifier.padding(start = 12.dp),
                 text = "Create Account",
                 fontSize = 32.sp,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                color = Color(0xFF607D8B)
             )
 
-            Spacer(modifier = Modifier.height(14.dp))
-
-            Button(
-                onClick = onCreateAccountComplete,
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.White,
-                    contentColor = Color.Black
-                ),
-                shape = RoundedCornerShape(4.dp),
-                modifier = Modifier
-                    .padding(start = 12.dp, end = 12.dp)
-                    .height(50.dp)
-                    .fillMaxWidth()
-            ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(start = 2.dp)
-                ) {
-                    Text(
-                        text = "Sign in with Google",
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Normal
-                    )
-                }
-            }
-
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Divider(
-                    color = Color.White,
-                    thickness = 1.dp,
-                    modifier = Modifier.weight(1f)
-                )
-                Text(
-                    modifier = Modifier.padding(12.dp),
-                    color = Color.White,
-                    text = "or",
-                    fontSize = 30.sp,
-                    fontWeight = FontWeight.Normal
-                )
-                Divider(
-                    color = Color.White,
-                    thickness = 1.dp,
-                    modifier = Modifier
-                        .padding(start = 6.dp)
-                        .weight(1f)
-                )
-            }
-
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(24.dp))
 
             // Campo de entrada para "First name"
             Text(
                 modifier = Modifier.padding(start = 12.dp),
                 text = "First name",
                 fontSize = 16.sp,
-                fontWeight = FontWeight.Normal
+                fontWeight = FontWeight.SemiBold,
+                color = Color(0xFF607D8B)
             )
             OutlinedTextField(
                 value = firstName,
                 onValueChange = { firstName = it },
                 placeholder = { Text("Enter your first name") },
                 colors = OutlinedTextFieldDefaults.colors(
-                    unfocusedContainerColor = Color.White),
+                    unfocusedContainerColor = Color.White,
+                    focusedBorderColor = Color(0xFF607D8B),
+                    unfocusedBorderColor = Color.Gray
+                ),
                 modifier = Modifier
-                    .padding(start = 12.dp, end = 12.dp)
-                    .fillMaxWidth(),
-
-                )
+                    .padding(horizontal = 12.dp)
+                    .fillMaxWidth()
+            )
 
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -142,7 +93,8 @@ fun CreateAccount(onCreateAccountComplete: () -> Unit = {}) {
                 modifier = Modifier.padding(start = 12.dp),
                 text = "Email",
                 fontSize = 16.sp,
-                fontWeight = FontWeight.Normal
+                fontWeight = FontWeight.SemiBold,
+                color = Color(0xFF607D8B)
             )
             OutlinedTextField(
                 value = email,
@@ -150,9 +102,11 @@ fun CreateAccount(onCreateAccountComplete: () -> Unit = {}) {
                 placeholder = { Text("Enter your email") },
                 colors = OutlinedTextFieldDefaults.colors(
                     unfocusedContainerColor = Color.White,
+                    focusedBorderColor = Color(0xFF607D8B),
+                    unfocusedBorderColor = Color.Gray
                 ),
                 modifier = Modifier
-                    .padding(start = 12.dp, end = 12.dp)
+                    .padding(horizontal = 12.dp)
                     .fillMaxWidth()
             )
 
@@ -163,42 +117,49 @@ fun CreateAccount(onCreateAccountComplete: () -> Unit = {}) {
                 modifier = Modifier.padding(start = 12.dp),
                 text = "Password",
                 fontSize = 16.sp,
-                fontWeight = FontWeight.Normal
+                fontWeight = FontWeight.SemiBold,
+                color = Color(0xFF607D8B)
             )
             OutlinedTextField(
                 value = password,
                 onValueChange = { password = it },
                 placeholder = { Text("Create a password") },
+                visualTransformation = PasswordVisualTransformation(),
+                colors = OutlinedTextFieldDefaults.colors(
+                    unfocusedContainerColor = Color.White,
+                    focusedBorderColor = Color(0xFF607D8B),
+                    unfocusedBorderColor = Color.Gray
+                ),
                 modifier = Modifier
-                    .padding(start = 12.dp, end = 12.dp)
-                    .fillMaxWidth(),
-                colors = OutlinedTextFieldDefaults.colors(  unfocusedContainerColor = Color.White),
-                visualTransformation = PasswordVisualTransformation()
+                    .padding(horizontal = 12.dp)
+                    .fillMaxWidth()
             )
 
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(24.dp))
 
             Button(
-                onClick = {val intent = Intent(context,ScreenLogin::class.java)
-                          context.startActivity(intent)},
+                onClick = {
+                    val intent = Intent(context, ScreenLogin::class.java)
+                    context.startActivity(intent)
+                },
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Black,
+                    containerColor = Color(0xFF607D8B),
                     contentColor = Color.White
                 ),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 12.dp, end = 12.dp)
+                    .padding(horizontal = 12.dp)
                     .height(50.dp),
-                shape = RoundedCornerShape(4.dp)
+                shape = RoundedCornerShape(8.dp)
             ) {
                 Text(
                     text = "Create Account",
                     fontSize = 16.sp,
-                    fontWeight = FontWeight.Normal
+                    fontWeight = FontWeight.Bold
                 )
             }
 
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(20.dp))
 
             Row(
                 modifier = Modifier
@@ -208,19 +169,21 @@ fun CreateAccount(onCreateAccountComplete: () -> Unit = {}) {
             ) {
                 Text(
                     text = "Already have an account?",
-                    fontSize = 16.sp,
+                    fontSize = 14.sp,
+                    color = Color.Gray,
                     fontWeight = FontWeight.Normal
                 )
                 TextButton(
-                    onClick = {val intent = Intent(context, ScreenLogin::class.java)
-                              context.startActivity(intent)},
-                    modifier = Modifier.padding(start = 8.dp)
+                    onClick = {
+                        val intent = Intent(context, ScreenLogin::class.java)
+                        context.startActivity(intent)
+                    }
                 ) {
                     Text(
                         text = "Log in",
-                        fontSize = 16.sp,
+                        fontSize = 14.sp,
                         fontWeight = FontWeight.Bold,
-                        color = Color.Black
+                        color = Color(0xFF607D8B)
                     )
                 }
             }
@@ -233,7 +196,3 @@ fun CreateAccount(onCreateAccountComplete: () -> Unit = {}) {
 fun ScreenCreateAccountPreview() {
     CreateAccount()
 }
-
-
-
-
