@@ -27,7 +27,8 @@ public class ExerciseCategoryController {
                                 .map(exercise -> new ExerciseDTO(
                                         exercise.getExerId(), // Mantém int
                                         exercise.getExerName(),
-                                        exercise.getExerDescription()
+                                        exercise.getExerDescription(),
+                                        exercise.getExerPhotoPath()
                                 ))
                                 .collect(Collectors.toList())
                 ))
@@ -45,7 +46,8 @@ public class ExerciseCategoryController {
                         .map(exercise -> new ExerciseDTO(
                                 exercise.getExerId(),
                                 exercise.getExerName(),
-                                exercise.getExerDescription()
+                                exercise.getExerDescription(),
+                                exercise.getExerPhotoPath()
                         ))
                         .collect(Collectors.toList())
         );
