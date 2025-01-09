@@ -16,6 +16,16 @@
         android:theme="@style/Theme.Arpefitness"
         tools:targetApi="31">
         <activity
+            android:name=".TrainingCompleted"
+            android:exported="false"
+            android:label="@string/title_activity_training_completed"
+            android:theme="@style/Theme.Arpefitness" />
+        <activity
+            android:name=".WorkoutPlan"
+            android:exported="false"
+            android:label="@string/title_activity_workout_plan"
+            android:theme="@style/Theme.Arpefitness" />
+        <activity
             android:name=".DoExercise"
             android:exported="false"
             android:label="@string/title_activity_do_exercise"
@@ -46,17 +56,12 @@
             android:label="@string/title_activity_custom_workout"
             android:theme="@style/Theme.Arpefitness" />
         <activity
-            android:name=".MainActivity"
-            android:exported="false"
-            android:label="@string/title_activity_main"
-            android:theme="@style/Theme.Arpefitness" />
-        <activity
             android:name=".Homepage"
             android:exported="true"
             android:label="@string/title_activity_main"
             android:theme="@style/Theme.Arpefitness" />
         <activity
-            android:name=".StatisticScreen"
+            android:name=".StatisticsScreen"
             android:exported="false"
             android:label="@string/title_activity_static_screen"
             android:theme="@style/Theme.Arpefitness" />
@@ -71,17 +76,27 @@
             android:label="@string/title_activity_welcome_screen"
             android:theme="@style/Theme.Arpefitness" />
         <activity
-            android:name=".Screenp_2"
-            android:exported="false"
-            android:label="@string/title_activity_main3"
-            android:theme="@style/Theme.Arpefitness" />
-        <activity
-            android:name=".Screenp_3"
+            android:name=".ScreenCreateAccount"
             android:exported="false"
             android:label="@string/title_activity_screen_create_account"
             android:theme="@style/Theme.Arpefitness" />
         <activity
-            android:name=".Screenp_4"
+            android:name=".Screenp1"
+            android:exported="false"
+            android:label="@string/title_activity_screenp1"
+            android:theme="@style/Theme.Arpefitness" />
+        <activity
+            android:name=".Screenp2"
+            android:exported="false"
+            android:label="@string/title_activity_main3"
+            android:theme="@style/Theme.Arpefitness" />
+        <activity
+            android:name=".Screenp3"
+            android:exported="false"
+            android:label="@string/title_activity_screen_create_account"
+            android:theme="@style/Theme.Arpefitness" />
+        <activity
+            android:name=".Screenp4"
             android:exported="false"
             android:label="@string/title_activity_main2"
             android:theme="@style/Theme.Arpefitness" />

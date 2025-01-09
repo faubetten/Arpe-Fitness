@@ -1,12 +1,12 @@
 package pt.iade.arpefitness
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -26,19 +27,19 @@ class WelcomeScreen : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            WelcomeScreen() {
-                Screenp_2()
-            }
+            WelScreen()
         }
     }
 }
 
 @Composable
-fun WelcomeScreen(onWelcomeScreenComplete: () -> Unit) {
+fun WelScreen() {
+    val context = LocalContext.current
+
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFD9D9D9))
+            .background(Color(0xFFF5F5F5))
     ) {
 
         Image(
@@ -47,70 +48,61 @@ fun WelcomeScreen(onWelcomeScreenComplete: () -> Unit) {
             modifier = Modifier
                 .align(Alignment.TopEnd)
                 .size(200.dp)
-                .alpha(0.2f)
+                .alpha(0.1f)
                 .padding(16.dp)
         )
 
         Column(
-            modifier = Modifier.padding(start = 12.dp, end = 12.dp)
-                .padding(top = 160.dp)
-                .fillMaxWidth()
-
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 24.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
             Text(
                 text = "Welcome to",
-                fontSize = 32.sp,
+                fontSize = 30.sp,
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(bottom = 4.dp)
+                color = Color.Black
             )
 
             Text(
                 text = "Arpe Fitness",
-                fontSize = 32.sp,
+                fontSize = 36.sp,
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(bottom =60.dp)
+                color = Color(0xFF607D8B),
+                modifier = Modifier.padding(bottom = 24.dp)
             )
 
             Text(
-                text = "We want to provide the best experience and help you achieve your health and fitness goals. To do this, we need to know a little more about you!",
+                text = "Let's create a personalized plan to help you achieve your fitness goals.",
                 fontSize = 18.sp,
-                fontWeight = FontWeight.SemiBold,
-                modifier = Modifier.padding(bottom = 30.dp)
+                fontWeight = FontWeight.Medium,
+                color = Color.Gray,
+                textAlign = androidx.compose.ui.text.style.TextAlign.Center,
+                modifier = Modifier.padding(bottom = 40.dp)
             )
 
-            Text(
-                text = "Share some basic information so we can create a training and eating plan perfectly tailored to your needs and preferences. All the information provided will be treated with complete confidentiality and will only be used to personalize your fitness journey.",
-                fontSize = 18.sp,
-                fontWeight = FontWeight.SemiBold,
-                modifier = Modifier.padding(bottom = 60.dp)
-            )
-
-            Text(
-                text = "Shall we start?",
-                fontSize = 18.sp,
-                fontWeight = FontWeight.SemiBold,
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
-                    .padding(bottom = 60.dp)
-            )
+            Spacer(modifier = Modifier.height(20.dp))
 
             Button(
-                onClick = onWelcomeScreenComplete,
+                onClick = {
+                    val intent = Intent(context, Screenp1::class.java)
+                    context.startActivity(intent)
+                },
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Gray,
+                    containerColor = Color(0xFF607D8B),
                     contentColor = Color.White
                 ),
+                shape = RoundedCornerShape(8.dp),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(60.dp)
-                    .padding(horizontal = 90.dp) // Define padding horizontal ao redor do botão
-                    .border(1.dp, Color.Black, RoundedCornerShape(4.dp)),
-                shape = RoundedCornerShape(4.dp)
+                    .height(50.dp)
             ) {
                 Text(
-                    text = "Next",
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Normal
+                    text = "Get Started",
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold
                 )
             }
         }
@@ -120,8 +112,5 @@ fun WelcomeScreen(onWelcomeScreenComplete: () -> Unit) {
 @Preview(showBackground = true)
 @Composable
 fun WelcomeScreenPreview() {
-    WelcomeScreen() {
-
-    }
+    WelScreen()
 }
-

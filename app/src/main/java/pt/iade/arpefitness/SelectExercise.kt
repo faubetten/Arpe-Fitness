@@ -53,7 +53,7 @@ fun ExercisesScreen() {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFD3D3D3))
+            .background(Color(0xFFF5F5F5))
             .padding(8.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
@@ -78,13 +78,13 @@ fun ExercisesScreen() {
                     }
 
 
-                    context.startActivity(intent) // Iniciar a nova Activity
+                    context.startActivity(intent) //
                 },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFF999999),
+                    containerColor = Color(0xFF607D8B),
                     contentColor = Color.White
                 )
             ) {
@@ -104,7 +104,7 @@ fun ExerciseCategory(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(Color(0xFF999999))
+            .background(Color(0XFF607D8B))
             .padding(8.dp)
     ) {
         // Header com nome da categoria

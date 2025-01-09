@@ -33,10 +33,10 @@ class AddSets : ComponentActivity() {
 
 @Composable
 fun AddSetsScreen(selectedExercises: List<String>) {
-    var sets by remember { mutableStateOf(3) }
+    var sets by remember { mutableIntStateOf(3) }
     val reps = remember { mutableStateListOf("", "", "") } // Inicializa com valores vazios para reps
     val weights = remember { mutableStateListOf("", "", "") } // Inicializa com valores vazios para weights
-    var restTime by remember { mutableStateOf(60) }
+    var restTime by remember { mutableIntStateOf(60) }
     val context = LocalContext.current as Activity
 
     // Ajusta o tamanho das listas quando o número de sets muda
@@ -60,7 +60,9 @@ fun AddSetsScreen(selectedExercises: List<String>) {
             text = "Add Series and Weights",
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
+            color = Color(0XFF607D8B),
             modifier = Modifier.padding(bottom = 16.dp)
+
         )
 
         Spacer(modifier = Modifier.height(15.dp))
@@ -145,15 +147,17 @@ fun AddSetsScreen(selectedExercises: List<String>) {
                     putStringArrayListExtra("weights", ArrayList(weights))
                     putStringArrayListExtra("reps", ArrayList(reps))
                     putStringArrayListExtra("selected_exercises", ArrayList(selectedExercises))
+                    putExtra("restTime", restTime)
                 }
                 context.startActivity(intent)
             },
             modifier = Modifier.fillMaxWidth().padding(16.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color.LightGray)
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0XFF607D8B))
         ) {
             Text("Iniciar treino")
         }
     }
 }
+
 
 
