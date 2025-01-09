@@ -1,33 +1,24 @@
 package pt.iade.arpefitness
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -35,34 +26,76 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import pt.iade.arpefitness.network.ApiService
+import pt.iade.arpefitness.network.LoginRequest
+import pt.iade.arpefitness.network.LoginResponse
+import pt.iade.arpefitness.network.RetrofitClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import pt.iade.arpefitness.ui.theme.ArpefitnessTheme
+
 
 class ScreenLogin : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            LoginScreen()
-
-                }
+            ArpefitnessTheme {
+                LoginScreen(onLogin = { email, password ->
+                    performLogin(email, password)
+                })
             }
         }
+    }
+
+    private fun performLogin(email: String, password: String) {
+        val apiService = RetrofitClient.instance.create(ApiService::class.java)
+        val loginRequest = LoginRequest(email, password)
+
+        apiService.login(loginRequest).enqueue(object : Callback<LoginResponse> {
+            override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+                if (response.isSuccessful) {
+                    val loginResponse = response.body()
+                    if (loginResponse != null) {
+                        Toast.makeText(applicationContext, "Bem-vindo, ${loginResponse.userName}!", Toast.LENGTH_SHORT).show()
+
+                        // Salvar token no SharedPreferences (opcional)
+                        saveSession(loginResponse.token)
+                    }
+                } else {
+                    Toast.makeText(applicationContext, "Erro ao fazer login: ${response.message()}", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                Toast.makeText(applicationContext, "Erro de rede: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun saveSession(token: String) {
+        val sharedPreferences = getSharedPreferences("AppPreferences", MODE_PRIVATE)
+        sharedPreferences.edit().putString("authToken", token).apply()
+    }
+}
 
 @Composable
-fun LoginScreen () {
+fun LoginScreen(onLogin: (String, String) -> Unit) {
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.Black)
     ) {
-
         Image(
-            painter = painterResource(R.drawable.imagelogin), 
+            painter = painterResource(R.drawable.imagelogin),
             contentDescription = "Background Image",
             contentScale = ContentScale.Crop,
             modifier = Modifier.fillMaxSize()
         )
-
 
         Box(
             modifier = Modifier
@@ -80,28 +113,26 @@ fun LoginScreen () {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = 32.dp).padding(top = 120.dp),
-          
-          
+                .padding(horizontal = 32.dp)
+                .padding(top = 120.dp),
         ) {
-            
-            Text( modifier = Modifier.padding(start = 65.dp),
+            Text(
                 text = "Arpe\nFITNESS",
                 style = TextStyle(
                     color = Color.White,
                     fontSize = 48.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center
-                )
+                ),
+                modifier = Modifier.align(Alignment.CenterHorizontally)
             )
 
             Spacer(modifier = Modifier.height(10.dp))
 
-
             OutlinedTextField(
-                value = "",
-                onValueChange = {},
-                label = { Text("email", color = Color.White) },
+                value = email,
+                onValueChange = { email = it },
+                label = { Text("Email", color = Color.White) },
                 modifier = Modifier.fillMaxWidth(),
                 colors = OutlinedTextFieldDefaults.colors(
                     unfocusedBorderColor = Color.White,
@@ -110,75 +141,32 @@ fun LoginScreen () {
                 )
             )
 
-
             OutlinedTextField(
-                value = "",
-                onValueChange = {},
-                label = { Text("password", color = Color.White) },
+                value = password,
+                onValueChange = { password = it },
+                label = { Text("Password", color = Color.White) },
                 modifier = Modifier.fillMaxWidth(),
                 colors = OutlinedTextFieldDefaults.colors(
                     unfocusedBorderColor = Color.White,
                     focusedBorderColor = Color.Gray,
                     cursorColor = Color.White
                 )
-            )
-
-            Spacer(modifier = Modifier.height(15.dp))
-
-            ClickableText(
-                modifier = Modifier.padding(start = 190.dp),
-                text = androidx.compose.ui.text.AnnotatedString("forgot password?"),
-                onClick = {},
-                style = TextStyle(
-                    fontSize = 14.sp,
-                    color = Color.White,
-
-                )
-
             )
 
             Spacer(modifier = Modifier.height(25.dp))
 
+            val context = LocalContext.current
 
             Button(
-                onClick = {  },
+                onClick = { val intent = Intent(context, Homepage::class.java)
+                    context.startActivity(intent)
+                    onLogin(email, password) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp),
                 shape = RoundedCornerShape(8.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Gray
-                )
-            ) {
-                Text(
-                    text = "Create account",
-                    color = Color.White,
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Medium
-                )
-            }
-
-            Spacer(modifier = Modifier.height(12.dp))
-
-
-            Text(modifier = Modifier.padding(start = 160.dp),
-                text = "or",
-                color = Color.White,
-                fontSize = 14.sp,
-                textAlign = TextAlign.Center
-            )
-
-            Spacer(modifier = Modifier.height(12.dp))   
-
-
-            Button(
-                onClick = { },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(50.dp),
-                shape = RoundedCornerShape(8.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFF908E8E)
                 )
             ) {
                 Text(
@@ -190,10 +178,4 @@ fun LoginScreen () {
             }
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun LoginScreenPreview(){
-    LoginScreen()
 }
