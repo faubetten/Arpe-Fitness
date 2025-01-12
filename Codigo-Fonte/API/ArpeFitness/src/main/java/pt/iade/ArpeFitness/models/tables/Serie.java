@@ -18,16 +18,12 @@ public class Serie {
     @Column(name = "serie_rep", nullable = false)
     private int serieRep;
 
-    @ManyToMany
-    @JoinTable(
-            name = "exer_serie",
-            joinColumns = @JoinColumn(name = "serie_id"),
-            inverseJoinColumns = @JoinColumn(name = "exer_id")
-    )
-    private Set<Exercise> exercises;
+    @OneToMany(mappedBy = "serie", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<ExerSerie> exerSeries; // Mapeia a relação intermediária
 
     public Serie() {}
 
+    // Getters e Setters
     public int getSerieId() {
         return serieId;
     }
@@ -52,11 +48,11 @@ public class Serie {
         this.serieRep = serieRep;
     }
 
-    public Set<Exercise> getExercises() {
-        return exercises;
+    public Set<ExerSerie> getExerSeries() {
+        return exerSeries;
     }
 
-    public void setExercises(Set<Exercise> exercises) {
-        this.exercises = exercises;
+    public void setExerSeries(Set<ExerSerie> exerSeries) {
+        this.exerSeries = exerSeries;
     }
 }

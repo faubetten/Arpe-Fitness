@@ -1,7 +1,9 @@
 package pt.iade.arpefitness.network
 
+import pt.iade.arpefitness.models.Category
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
 
 // Representa o corpo da requisição para login
@@ -21,4 +23,8 @@ data class LoginResponse(
 interface ApiService {
     @POST("api/users/login")
     fun login(@Body request: LoginRequest): Call<LoginResponse>
+
+    @GET("categories")
+    fun getCategories(): Call<List<Category>>
 }
+

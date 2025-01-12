@@ -1,6 +1,7 @@
 package pt.iade.ArpeFitness.models.tables;
 
 import jakarta.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "exercise")
@@ -11,21 +12,25 @@ public class Exercise {
     @Column(name = "exer_id")
     private int exerId;
 
-    @Column(name = "exer_name", nullable = false, length = 60)
+    @Column(name = "exer_name", nullable = false)
     private String exerName;
 
-    @Column(name = "exer_description", nullable = false, length = 100)
+    @Column(name = "exer_description", nullable = false)
     private String exerDescription;
 
+    @Column(name = "exer_photo_path")
+    private String exerPhotoPath;
+
     @ManyToOne
-    @JoinColumn(name = "exer_cat_id", nullable = false)
+    @JoinColumn(name = "exer_cat_id", nullable = false) // Relacionamento com a tabela exercise_category
     private ExerciseCategory exerciseCategory;
 
-    @Column(name = "exer_photo_path", length = 255)
-    private String exerPhotoPath;
+    @OneToMany(mappedBy = "exercise", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<ExerSerie> exerSeries; // Relacionamento com exer_serie
 
     public Exercise() {}
 
+    // Getters e Setters
     public int getExerId() {
         return exerId;
     }
@@ -50,6 +55,14 @@ public class Exercise {
         this.exerDescription = exerDescription;
     }
 
+    public String getExerPhotoPath() {
+        return exerPhotoPath;
+    }
+
+    public void setExerPhotoPath(String exerPhotoPath) {
+        this.exerPhotoPath = exerPhotoPath;
+    }
+
     public ExerciseCategory getExerciseCategory() {
         return exerciseCategory;
     }
@@ -58,11 +71,11 @@ public class Exercise {
         this.exerciseCategory = exerciseCategory;
     }
 
-    public String getExerPhotoPath() {
-        return exerPhotoPath;
+    public Set<ExerSerie> getExerSeries() {
+        return exerSeries;
     }
 
-    public void setExerPhotoPath(String exerPhotoPath) {
-        this.exerPhotoPath = exerPhotoPath;
+    public void setExerSeries(Set<ExerSerie> exerSeries) {
+        this.exerSeries = exerSeries;
     }
 }

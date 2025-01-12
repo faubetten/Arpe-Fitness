@@ -26,6 +26,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import pt.iade.arpefitness.models.ExercisePlan
 import pt.iade.arpefitness.models.UserData
+import pt.iade.arpefitness.ui.exercise.ExercisesScreen
 
 class Homepage : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

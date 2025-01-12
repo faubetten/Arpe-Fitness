@@ -1,44 +1,53 @@
 package pt.iade.ArpeFitness.models.ids;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+
 import java.io.Serializable;
 import java.util.Objects;
 
+@Embeddable
 public class UserTrainId implements Serializable {
 
-    private Long user;
-    private Long train;
+    @Column(name = "user_id")
+    private int userId;
+
+    @Column(name = "train_id")
+    private int trainId;
 
     public UserTrainId() {}
 
-    // Getters e Setters
-    public Long getUser() {
-        return user;
+    public UserTrainId(int userId, int trainId) {
+        this.userId = userId;
+        this.trainId = trainId;
     }
 
-    public void setUser(Long user) {
-        this.user = user;
+    public int getUserId() {
+        return userId;
     }
 
-    public Long getTrain() {
-        return train;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public void setTrain(Long train) {
-        this.train = train;
+    public int getTrainId() {
+        return trainId;
     }
 
-    // Métodos equals() e hashCode() para garantir comparação correta da chave composta
+    public void setTrainId(int trainId) {
+        this.trainId = trainId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserTrainId that = (UserTrainId) o;
-        return Objects.equals(user, that.user) &&
-                Objects.equals(train, that.train);
+        return userId == that.userId && trainId == that.trainId;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(user, train);
+        return Objects.hash(userId, trainId);
     }
 }

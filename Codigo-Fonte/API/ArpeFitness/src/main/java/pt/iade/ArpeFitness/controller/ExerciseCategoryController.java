@@ -11,32 +11,38 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-
+@RequestMapping("/categories") // Adicionado um prefixo para os endpoints
 public class ExerciseCategoryController {
 
     @Autowired
     private ExerciseCategoryRepository exerciseCategoryRepository;
 
-    @GetMapping("/categories")
+    // Endpoint para listar todas as categorias com os exercícios associados
+    @GetMapping
     public List<ExerciseCategoryDTO> getAllCategories() {
         return exerciseCategoryRepository.findAll().stream()
                 .map(category -> new ExerciseCategoryDTO(
-                        category.getCatId(), // Mantém int
+                        category.getCatId(),
                         category.getCatName(),
                         category.getExercises().stream()
                                 .map(exercise -> new ExerciseDTO(
-                                        exercise.getExerId(), // Mantém int
+                                        exercise.getExerId(),
                                         exercise.getExerName(),
                                         exercise.getExerDescription(),
-                                        exercise.getExerPhotoPath()
+                                        exercise.getExerPhotoPath(),
+                                        0, // Valor padrão para séries
+                                        0, // Valor padrão para repetições
+                                        null, // Peso como null por padrão
+                                        0 // Tempo de descanso padrão
                                 ))
                                 .collect(Collectors.toList())
                 ))
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/categories/{id}")
-    public ExerciseCategoryDTO getCategoryById(@PathVariable Integer id) { // Alterado para Integer
+    // Endpoint para buscar uma categoria específica pelo ID
+    @GetMapping("/{id}")
+    public ExerciseCategoryDTO getCategoryById(@PathVariable Integer id) {
         ExerciseCategory category = exerciseCategoryRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Category not found"));
         return new ExerciseCategoryDTO(
@@ -47,10 +53,13 @@ public class ExerciseCategoryController {
                                 exercise.getExerId(),
                                 exercise.getExerName(),
                                 exercise.getExerDescription(),
-                                exercise.getExerPhotoPath()
+                                exercise.getExerPhotoPath(),
+                                0, // Valor padrão para séries
+                                0, // Valor padrão para repetições
+                                null, // Peso como null por padrão
+                                0 // Tempo de descanso padrão
                         ))
                         .collect(Collectors.toList())
         );
     }
-
 }

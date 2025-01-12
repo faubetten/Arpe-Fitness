@@ -5,36 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6b9990c1-e77f-44d7-9eaf-32f378a74253" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/Screenp1.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/Screenp2.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/Screenp4.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/TrainingCompleted.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/WorkoutPlan.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/models/ExercisePlan.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/models/TrainingSession.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/models/UserData.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/models/WorkoutPlan.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/models/Category.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/models/Exercise.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../../../.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/../../../.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../.idea/caches/deviceStreaming.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../.idea/deploymentTargetSelector.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../.idea/deploymentTargetSelector.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/AddSets.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/AddSets.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/CustomWorkout.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/CustomWorkout.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/DoExercise.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/DoExercise.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pt/iade/ArpeFitness/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/iade/ArpeFitness/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pt/iade/ArpeFitness/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/iade/ArpeFitness/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/pt/iade/ArpeFitness/controller/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/pt/iade/ArpeFitness/controller/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/2025-01-08T22-18-31_956-jvmRun1.dump" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/2025-01-08T22-18-31_956-jvmRun1.dumpstream" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Criação DB/create .sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Criação DB/create .sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Criação DB/insert.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Criação DB/insert.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/Homepage.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/Homepage.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/MainActivity.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/MainActivity2.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/ProfileScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/ProfileScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/Screenp_2.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/Screenp3.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/Screenp_3.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/Screenp_4.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/ScreenLogin.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/ScreenLogin.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/SelectExercise.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/SelectExercise.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/Selected_exercises.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/Selected_exercises.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/StatisticScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/StatisticScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/WelcomeScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/WelcomeScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/screenCreateAccount.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/screenCreateAccount.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/network/ApiService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/network/ApiService.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,13 +34,67 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
   </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2rMzuZSAfO949ITSyDHTrfney8T" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "git-widget-placeholder": "Merging Pedro",
-    "node.js.selected.package.tslint": "(autodetect)"
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration name="ArpeFitnessApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="ArpeFitness" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="pt.iade.ArpeFitness.ArpeFitnessApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23726.103" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23726.103" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6b9990c1-e77f-44d7-9eaf-32f378a74253" name="Changes" comment="" />
+      <created>1736383955499</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1736383955499</updated>
+      <workItem from="1736383956591" duration="237000" />
+      <workItem from="1736431295378" duration="4660000" />
+    </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
 </project>

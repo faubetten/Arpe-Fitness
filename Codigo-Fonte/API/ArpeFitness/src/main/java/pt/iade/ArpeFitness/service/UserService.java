@@ -19,17 +19,23 @@ public class UserService {
     private BCryptPasswordEncoder passwordEncoder;
 
     // Método para criar usuário com senha criptografada
-    public User createUserInitial(User user) {
+    public String createUserInitial(User user) {
         // Verifica se o email já existe no banco de dados
         if (userRepository.findByUserEmail(user.getUserEmail()).isPresent()) {
-            throw new RuntimeException("Email já cadastrado.");
+            return "Erro: Email já cadastrado.";
         }
 
         // Criptografa a senha antes de salvar
         user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
 
+        // Verifica se userGoal e userExperience estão presentes
+        if (user.getUserGoal() == null || user.getUserExperience() == null) {
+            return "Erro: Meta e experiência do usuário são obrigatórias.";
+        }
+
         // Salva o usuário no banco
-        return userRepository.save(user);
+        userRepository.save(user);
+        return "Usuário criado com sucesso.";
     }
 
     // Método para login com verificação de email e senha
@@ -62,6 +68,15 @@ public class UserService {
         user.setUserGender(updatedUser.getUserGender());
         user.setUserHeight(updatedUser.getUserHeight());
         user.setUserWeight(updatedUser.getUserWeight());
+
+        // Adicione as atualizações de userGoal e userExperience
+        if (updatedUser.getUserGoal() != null) {
+            user.setUserGoal(updatedUser.getUserGoal());
+        }
+
+        if (updatedUser.getUserExperience() != null) {
+            user.setUserExperience(updatedUser.getUserExperience());
+        }
 
         return userRepository.save(user);
     }

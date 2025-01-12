@@ -1,29 +1,38 @@
 package pt.iade.ArpeFitness.models.tables;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import pt.iade.ArpeFitness.models.ids.UserTrainId;
 
 @Entity
 @Table(name = "user_train")
 public class UserTrain {
-    @Id
-    private Integer userId;
-    private Integer trainId;
 
-    public Integer getUserId() {
-        return userId;
+    @EmbeddedId
+    private UserTrainId id;
+
+    @Column(name = "is_custom", nullable = false)
+    private boolean isCustom;
+
+    public UserTrain() {}
+
+    public UserTrain(UserTrainId id, boolean isCustom) {
+        this.id = id;
+        this.isCustom = isCustom;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public UserTrainId getId() {
+        return id;
     }
 
-    public Integer getTrainId() {
-        return trainId;
+    public void setId(UserTrainId id) {
+        this.id = id;
     }
 
-    public void setTrainId(Integer trainId) {
-        this.trainId = trainId;
+    public boolean isCustom() {
+        return isCustom;
+    }
+
+    public void setCustom(boolean custom) {
+        isCustom = custom;
     }
 }

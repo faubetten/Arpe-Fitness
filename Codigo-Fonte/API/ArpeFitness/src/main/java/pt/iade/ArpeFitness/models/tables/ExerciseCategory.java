@@ -1,7 +1,7 @@
 package pt.iade.ArpeFitness.models.tables;
 
 import jakarta.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "exercise_category")
@@ -10,21 +10,22 @@ public class ExerciseCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cat_id")
-    private Integer catId; // Alterado de int para Integer
+    private int catId;
 
-    @Column(name = "cat_name", nullable = false, length = 40)
+    @Column(name = "cat_name", nullable = false)
     private String catName;
 
-    @OneToMany(mappedBy = "exerciseCategory", cascade = CascadeType.ALL)
-    private List<Exercise> exercises;
+    @OneToMany(mappedBy = "exerciseCategory", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Exercise> exercises;
 
     public ExerciseCategory() {}
 
-    public Integer getCatId() { // Alterado para Integer
+    // Getters e Setters
+    public int getCatId() {
         return catId;
     }
 
-    public void setCatId(Integer catId) { // Alterado para Integer
+    public void setCatId(int catId) {
         this.catId = catId;
     }
 
@@ -36,11 +37,11 @@ public class ExerciseCategory {
         this.catName = catName;
     }
 
-    public List<Exercise> getExercises() {
+    public Set<Exercise> getExercises() {
         return exercises;
     }
 
-    public void setExercises(List<Exercise> exercises) {
+    public void setExercises(Set<Exercise> exercises) {
         this.exercises = exercises;
     }
 }

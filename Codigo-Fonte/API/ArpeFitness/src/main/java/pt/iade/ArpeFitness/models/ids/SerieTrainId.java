@@ -2,7 +2,6 @@ package pt.iade.ArpeFitness.models.ids;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -15,14 +14,17 @@ public class SerieTrainId implements Serializable {
     @Column(name = "train_id")
     private int trainId;
 
+    // Construtor sem argumentos (necessário para JPA)
     public SerieTrainId() {}
 
+    // Construtor com argumentos
     public SerieTrainId(int serieId, int trainId) {
         this.serieId = serieId;
         this.trainId = trainId;
     }
 
-    public Integer getSerieId() {
+    // Getters e Setters
+    public int getSerieId() {
         return serieId;
     }
 
@@ -38,12 +40,14 @@ public class SerieTrainId implements Serializable {
         this.trainId = trainId;
     }
 
+    // equals e hashCode - necessários para funcionar corretamente como chave composta
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SerieTrainId that = (SerieTrainId) o;
-        return serieId == that.serieId && trainId == that.trainId;
+        return serieId == that.serieId &&
+                trainId == that.trainId;
     }
 
     @Override

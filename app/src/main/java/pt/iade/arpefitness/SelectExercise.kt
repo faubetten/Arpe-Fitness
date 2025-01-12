@@ -1,4 +1,4 @@
-package pt.iade.arpefitness
+package pt.iade.arpefitness.ui.exercise
 
 import android.content.Intent
 import android.os.Bundle
@@ -19,8 +19,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.compose.rememberNavController
-
+import coil.compose.AsyncImage
+import pt.iade.arpefitness.Selected_exercises
+import pt.iade.arpefitness.models.Category
+import pt.iade.arpefitness.models.Exercise
+import pt.iade.arpefitness.network.ApiService
+import pt.iade.arpefitness.network.RetrofitClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class SelectExercise : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,23 +39,30 @@ class SelectExercise : ComponentActivity() {
     }
 }
 
-
 @Composable
 fun ExercisesScreen() {
     val context = LocalContext.current
+    val categories = remember { mutableStateOf<List<Category>>(emptyList()) }
+
+    // Carregar categorias da API
+    LaunchedEffect(true) {
+        val apiService = RetrofitClient.instance.create(ApiService::class.java)
+        apiService.getCategories().enqueue(object : Callback<List<Category>> {
+            override fun onResponse(call: Call<List<Category>>, response: Response<List<Category>>) {
+                if (response.isSuccessful) {
+                    categories.value = response.body() ?: emptyList()
+                } else {
+                    Log.e("Error", "Erro ao obter categorias: ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<List<Category>>, t: Throwable) {
+                Log.e("Error", "Falha na requisição: ${t.localizedMessage}")
+            }
+        })
+    }
 
     val selectedExercises = remember { mutableStateMapOf<String, MutableSet<String>>() }
-
-    val categories = listOf(
-        "Chest" to listOf("Bench press", "Dumbbell Fly", "Seated crucifix", "Push-up"),
-        "Triceps" to listOf("Triceps Pushdown", "Overhead Triceps Extension", "Close-Grip Bench Press", "Lever Triceps Dips"),
-        "Back" to listOf("Pulldown", "Pull-Ups", "Face pull", "Deadlift"),
-        "Biceps" to listOf("Barbell Curl", "Dumbbell Hammer Curl", "Concentration Curl", "Preacher Curl"),
-        "Shoulders" to listOf("Overhead Press", "Lateral Raises", "Front Raises", "Arnold Press"),
-        "Abs" to listOf("Crunches", "Plank", "Bicycle Crunch", "Leg Raises"),
-        "Leg" to listOf("Squat", "Leg Press", "Hamstrings", "Leg Curl"),
-        "Run" to listOf("Cardio")
-    )
 
     LazyColumn(
         modifier = Modifier
@@ -57,11 +71,12 @@ fun ExercisesScreen() {
             .padding(8.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        categories.forEach { (category, exercises) ->
+        // Exibir categorias carregadas
+        categories.value.forEach { category ->
             item {
                 ExerciseCategory(
-                    categoryName = category,
-                    exercises = exercises,
+                    categoryName = category.name,
+                    exercises = category.exercises,
                     selectedExercises = selectedExercises
                 )
             }
@@ -71,14 +86,11 @@ fun ExercisesScreen() {
                 onClick = {
                     val selectedExercisesList = selectedExercises.values.flatten()
 
-
                     val intent = Intent(context, Selected_exercises::class.java).apply {
                         putStringArrayListExtra("selected_exercises", ArrayList(selectedExercisesList))
-
                     }
 
-
-                    context.startActivity(intent) //
+                    context.startActivity(intent)
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -94,11 +106,10 @@ fun ExercisesScreen() {
     }
 }
 
-
 @Composable
 fun ExerciseCategory(
     categoryName: String,
-    exercises: List<String>,
+    exercises: List<Exercise>,
     selectedExercises: MutableMap<String, MutableSet<String>>
 ) {
     Column(
@@ -123,7 +134,6 @@ fun ExerciseCategory(
             )
         }
 
-
         exercises.forEach { exercise ->
             val isChecked = remember { mutableStateOf(false) }
             Row(
@@ -137,19 +147,28 @@ fun ExerciseCategory(
                     onCheckedChange = { checked ->
                         isChecked.value = checked
                         val selectedSet = selectedExercises.getOrPut(categoryName) { mutableSetOf() }
-                        if (checked) selectedSet.add(exercise) else selectedSet.remove(exercise)
+                        if (checked) selectedSet.add(exercise.name) else selectedSet.remove(exercise.name)
                     },
                     colors = CheckboxDefaults.colors(
-                        checkedColor = Color.LightGray, // Cor da caixa quando marcada
-                        uncheckedColor = Color.LightGray, // Cor da caixa quando desmarcada
-                        checkmarkColor = Color.DarkGray // Cor do checkmark (✓)
+                        checkedColor = Color.LightGray,
+                        uncheckedColor = Color.LightGray,
+                        checkmarkColor = Color.DarkGray
                     )
                 )
                 Text(
-                    text = exercise,
+                    text = exercise.name,
                     fontSize = 18.sp,
                     color = Color.White,
-                    modifier = Modifier.padding(start = 8.dp)
+                    modifier = Modifier.weight(1f)
+                )
+
+                // Exibir imagem (GIF)
+                AsyncImage(
+                    model = exercise.photoPath,
+                    contentDescription = exercise.name,
+                    modifier = Modifier
+                        .size(50.dp)
+                        .padding(start = 8.dp)
                 )
             }
         }
@@ -160,5 +179,4 @@ fun ExerciseCategory(
 @Composable
 fun ExerciseScreenPreview() {
     ExercisesScreen()
-
 }
