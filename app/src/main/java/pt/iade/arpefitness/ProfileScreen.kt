@@ -38,14 +38,14 @@ fun UserProfileScreenContent() {
         mutableStateOf(
             UserData(
                 id = 0,
-                name = "John Doe",
-                email = "john.doe@example.com",
+                name = "Edson Manuel",
+                email = "edsonmanuel@email.com",
                 password = "",
                 gender = "Male",
-                dob = 1990,
-                weight = 70,
-                height = 175,
-                objective = "Build muscle",
+                dob = 1999,
+                weight = 69,
+                height = 177,
+                objective = "Hypertrophy",
                 level = "Intermediate",
                 includeCardio = true
             )
@@ -102,12 +102,12 @@ fun UserProfileScreenContent() {
             item { ProfileItem(label = "Height (cm)", value = userData.height.toString()) }
             item { ProfileItem(label = "Objective", value = userData.objective) }
             item { ProfileItem(label = "Level", value = userData.level) }
-            item {
+           /* item {
                 ProfileItem(
                     label = "Include Cardio",
                     value = if (userData.includeCardio) "Yes" else "No"
                 )
-            }
+            }*/
 
             // Botão Logout
             item {

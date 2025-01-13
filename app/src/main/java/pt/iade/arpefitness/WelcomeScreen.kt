@@ -36,22 +36,6 @@ class WelcomeScreen : ComponentActivity() {
 fun WelScreen() {
     val context = LocalContext.current
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color(0xFFF5F5F5))
-    ) {
-
-        Image(
-            painter = painterResource(id = R.drawable.halter_icon),
-            contentDescription = "Icone de Halteres",
-            modifier = Modifier
-                .align(Alignment.TopEnd)
-                .size(200.dp)
-                .alpha(0.1f)
-                .padding(16.dp)
-        )
-
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -107,7 +91,7 @@ fun WelScreen() {
             }
         }
     }
-}
+
 
 @Preview(showBackground = true)
 @Composable

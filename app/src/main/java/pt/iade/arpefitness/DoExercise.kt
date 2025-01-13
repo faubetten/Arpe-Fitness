@@ -25,31 +25,42 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
+import pt.iade.arpefitness.models.Exercise
 
 class DoExercise : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
+        // Recebendo os dados completos dos exercícios
+        val selectedExercisesList = intent.getStringArrayListExtra("selected_exercises") ?: arrayListOf()
+        val selectedExercises = selectedExercisesList.map { data ->
+            val parts = data.split(":")
+            parts.getOrNull(2)?.toIntOrNull()?.let {
+                Exercise(
+                    id = parts.getOrNull(0)?.toIntOrNull() ?: 0,
+                    name = parts.getOrNull(1) ?: "",
+                    photoPath = it,
+                    description = parts.getOrNull(3) ?: ""
+                )
+            }
+        }
+
         val restTime = intent.getIntExtra("restTime", 30)
         val sets = intent.getIntExtra("sets", 0)
         val weights = intent.getStringArrayListExtra("weights") ?: arrayListOf()
         val reps = intent.getStringArrayListExtra("reps") ?: arrayListOf()
-        val selectedExercises = intent.getStringArrayListExtra("selected_exercises") ?: arrayListOf()
-
-        // Calculando o tempo total estimado de treino
-        val totalTrainingTime = (restTime * sets * selectedExercises.size) + (selectedExercises.size * 2) // Exemplo
 
         setContent {
             val context = LocalContext.current
-            val restTimeState = remember { mutableIntStateOf(restTime) }
-            var currentExerciseIndex by remember { mutableIntStateOf(0) }
+            val restTimeState = remember { mutableStateOf(restTime) }
+            var currentExerciseIndex by remember { mutableStateOf(0) }
             var showRestTimer by remember { mutableStateOf(false) }
             var caloriesBurned by remember { mutableStateOf(0.0) } // Armazenar calorias queimadas
 
             if (showRestTimer) {
-                RestTimerActivity(
-                    restTime = restTimeState.intValue,
+                RestTimer(
+                    restTime = restTimeState.value,
                     onRestFinish = {
                         if (currentExerciseIndex < selectedExercises.size - 1) {
                             currentExerciseIndex++
@@ -66,15 +77,14 @@ class DoExercise : ComponentActivity() {
                     currentExerciseIndex = currentExerciseIndex,
                     onPrevious = { if (currentExerciseIndex > 0) currentExerciseIndex-- },
                     onNext = {
-                        // Adicionar calorias queimadas para o exercício atual (exemplo simples)
-                        caloriesBurned += 5.0 // Ajustar de acordo com a lógica de cálculo real
+                        caloriesBurned += 5.0 // Ajustar de acordo com lógica real
                         showRestTimer = true
                     },
                     onFinish = {
-                        // Redirecionar para a tela TrainingCompleted
+                        // Redirecionar para tela de conclusão
                         val intent = Intent(context, TrainingCompleted::class.java).apply {
                             putExtra("caloriesBurned", caloriesBurned)
-                            putExtra("trainingTime", totalTrainingTime / 60) // Tempo em minutos
+                            putExtra("trainingTime", restTime * sets * selectedExercises.size)
                         }
                         context.startActivity(intent)
                         finish()
@@ -85,10 +95,9 @@ class DoExercise : ComponentActivity() {
     }
 }
 
-
 @Composable
 fun DoingExercise(
-    exercises: List<String>,
+    exercises: List<Exercise?>,
     sets: Int,
     weights: List<String>,
     reps: List<String>,
@@ -97,6 +106,7 @@ fun DoingExercise(
     onNext: () -> Unit,
     onFinish: () -> Unit
 ) {
+    val currentExercise = exercises[currentExerciseIndex]
 
     Box(
         modifier = Modifier
@@ -110,27 +120,45 @@ fun DoingExercise(
         ) {
             Spacer(modifier = Modifier.height(30.dp))
 
-            // Nome do exercício atual
-            Text(
-                text = exercises[currentExerciseIndex],
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color(0XFF607D8B),
-                modifier = Modifier.align(Alignment.CenterHorizontally)
-            )
+
+            if (currentExercise != null) {
+                Text(
+                    text = currentExercise.name,
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color(0XFF607D8B),
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                )
+            }
 
             Spacer(modifier = Modifier.height(16.dp))
 
             // Imagem do exercício
-            Image(
-                painter = painterResource(id = android.R.drawable.ic_menu_camera),
-                contentDescription = "Exercise Image",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(200.dp)
-                    .clip(RoundedCornerShape(8.dp))
-                    .background(Color.White)
-            )
+            if (currentExercise != null) {
+                currentExercise.photoPath?.let { imageResId ->
+                    Image(
+                        painter = painterResource(id = imageResId),
+                        contentDescription = currentExercise.name,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(200.dp)
+                            .clip(RoundedCornerShape(8.dp))
+                            .background(Color.White)
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Descrição do exercício
+            if (currentExercise != null) {
+                Text(
+                    text = currentExercise.description,
+                    fontSize = 16.sp,
+                    color = Color.DarkGray,
+                    modifier = Modifier.align(Alignment.Start)
+                )
+            }
 
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -162,12 +190,14 @@ fun DoingExercise(
                 }
             }
 
-            // Como executar o exercício
-                Text(
-                    text = "How to perform this exercise",
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold
-                )
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(
+                text = "How to perform this exercise",
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold
+            )
 
             Spacer(modifier = Modifier.height(8.dp))
 
@@ -196,9 +226,6 @@ fun DoingExercise(
                 }
             }
 
-
-
-            Spacer(modifier = Modifier.height(16.dp))
 
             // Navegação entre exercícios
             Row(
@@ -245,9 +272,8 @@ fun DoingExercise(
         }
     }
 }
-
 @Composable
-fun RestTimerActivity(
+fun RestTimer(
     restTime: Int,
     onRestFinish: () -> Unit
 ) {
@@ -266,30 +292,36 @@ fun RestTimerActivity(
 
             override fun onFinish() {
                 timeLeft = 0
-                onRestFinish() // Chama a função para ir para o próximo exercício
+                isRunning = false
+                onRestFinish() // Chama a função para finalizar o descanso
             }
         }
         timer?.start()
         isRunning = true
     }
 
+    // Função para parar o cronômetro
     fun stopTimer() {
         timer?.cancel()
         isRunning = false
     }
 
-    fun SkipRest(){
+    // Função para pular o descanso
+    fun skipRest() {
         stopTimer()
         timeLeft = 0
         onRestFinish()
     }
 
+    LaunchedEffect(Unit) {
+        startTimer()
+    }
+
     // Layout para exibir o cronômetro
     Box(
         modifier = Modifier
-            .fillMaxSize().
-            background(Color(0xFFEEEEEE)
-            )
+            .fillMaxSize()
+            .background(Color(0xFFEEEEEE))
     ) {
         Column(
             modifier = Modifier.align(Alignment.Center),
@@ -302,9 +334,9 @@ fun RestTimerActivity(
                 color = Color.Gray
             )
 
-            Spacer(modifier = Modifier.width(16.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
-            Row {
+            Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                 Button(
                     onClick = { startTimer() },
                     enabled = !isRunning,
@@ -313,16 +345,12 @@ fun RestTimerActivity(
                     Text(text = "Start")
                 }
 
-                Spacer(modifier = Modifier.width(16.dp))
-
                 Button(
-                    onClick = { SkipRest() },
+                    onClick = { skipRest() },
                     colors = ButtonDefaults.buttonColors(containerColor = Color.DarkGray, contentColor = Color.LightGray)
                 ) {
                     Text(text = "Skip")
                 }
-
-                Spacer(modifier = Modifier.width(16.dp))
 
                 Button(
                     onClick = { stopTimer() },

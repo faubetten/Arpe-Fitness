@@ -95,11 +95,7 @@
             android:exported="false"
             android:label="@string/title_activity_screen_create_account"
             android:theme="@style/Theme.Arpefitness" />
-        <activity
-            android:name=".Screenp4"
-            android:exported="false"
-            android:label="@string/title_activity_main2"
-            android:theme="@style/Theme.Arpefitness" />
+
     </application>
 
 </manifest>

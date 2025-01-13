@@ -1,5 +1,7 @@
+/*
 package pt.iade.arpefitness.network
 
+import okhttp3.Call
 import pt.iade.arpefitness.models.Category
 import retrofit2.Call
 import retrofit2.http.Body
@@ -28,3 +30,4 @@ interface ApiService {
     fun getCategories(): Call<List<Category>>
 }
 
+*/

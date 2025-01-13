@@ -7,7 +7,6 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -27,8 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-
-data class Exercise(val name: String, val imageUrl: String?)
+import pt.iade.arpefitness.models.Exercise
 
 class Selected_exercises : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,29 +36,36 @@ class Selected_exercises : ComponentActivity() {
         // Recebendo a lista de exercícios com Intent
         val selectedExercisesList = intent.getStringArrayListExtra("selected_exercises") ?: arrayListOf()
 
-        // Convertendo os nomes em objetos do tipo Exercise
-        val selectedExercises = selectedExercisesList.map { exerciseName ->
-            Exercise(name = exerciseName, imageUrl = null) // Substituir o "null" por URLs se necessário
+        // Convertendo os dados recebidos em objetos do tipo Exercise
+        val selectedExercises = selectedExercisesList.map { data ->
+            val parts = data.split(":")
+            parts.getOrNull(1)?.toIntOrNull()?.let {
+                Exercise(
+                    id = parts[0].toIntOrNull() ?: 0 ,
+                    name = parts[0],
+                    photoPath = it,
+                    description = "",// Converte para Int caso seja ID válido
+
+                )
+            }
         }
 
         setContent {
             SelectedExercisesScreen(
                 navController = rememberNavController(),
-                selectedExercises = selectedExercises // Passando a lista corretamente
+                selectedExercises = selectedExercises
             )
         }
     }
 }
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SelectedExercisesScreen(navController: NavController, selectedExercises: List<Exercise>) {
+fun SelectedExercisesScreen(navController: NavController, selectedExercises: List<Exercise?>) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("My Workout",
-                    fontWeight = FontWeight.Bold) },
+                title = { Text("My Workout", fontWeight = FontWeight.Bold) },
                 navigationIcon = {
                     IconButton(onClick = { navController.navigate("select_exercise") }) {
                         Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Back")
@@ -87,36 +92,41 @@ fun SelectedExercisesScreen(navController: NavController, selectedExercises: Lis
                 color = Color(0xFF607D8B)
             )
 
-            Spacer(modifier =Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(10.dp))
 
-            Row(modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center){
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+            ) {
                 val context = LocalContext.current
 
                 Button(
                     onClick = {
-
-                        val selectedExercisesNames = ArrayList(selectedExercises.map { it.name }) // Pegando os nomes dos exercícios selecionados
+                        val selectedExercisesData = ArrayList(selectedExercises.map { exercise ->
+                            "${exercise?.id}:${exercise?.name}:${exercise?.photoPath ?: 0}:${exercise?.description}"
+                        })
 
                         val intent = Intent(context, AddSets::class.java).apply {
-                            putStringArrayListExtra("selected_exercises", selectedExercisesNames)
+                            putStringArrayListExtra("selected_exercises", selectedExercisesData)
                         }
                         context.startActivity(intent)
                     },
-                    
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0XFF607D8B),
-                    contentColor = Color.White),
-                modifier = Modifier.fillMaxWidth()
-                    .padding(start = 20.dp, end = 20.dp).size(40.dp),
-                shape = RoundedCornerShape(4.dp)
-            ) {
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0XFF607D8B),
+                        contentColor = Color.White
+                    ),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 20.dp, end = 20.dp)
+                        .height(40.dp),
+                    shape = RoundedCornerShape(4.dp)
+                ) {
                     Text(
-                        text = "click to add sets",
-                        fontSize = 18.sp,
-
+                        text = "Click to add sets",
+                        fontSize = 18.sp
                     )
-              }
+                }
+
             }
 
             Spacer(modifier = Modifier.height(10.dp))
@@ -135,7 +145,9 @@ fun SelectedExercisesScreen(navController: NavController, selectedExercises: Lis
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 items(selectedExercises) { exercise ->
-                    ExerciseItem(exercise, navController)
+                    if (exercise != null) {
+                        ExerciseItem(exercise)
+                    }
                 }
             }
         }
@@ -143,7 +155,7 @@ fun SelectedExercisesScreen(navController: NavController, selectedExercises: Lis
 }
 
 @Composable
-fun ExerciseItem(exercise: Exercise, navController: NavController) {
+fun ExerciseItem(exercise: Exercise) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -155,25 +167,15 @@ fun ExerciseItem(exercise: Exercise, navController: NavController) {
             modifier = Modifier.padding(8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            if (exercise.imageUrl != null) {
-
-                //COLOCAR AS IMAGENS RESPECTIVAS DE CADA EXERCÍCIO
-
+            exercise.photoPath?.let { imageResId ->
                 Image(
-                    painter = painterResource(id = android.R.drawable.ic_menu_camera),
+                    painter = painterResource(id = imageResId),
                     contentDescription = exercise.name,
                     modifier = Modifier.size(80.dp)
                 )
-            } else {
-                // Placeholder quando a URL da imagem é nula
-                Image(
-                    painter = painterResource(id = android.R.drawable.ic_menu_camera), // Exemplo de ícone local
-                    contentDescription = "Placeholder Image",
-                    modifier = Modifier
-                        .size(100.dp)
-                        .padding(end = 16.dp)
-                )
             }
+
+            Spacer(modifier = Modifier.width(16.dp))
 
             Column(
                 verticalArrangement = Arrangement.Center
@@ -193,11 +195,9 @@ fun ExerciseItem(exercise: Exercise, navController: NavController) {
 @Composable
 fun PreviewSelectedExercisesScreen() {
     val sampleExercises = listOf(
-        Exercise("Push-ups", null),
-        Exercise("Squats", null),
-        Exercise("Plank", null)
+        Exercise(1,"Push-ups", description = "", photoPath = R.drawable.push_ups  ),
+        Exercise(2,"Squats", description = "", photoPath = R.drawable.squat ),
+        Exercise(3,"Plank", description = "", photoPath = R.drawable.plank  )
     )
     SelectedExercisesScreen(navController = rememberNavController(), selectedExercises = sampleExercises)
 }
-
-

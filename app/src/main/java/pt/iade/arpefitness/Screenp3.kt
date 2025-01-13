@@ -90,7 +90,7 @@ fun Screenp_3(userData: UserData?, onNavigateToNextScreen: () -> Unit = {}) {
 
               level = "Beginner"
                 val updatedUserData = userData?.copy(level = level)
-                val intent = Intent(context, Screenp4::class.java)
+                val intent = Intent(context, Homepage::class.java)
                 intent.putExtra("UserData", updatedUserData) // Passa o UserData atualizado
                 context.startActivity(intent)
             }
@@ -104,7 +104,7 @@ fun Screenp_3(userData: UserData?, onNavigateToNextScreen: () -> Unit = {}) {
             onClick = {
                 level = "Intermediary"
                 val updatedUserData = userData?.copy(level = level)
-                val intent = Intent(context, Screenp4::class.java)
+                val intent = Intent(context, Homepage::class.java)
                 intent.putExtra("UserData", updatedUserData) // Passa o UserData atualizado
                 context.startActivity(intent)
             }
@@ -118,7 +118,7 @@ fun Screenp_3(userData: UserData?, onNavigateToNextScreen: () -> Unit = {}) {
             onClick = {
                 level = "Advanced"
                 val updatedUserData = userData?.copy(level = level)
-                val intent = Intent(context, Screenp4::class.java)
+                val intent = Intent(context, Homepage::class.java)
                 intent.putExtra("UserData", updatedUserData) // Passa o UserData atualizado
                 context.startActivity(intent)
             }
@@ -126,7 +126,7 @@ fun Screenp_3(userData: UserData?, onNavigateToNextScreen: () -> Unit = {}) {
 
         Spacer(modifier = Modifier.height(60.dp))
 
-        Button(
+        /*Button(
             onClick = { onNavigateToNextScreen() },
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color(0xFF999999),
@@ -144,7 +144,7 @@ fun Screenp_3(userData: UserData?, onNavigateToNextScreen: () -> Unit = {}) {
                 fontSize = 20.sp,
                 fontWeight = FontWeight.SemiBold
             )
-        }
+        }*/
     }
 }
 

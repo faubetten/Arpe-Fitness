@@ -1,3 +1,4 @@
+/*
 package pt.iade.arpefitness.network
 
 import retrofit2.Retrofit
@@ -13,3 +14,4 @@ object RetrofitClient {
             .build()
     }
 }
+*/

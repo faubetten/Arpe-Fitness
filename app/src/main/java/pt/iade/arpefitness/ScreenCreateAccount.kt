@@ -139,7 +139,7 @@ fun CreateAccount(onCreateAccountComplete: () -> Unit = {}) {
 
             Button(
                 onClick = {
-                    val intent = Intent(context, ScreenLogin::class.java)
+                    val intent = Intent(context, WelcomeScreen::class.java)
                     context.startActivity(intent)
                 },
                 colors = ButtonDefaults.buttonColors(
@@ -175,7 +175,7 @@ fun CreateAccount(onCreateAccountComplete: () -> Unit = {}) {
                 )
                 TextButton(
                     onClick = {
-                        val intent = Intent(context, ScreenLogin::class.java)
+                        val intent = Intent(context, WelcomeScreen::class.java)
                         context.startActivity(intent)
                     }
                 ) {

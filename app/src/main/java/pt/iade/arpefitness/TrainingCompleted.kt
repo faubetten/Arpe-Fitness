@@ -1,5 +1,6 @@
 package pt.iade.arpefitness
 
+import TrainingSession
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -16,20 +17,26 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import pt.iade.arpefitness.models.TrainingSession
 
 class TrainingCompleted : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        val caloriesBurned = intent.getDoubleExtra("caloriesBurned", 0.0)
-        val trainingTime = intent.getIntExtra("trainingTime", 0)
+
+        val caloriesBurned = intent.getDoubleExtra("caloriesBurned", 0.0).toFloat()
+        val trainingTime = intent.getIntExtra("trainingTime", 0).toLong()
+
+
+        val trainingSession = TrainingSession(
+            date = System.currentTimeMillis(),
+            caloriesBurned = caloriesBurned,
+            trainingTime = trainingTime
+        )
 
         setContent {
             TrainingCompletedScreen(
-                caloriesBurned = caloriesBurned,
-                trainingTime = trainingTime,
+                trainingSession = trainingSession,
                 onBackHomeClick = {
                     val intent = Intent(this, Homepage::class.java)
                     startActivity(intent)
@@ -42,8 +49,7 @@ class TrainingCompleted : ComponentActivity() {
 
 @Composable
 fun TrainingCompletedScreen(
-    caloriesBurned: Double,
-    trainingTime: Int,
+    trainingSession: TrainingSession,
     onBackHomeClick: () -> Unit
 ) {
     Scaffold(
@@ -74,11 +80,11 @@ fun TrainingCompletedScreen(
             ) {
                 TrainingInfoRow(
                     label = "CALORIES BURNED",
-                    value = String.format("%.2f", caloriesBurned) + " KCAL"
+                    value = String.format("%.2f", trainingSession.caloriesBurned) + " KCAL"
                 )
                 TrainingInfoRow(
                     label = "TRAINING TIME",
-                    value = formatTrainingTime(trainingTime * 60L)
+                    value = trainingSession.getFormattedTime() + " MIN"
                 )
 
                 Spacer(modifier = Modifier.height(32.dp))
@@ -103,11 +109,11 @@ fun TrainingCompletedScreen(
     }
 }
 
-@Composable
-fun formatTrainingTime(trainingTime: Long): String {
+// tempo de treino
+fun TrainingSession.getFormattedTime(): String {
     val minutes = trainingTime / 60
     val seconds = trainingTime % 60
-    return String.format("%02d:%02d MIN", minutes, seconds)
+    return String.format("%02d:%02d", minutes, seconds)
 }
 
 @Composable
@@ -138,12 +144,11 @@ fun PreviewTrainingCompletedScreen() {
     val trainingSession = TrainingSession(
         date = System.currentTimeMillis(),
         caloriesBurned = 158.03f,
-        trainingTime = 748
+        trainingTime = 748 // 12 minutos e 28 segundos
     )
 
     TrainingCompletedScreen(
-        caloriesBurned = trainingSession.caloriesBurned.toDouble(),
-        trainingTime = (trainingSession.trainingTime / 60).toInt(),
+        trainingSession = trainingSession,
         onBackHomeClick = {}
     )
 }

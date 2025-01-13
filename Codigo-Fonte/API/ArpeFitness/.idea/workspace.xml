@@ -5,26 +5,60 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6b9990c1-e77f-44d7-9eaf-32f378a74253" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/models/Category.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/models/Exercise.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../app/src/main/res/drawable/Close_grip.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../app/src/main/res/drawable/arnold_press.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../app/src/main/res/drawable/barbell_curl.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../app/src/main/res/drawable/bench_press.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../app/src/main/res/drawable/bicycle_crunch.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../app/src/main/res/drawable/cable.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../app/src/main/res/drawable/cardio.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../app/src/main/res/drawable/concentration_curl.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../app/src/main/res/drawable/crunch.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../app/src/main/res/drawable/deadlift.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../app/src/main/res/drawable/dumbbell.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../app/src/main/res/drawable/facepull.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../app/src/main/res/drawable/front_raises.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../app/src/main/res/drawable/hamstrings.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../app/src/main/res/drawable/lateral_raises.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../app/src/main/res/drawable/leg_curl.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../app/src/main/res/drawable/leg_press.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../app/src/main/res/drawable/leg_raises.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../app/src/main/res/drawable/lever_triceps_dips.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../app/src/main/res/drawable/overhead_press.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../app/src/main/res/drawable/overhead_triceps_extension.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../app/src/main/res/drawable/plank.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../app/src/main/res/drawable/preacher_curl.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../app/src/main/res/drawable/pull_ups.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../app/src/main/res/drawable/pulldown.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../app/src/main/res/drawable/push_ups.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../app/src/main/res/drawable/squat.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../app/src/main/res/drawable/triceps_pushdown.jpeg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../../../.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/../../../.gradle/file-system.probe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../.idea/caches/deviceStreaming.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../.idea/deploymentTargetSelector.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../.idea/deploymentTargetSelector.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pt/iade/ArpeFitness/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/iade/ArpeFitness/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pt/iade/ArpeFitness/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/iade/ArpeFitness/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/pt/iade/ArpeFitness/controller/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/pt/iade/ArpeFitness/controller/UserController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/2025-01-08T22-18-31_956-jvmRun1.dump" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/2025-01-08T22-18-31_956-jvmRun1.dumpstream" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Criação DB/create .sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Criação DB/create .sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Criação DB/insert.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Criação DB/insert.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/Homepage.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/Homepage.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/DoExercise.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/DoExercise.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/ScreenLogin.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/ScreenLogin.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/Screenp3.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/Screenp3.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/Screenp4.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/Screenp4.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/SelectExercise.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/SelectExercise.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/Selected_exercises.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/Selected_exercises.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/TrainingCompleted.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/TrainingCompleted.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/WelcomeScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/WelcomeScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/WorkoutPlan.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/WorkoutPlan.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/models/Exercise.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/models/Exercise.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/models/ExercisePlan.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/models/ExercisePlan.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/models/TrainingSession.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/models/TrainingSession.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/network/ApiService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/network/ApiService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/network/RetrofitClient.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/network/RetrofitClient.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/screenCreateAccount.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../app/src/main/java/pt/iade/arpefitness/ScreenCreateAccount.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../../local.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +86,8 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "new",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -76,8 +111,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23726.103" />
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23726.103" />
+        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.21565.193" />
+        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-IU-243.21565.193" />
       </set>
     </attachedChunks>
   </component>
@@ -91,6 +126,7 @@
       <updated>1736383955499</updated>
       <workItem from="1736383956591" duration="237000" />
       <workItem from="1736431295378" duration="4660000" />
+      <workItem from="1736655049297" duration="3129000" />
     </task>
     <servers />
   </component>

@@ -130,7 +130,7 @@ fun ProfileTwo(userData: UserData?, onNavigateToNextScreen: () -> Unit) {
 
         Spacer(modifier = Modifier.height(60.dp))
 
-        Button(onClick = { onNavigateToNextScreen() },
+        /*Button(onClick = { onNavigateToNextScreen() },
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color(0xFF999999),
                 contentColor = Color.White
@@ -144,7 +144,7 @@ fun ProfileTwo(userData: UserData?, onNavigateToNextScreen: () -> Unit) {
             Text( text = "Next",
                 fontSize = 20.sp,
                 fontWeight = FontWeight.SemiBold)
-        }
+        }*/
     }
 }
 
