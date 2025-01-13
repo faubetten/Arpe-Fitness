@@ -28,6 +28,7 @@
 /Users/glecycosta/faculdade/Arpe-Fitness/Codigo-Fonte/API/ArpeFitness/src/main/java/pt/iade/ArpeFitness/dto/ExerciseDTO.java
 /Users/glecycosta/faculdade/Arpe-Fitness/Codigo-Fonte/API/ArpeFitness/src/main/java/pt/iade/ArpeFitness/controller/UserController.java
 /Users/glecycosta/faculdade/Arpe-Fitness/Codigo-Fonte/API/ArpeFitness/src/main/java/pt/iade/ArpeFitness/models/repositories/ExerSerieRepository.java
+/Users/glecycosta/faculdade/Arpe-Fitness/Codigo-Fonte/API/ArpeFitness/src/main/java/pt/iade/ArpeFitness/config/JacksonConfig.java
 /Users/glecycosta/faculdade/Arpe-Fitness/Codigo-Fonte/API/ArpeFitness/src/main/java/pt/iade/ArpeFitness/controller/ExerciseCategoryController.java
 /Users/glecycosta/faculdade/Arpe-Fitness/Codigo-Fonte/API/ArpeFitness/src/main/java/pt/iade/ArpeFitness/controller/SerieController.java
 /Users/glecycosta/faculdade/Arpe-Fitness/Codigo-Fonte/API/ArpeFitness/src/main/java/pt/iade/ArpeFitness/controller/AuthController.java
@@ -42,6 +43,7 @@
 /Users/glecycosta/faculdade/Arpe-Fitness/Codigo-Fonte/API/ArpeFitness/src/main/java/pt/iade/ArpeFitness/controller/SerieTrainController.java
 /Users/glecycosta/faculdade/Arpe-Fitness/Codigo-Fonte/API/ArpeFitness/src/main/java/pt/iade/ArpeFitness/controller/TrainLevelController.java
 /Users/glecycosta/faculdade/Arpe-Fitness/Codigo-Fonte/API/ArpeFitness/src/main/java/pt/iade/ArpeFitness/controller/UserTrainController.java
+/Users/glecycosta/faculdade/Arpe-Fitness/Codigo-Fonte/API/ArpeFitness/src/main/java/pt/iade/ArpeFitness/dto/UserRequestDTO.java
 /Users/glecycosta/faculdade/Arpe-Fitness/Codigo-Fonte/API/ArpeFitness/src/main/java/pt/iade/ArpeFitness/models/repositories/SerieTrainRepository.java
 /Users/glecycosta/faculdade/Arpe-Fitness/Codigo-Fonte/API/ArpeFitness/src/main/java/pt/iade/ArpeFitness/controller/ExerciseController.java
 /Users/glecycosta/faculdade/Arpe-Fitness/Codigo-Fonte/API/ArpeFitness/src/main/java/pt/iade/ArpeFitness/controller/ExerSerieController.java

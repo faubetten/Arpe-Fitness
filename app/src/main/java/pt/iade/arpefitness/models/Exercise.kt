@@ -6,5 +6,5 @@ data class Exercise (
     val id: Int,
     val name: String,
     val description: String,
-    val photoPath: String
+    val photoPath: Int
 ): Serializable

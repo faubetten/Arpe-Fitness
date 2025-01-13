@@ -87,8 +87,8 @@ fun WelScreen() {
 
             Button(
                 onClick = {
-                    val intent = Intent(context, Screenp1::class.java)
-                    context.startActivity(intent)
+                    val intent = Intent(context, UnifiedFormActivity::class.java)
+                  context.startActivity(intent)
                 },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFF607D8B),

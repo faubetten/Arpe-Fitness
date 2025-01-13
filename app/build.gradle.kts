@@ -6,11 +6,11 @@ plugins {
 
 android {
     namespace = "pt.iade.arpefitness"
-    compileSdk = 35
+    compileSdk = 35 // Certifique-se de que o SDK 34 está instalado no Android SDK Manager.
 
     defaultConfig {
         applicationId = "pt.iade.arpefitness"
-        minSdk = 24
+        minSdk = 26 // Atualizado para suportar `java.time` diretamente
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -35,7 +35,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "11" // Compatível com a versão Java configurada
     }
     buildFeatures {
         compose = true
@@ -48,7 +48,7 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
-    buildToolsVersion = "35.0.0"
+    buildToolsVersion = "34.0.0" // Altere para "34.0.0", pois "35.0.0" não está disponível.
 }
 
 dependencies {
@@ -56,7 +56,7 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
-    // Outras dependências já configuradas
+    // Outras dependências
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

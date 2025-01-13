@@ -1,7 +1,9 @@
 package pt.iade.arpefitness
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -9,11 +11,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -23,6 +21,12 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import pt.iade.arpefitness.models.UserRequest
+import pt.iade.arpefitness.models.UserResponse
+import pt.iade.arpefitness.network.RetrofitClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ScreenCreateAccount : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,7 +68,7 @@ fun CreateAccount(onCreateAccountComplete: () -> Unit = {}) {
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Campo de entrada para "First name"
+            // Campo de entrada para "First Name"
             Text(
                 modifier = Modifier.padding(start = 12.dp),
                 text = "First name",
@@ -137,10 +141,14 @@ fun CreateAccount(onCreateAccountComplete: () -> Unit = {}) {
 
             Spacer(modifier = Modifier.height(24.dp))
 
+            // Botão para criar conta
             Button(
                 onClick = {
-                    val intent = Intent(context, ScreenLogin::class.java)
-                    context.startActivity(intent)
+                    if (firstName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) {
+                        createUser(firstName, email, password, context)
+                    } else {
+                        Toast.makeText(context, "Please fill in all fields.", Toast.LENGTH_SHORT).show()
+                    }
                 },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFF607D8B),
@@ -158,37 +166,39 @@ fun CreateAccount(onCreateAccountComplete: () -> Unit = {}) {
                     fontWeight = FontWeight.Bold
                 )
             }
-
-            Spacer(modifier = Modifier.height(20.dp))
-
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center
-            ) {
-                Text(
-                    text = "Already have an account?",
-                    fontSize = 14.sp,
-                    color = Color.Gray,
-                    fontWeight = FontWeight.Normal
-                )
-                TextButton(
-                    onClick = {
-                        val intent = Intent(context, ScreenLogin::class.java)
-                        context.startActivity(intent)
-                    }
-                ) {
-                    Text(
-                        text = "Log in",
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color(0xFF607D8B)
-                    )
-                }
-            }
         }
     }
+}
+
+fun createUser(userName: String, userEmail: String, userPassword: String, context: Context) {
+    val userRequest = UserRequest(
+        userName = userName,
+        userEmail = userEmail,
+        userPassword = userPassword
+    )
+
+    RetrofitClient.apiService.createUser(userRequest)
+        .enqueue(object : Callback<UserResponse> {
+            override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
+                if (response.isSuccessful) {
+                    val userId = response.body()?.userId
+                    Toast.makeText(context, "Account created! User ID: $userId", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(context, WelcomeScreen::class.java)
+                    intent.putExtra("userId", userId)
+                    context.startActivity(intent)
+                } else {
+                    Toast.makeText(
+                        context,
+                        "Failed to create account: ${response.errorBody()?.string()}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                Toast.makeText(context, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
 }
 
 @Preview(showBackground = true)

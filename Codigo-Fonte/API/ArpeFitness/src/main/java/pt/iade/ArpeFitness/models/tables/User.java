@@ -1,9 +1,8 @@
 package pt.iade.ArpeFitness.models.tables;
 
 import jakarta.persistence.*;
-import pt.iade.ArpeFitness.models.enums.TrainGoal;
-import pt.iade.ArpeFitness.models.enums.UserExperience;
 import pt.iade.ArpeFitness.models.enums.UserGoal;
+import pt.iade.ArpeFitness.models.enums.UserExperience;
 
 import java.time.LocalDate;
 
@@ -26,7 +25,7 @@ public class User {
     private LocalDate userBirthDate;
 
     @Column(name = "user_gender", nullable = true)
-    private Character userGender;
+    private String userGender;
 
     @Column(name = "user_email", unique = true)
     private String userEmail;
@@ -41,11 +40,8 @@ public class User {
     @Column(name = "user_goal", nullable = true)
     private UserGoal userGoal;
 
-    @Column(name = "user_experience")
+    @Column(name = "user_experience", nullable = true)
     private String userExperienceValue;
-
-    public User() {
-    }
 
     // Getters e Setters
     public int getUserId() {
@@ -80,11 +76,11 @@ public class User {
         this.userBirthDate = userBirthDate;
     }
 
-    public Character getUserGender() {
+    public String getUserGender() {
         return userGender;
     }
 
-    public void setUserGender(Character userGender) {
+    public void setUserGender(String userGender) {
         this.userGender = userGender;
     }
 

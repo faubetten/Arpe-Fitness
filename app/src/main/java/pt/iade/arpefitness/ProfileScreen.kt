@@ -21,6 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import pt.iade.arpefitness.models.UserData
+import java.time.LocalDate
 
 class ProfileScreen : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,12 +43,11 @@ fun UserProfileScreenContent() {
                 email = "john.doe@example.com",
                 password = "",
                 gender = "Male",
-                dob = 1990,
+                dob = LocalDate.of(1990, 5, 12),
                 weight = 70,
                 height = 175,
                 objective = "Build muscle",
-                level = "Intermediate",
-                includeCardio = true
+                level = "Intermediate"
             )
         )
     }
@@ -102,12 +102,7 @@ fun UserProfileScreenContent() {
             item { ProfileItem(label = "Height (cm)", value = userData.height.toString()) }
             item { ProfileItem(label = "Objective", value = userData.objective) }
             item { ProfileItem(label = "Level", value = userData.level) }
-            item {
-                ProfileItem(
-                    label = "Include Cardio",
-                    value = if (userData.includeCardio) "Yes" else "No"
-                )
-            }
+
 
             // Botão Logout
             item {

@@ -52,7 +52,7 @@ class ScreenLogin : ComponentActivity() {
 
     // FUNÇÃO DE LOGIN DENTRO DA CLASSE
     private fun performLogin(email: String, password: String) {
-        val apiService = RetrofitClient.instance.create(ApiService::class.java)
+        val apiService = RetrofitClient.apiService
         val loginRequest = LoginRequest(email, password)
 
         apiService.login(loginRequest).enqueue(object : Callback<LoginResponse> {
@@ -199,7 +199,7 @@ fun LoginScreen(onLogin: (String, String) -> Unit) {
             // Botão "Criar conta" -> Exemplo: abre Homepage
             Button(
                 onClick = {
-                    val intent = Intent(context, Homepage::class.java)
+                    val intent = Intent(context, ScreenCreateAccount::class.java)
                     context.startActivity(intent)
                 },
                 modifier = Modifier

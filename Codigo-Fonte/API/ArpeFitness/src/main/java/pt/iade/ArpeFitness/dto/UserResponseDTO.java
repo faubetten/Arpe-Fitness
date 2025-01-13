@@ -1,25 +1,25 @@
 package pt.iade.ArpeFitness.dto;
 
-import pt.iade.ArpeFitness.models.enums.UserExperience;
-import pt.iade.ArpeFitness.models.enums.UserGoal;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDate;
 
 public class UserResponseDTO {
-
     private Integer userId;
     private String userName;
     private String userEmail;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate userBirthDate;
-    private Character userGender;
+
+    private String userGender;
     private Double userHeight;
     private Double userWeight;
-    private UserGoal userGoal;
-    private UserExperience userExperience;
+    private String userGoal;
+    private String userExperience;
 
-
-    public UserResponseDTO() {
-    }
+    // Construtor vazio (necessário para serialização)
+    public UserResponseDTO() {}
 
     // Construtor com os campos principais
     public UserResponseDTO(Integer userId, String userName, String userEmail) {
@@ -29,9 +29,17 @@ public class UserResponseDTO {
     }
 
     // Construtor completo
-    public UserResponseDTO(Integer userId, String userName, String userEmail, LocalDate userBirthDate,
-                           Character userGender, Double userHeight, Double userWeight,
-                           UserGoal userGoal, UserExperience userExperience) {
+    public UserResponseDTO(
+            Integer userId,
+            String userName,
+            String userEmail,
+            LocalDate userBirthDate,
+            String userGender,
+            Double userHeight,
+            Double userWeight,
+            String userGoal,
+            String userExperience
+    ) {
         this.userId = userId;
         this.userName = userName;
         this.userEmail = userEmail;
@@ -43,7 +51,7 @@ public class UserResponseDTO {
         this.userExperience = userExperience;
     }
 
-    // Getters e Setters
+    // Getters e setters para todos os campos
     public Integer getUserId() {
         return userId;
     }
@@ -76,11 +84,11 @@ public class UserResponseDTO {
         this.userBirthDate = userBirthDate;
     }
 
-    public Character getUserGender() {
+    public String getUserGender() {
         return userGender;
     }
 
-    public void setUserGender(Character userGender) {
+    public void setUserGender(String userGender) {
         this.userGender = userGender;
     }
 
@@ -100,19 +108,19 @@ public class UserResponseDTO {
         this.userWeight = userWeight;
     }
 
-    public UserGoal getUserGoal() {
+    public String getUserGoal() {
         return userGoal;
     }
 
-    public void setUserGoal(UserGoal userGoal) {
+    public void setUserGoal(String userGoal) {
         this.userGoal = userGoal;
     }
 
-    public UserExperience getUserExperience() {
+    public String getUserExperience() {
         return userExperience;
     }
 
-    public void setUserExperience(UserExperience userExperience) {
+    public void setUserExperience(String userExperience) {
         this.userExperience = userExperience;
     }
 }
