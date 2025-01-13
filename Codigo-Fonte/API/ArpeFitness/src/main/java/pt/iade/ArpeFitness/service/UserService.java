@@ -35,18 +35,18 @@ public class UserService {
         );
     }
 
-    // Método para login
     public User login(LoginRequestDTO request) {
-        Optional<User> userOptional = userRepository.findByUserEmail(request.getUserEmail());
+        // Verifica se o email existe no banco de dados
+        Optional<User> userOptional = userRepository.findByUserEmail(request.getEmail());
         if (userOptional.isEmpty()) {
             throw new IllegalArgumentException("Email não encontrado.");
         }
-
         User user = userOptional.get();
-        if (!passwordEncoder.matches(request.getUserPassword(), user.getUserPassword())) {
+        // Verifica se a senha está correta
+        if (!passwordEncoder.matches(request.getPassword(), user.getUserPassword())) {
             throw new IllegalArgumentException("Senha inválida.");
         }
-
+        // Retorna o usuário autenticado
         return user;
     }
 
@@ -110,4 +110,6 @@ public class UserService {
                 user.getUserExperience()
         );
     }
+
+
 }

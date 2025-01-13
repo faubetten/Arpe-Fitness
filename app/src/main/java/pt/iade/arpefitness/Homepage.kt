@@ -27,6 +27,7 @@ import androidx.navigation.compose.rememberNavController
 import pt.iade.arpefitness.models.ExercisePlan
 import pt.iade.arpefitness.models.UserData
 import pt.iade.arpefitness.ui.exercise.ExercisesScreen
+import pt.iade.arpefitness.viewmodel.CategoryViewModel
 
 class Homepage : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,7 +72,10 @@ fun Home(userData: UserData) {
             composable("home") { HomeScreen(navController, userData) }
             composable("profileone") { ProfileOne() }
             composable("statistics") { StatisticsContent() }
-            composable("select_exercise"){ExercisesScreen()}
+            composable("select_exercise"){
+
+                ExercisesScreen(viewModel = CategoryViewModel() )
+            }
             composable("profile") { UserProfileScreenContent() }
             composable("custom") { CustomWorkoutScreen(navController) }
             composable("WorkoutPlan") {

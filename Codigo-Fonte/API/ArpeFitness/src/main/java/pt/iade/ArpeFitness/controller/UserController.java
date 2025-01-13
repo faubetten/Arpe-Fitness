@@ -58,13 +58,19 @@ public class UserController {
         }
     }
 
-
     // Endpoint para autenticação do usuário (login)
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody @Valid LoginRequestDTO request) {
         try {
+            // Chama o serviço para autenticar
             User user = userService.login(request);
-            UserResponseDTO response = new UserResponseDTO(user.getUserId(), user.getUserName(), user.getUserEmail());
+
+            // Retorna uma resposta com os dados do usuário (sem senha)
+            UserResponseDTO response = new UserResponseDTO(
+                    user.getUserId(),
+                    user.getUserName(),
+                    user.getUserEmail()
+            );
             return ResponseEntity.ok(response);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
@@ -81,4 +87,5 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+
 }

@@ -41,11 +41,11 @@ class Selected_exercises : ComponentActivity() {
             val parts = data.split(":")
             parts.getOrNull(1)?.toIntOrNull()?.let {
                 Exercise(
-                    id = parts[0].toIntOrNull() ?: 0 ,
+                    id = parts[0].toIntOrNull() ?: 0,
                     name = parts[0],
                     photoPath = it,
-                    description = "",// Converte para Int caso seja ID válido
-
+                    description = "",
+                    // Converte para Int caso seja ID válido
                 )
             }
         }

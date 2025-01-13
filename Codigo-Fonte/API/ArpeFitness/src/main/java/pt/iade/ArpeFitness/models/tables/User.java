@@ -28,7 +28,8 @@ public class User {
     @Column(name = "user_gender", nullable = true)
     private Character userGender;
 
-    @Column(name = "user_email", unique = true)
+
+    @Column(name = "user_email", nullable = true, length = 30)
     private String userEmail;
 
     @Column(name = "user_height", nullable = true)
