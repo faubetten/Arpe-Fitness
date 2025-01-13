@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import pt.iade.ArpeFitness.dto.LoginRequestDTO;
+import pt.iade.ArpeFitness.dto.UserResponseDTO;
 import pt.iade.ArpeFitness.models.repositories.UserRepository;
 import pt.iade.ArpeFitness.models.tables.User;
 
@@ -19,70 +20,94 @@ public class UserService {
     private BCryptPasswordEncoder passwordEncoder;
 
     // Método para criar usuário com senha criptografada
-    public String createUserInitial(User user) {
-        // Verifica se o email já existe no banco de dados
+    public UserResponseDTO createUser(User user) {
         if (userRepository.findByUserEmail(user.getUserEmail()).isPresent()) {
-            return "Erro: Email já cadastrado.";
+            throw new IllegalArgumentException("Erro: Email já cadastrado.");
         }
 
-        // Criptografa a senha antes de salvar
         user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
+        User savedUser = userRepository.save(user);
 
-        // Verifica se userGoal e userExperience estão presentes
-        if (user.getUserGoal() == null || user.getUserExperience() == null) {
-            return "Erro: Meta e experiência do usuário são obrigatórias.";
-        }
-
-        // Salva o usuário no banco
-        userRepository.save(user);
-        return "Usuário criado com sucesso.";
+        return new UserResponseDTO(
+                savedUser.getUserId(),
+                savedUser.getUserName(),
+                savedUser.getUserEmail()
+        );
     }
 
-    // Método para login com verificação de email e senha
+    // Método para login
     public User login(LoginRequestDTO request) {
-        // Verifica se o email existe no banco de dados
-        Optional<User> userOptional = userRepository.findByUserEmail(request.getEmail());
+        Optional<User> userOptional = userRepository.findByUserEmail(request.getUserEmail());
         if (userOptional.isEmpty()) {
             throw new IllegalArgumentException("Email não encontrado.");
         }
 
         User user = userOptional.get();
-
-        // Verifica se a senha está correta
-        if (!passwordEncoder.matches(request.getPassword(), user.getUserPassword())) {
+        if (!passwordEncoder.matches(request.getUserPassword(), user.getUserPassword())) {
             throw new IllegalArgumentException("Senha inválida.");
         }
 
-        // Retorna o usuário autenticado
         return user;
     }
 
-    // Método para atualizar informações adicionais do usuário
-    public User updateUserInfo(Integer userId, User updatedUser) {
-        // Busca o usuário pelo ID
+    // Método para atualizar usuário
+    public UserResponseDTO updateUser(Integer userId, User updatedUser) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado."));
 
-        // Atualiza as informações
-        user.setUserBirthDate(updatedUser.getUserBirthDate());
-        user.setUserGender(updatedUser.getUserGender());
-        user.setUserHeight(updatedUser.getUserHeight());
-        user.setUserWeight(updatedUser.getUserWeight());
-
-        // Adicione as atualizações de userGoal e userExperience
+        if (updatedUser.getUserBirthDate() != null) {
+            user.setUserBirthDate(updatedUser.getUserBirthDate());
+        }
+        if (updatedUser.getUserGender() != null) {
+            user.setUserGender(updatedUser.getUserGender());
+        }
+        if (updatedUser.getUserHeight() != null) {
+            user.setUserHeight(updatedUser.getUserHeight());
+        }
+        if (updatedUser.getUserWeight() != null) {
+            user.setUserWeight(updatedUser.getUserWeight());
+        }
         if (updatedUser.getUserGoal() != null) {
             user.setUserGoal(updatedUser.getUserGoal());
         }
-
         if (updatedUser.getUserExperience() != null) {
             user.setUserExperience(updatedUser.getUserExperience());
         }
 
-        return userRepository.save(user);
+        User savedUser = userRepository.save(user);
+        return new UserResponseDTO(
+                savedUser.getUserId(),
+                savedUser.getUserName(),
+                savedUser.getUserEmail(),
+                savedUser.getUserBirthDate(),
+                savedUser.getUserGender(),
+                savedUser.getUserHeight(),
+                savedUser.getUserWeight(),
+                savedUser.getUserGoal(),
+                savedUser.getUserExperience()
+        );
     }
 
-    // Método para buscar um usuário pelo ID
+    // Método para buscar usuário pelo ID
     public User findUserById(Integer userId) {
-        return userRepository.findByUserId(userId).orElse(null);
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado."));
+    }
+
+    // Método para obter informações públicas do usuário
+    public UserResponseDTO getUserInfo(Integer userId) {
+        User user = findUserById(userId);
+
+        return new UserResponseDTO(
+                user.getUserId(),
+                user.getUserName(),
+                user.getUserEmail(),
+                user.getUserBirthDate(),
+                user.getUserGender(),
+                user.getUserHeight(),
+                user.getUserWeight(),
+                user.getUserGoal(),
+                user.getUserExperience()
+        );
     }
 }

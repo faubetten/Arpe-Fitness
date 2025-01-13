@@ -26,24 +26,3 @@ public class SecurityConfig {
     }
 }
 
-/*@Configuration
-public class SecurityConfig {
-
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf().disable() // Desabilite o CSRF apenas se souber os riscos
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/users/login", "/api/users/create").permitAll() // Endpoints públicos
-                        .anyRequest().authenticated() // Outros endpoints requerem autenticação
-                )
-                .httpBasic(); // Autenticação básica (opcional)
-
-        return http.build();
-    }
-
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-}*/

@@ -26,7 +26,7 @@ public class User {
     private LocalDate userBirthDate;
 
     @Column(name = "user_gender", nullable = true)
-    private String userGender;
+    private Character userGender;
 
     @Column(name = "user_email", unique = true)
     private String userEmail;
@@ -38,7 +38,7 @@ public class User {
     private Double userWeight;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "user_goal", nullable = false)
+    @Column(name = "user_goal", nullable = true)
     private UserGoal userGoal;
 
     @Column(name = "user_experience")
@@ -80,11 +80,11 @@ public class User {
         this.userBirthDate = userBirthDate;
     }
 
-    public String getUserGender() {
+    public Character getUserGender() {
         return userGender;
     }
 
-    public void setUserGender(String userGender) {
+    public void setUserGender(Character userGender) {
         this.userGender = userGender;
     }
 
