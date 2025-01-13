@@ -1,5 +1,8 @@
 package pt.iade.ArpeFitness.models.enums;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum UserExperience {
     BEGINNER("Beginner"),
     INTERMEDIATE("Intermediate"),
@@ -11,21 +14,18 @@ public enum UserExperience {
         this.experience = experience;
     }
 
+    @JsonValue
     public String getExperience() {
         return experience;
     }
 
+    @JsonCreator
     public static UserExperience fromValue(String value) {
         for (UserExperience experience : UserExperience.values()) {
-            if (experience.getExperience().equalsIgnoreCase(value)) {
+            if (experience.experience.equalsIgnoreCase(value)) {
                 return experience;
             }
         }
-        throw new IllegalArgumentException("Unknown value for UserExperience: " + value);
-    }
-
-    @Override
-    public String toString() {
-        return experience;
+        throw new IllegalArgumentException("Invalid UserExperience value: " + value);
     }
 }

@@ -18,49 +18,67 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    // Endpoint para cadastrar a primeira parte do usuário (nome, email, senha)
+    // Endpoint para criação inicial do usuário
     @PostMapping("/create")
-    public ResponseEntity<String> createUser(@Valid @RequestBody User user) {
-        String response = userService.createUserInitial(user);
-        if (response.equals("Erro: Email já cadastrado.")) {
-            return new ResponseEntity<>("O email informado já está em uso. Por favor, tente outro.", HttpStatus.CONFLICT);
-        }
-        return new ResponseEntity<>("Usuário criado com sucesso!", HttpStatus.CREATED);
-    }
-
-    // Endpoint para atualizar as informações do usuário após o cadastro (data de nascimento, gênero, etc)
-    @PutMapping("/{userId}/update")
-    public ResponseEntity<User> updateUserInfo(@PathVariable Integer userId, @RequestBody User updatedUser) {
+    public ResponseEntity<?> createUser(@RequestBody @Valid User user) {
         try {
-            User updated = userService.updateUserInfo(userId, updatedUser);
-            return new ResponseEntity<>(updated, HttpStatus.OK);
-        } catch (RuntimeException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            UserResponseDTO response = userService.createUser(user);
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+
+        } catch (IllegalArgumentException e) {
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
-    // Endpoint para login
+    // Endpoint para atualizar informações adicionais do usuário
+    @PutMapping("/{userId}/update")
+    public ResponseEntity<UserResponseDTO> updateUser(@PathVariable Integer userId, @RequestBody @Valid UserResponseDTO userResponseDTO) {
+        try {
+            // Converte UserResponseDTO para User antes de chamar o serviço
+            User updatedUser = new User();
+            updatedUser.setUserName(userResponseDTO.getUserName());
+            updatedUser.setUserEmail(userResponseDTO.getUserEmail());
+            updatedUser.setUserBirthDate(userResponseDTO.getUserBirthDate());
+            updatedUser.setUserGender(userResponseDTO.getUserGender());
+            updatedUser.setUserHeight(userResponseDTO.getUserHeight());
+            updatedUser.setUserWeight(userResponseDTO.getUserWeight());
+            updatedUser.setUserGoal(userResponseDTO.getUserGoal());
+            updatedUser.setUserExperience(userResponseDTO.getUserExperience());
+
+            // Chama o método updateUser no serviço
+            UserResponseDTO updatedResponse = userService.updateUser(userId, updatedUser);
+
+            // Retorna a resposta com as informações atualizadas
+            return ResponseEntity.ok(updatedResponse);
+        } catch (RuntimeException e) {
+            // Retorna um erro se o usuário não for encontrado
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
+
+    // Endpoint para autenticação do usuário (login)
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequestDTO request) {
+    public ResponseEntity<?> login(@RequestBody @Valid LoginRequestDTO request) {
         try {
             User user = userService.login(request);
-            // Usando UserResponseDTO para retornar apenas informações seguras
             UserResponseDTO response = new UserResponseDTO(user.getUserId(), user.getUserName(), user.getUserEmail());
             return ResponseEntity.ok(response);
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(401).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
         }
     }
 
-
-    // Encontrar user através do id
+    // Endpoint para buscar informações do usuário pelo ID
     @GetMapping("/{userId}")
-    public ResponseEntity<User> getUserById(@PathVariable Integer userId) {
-        User user = userService.findUserById(userId);
-        if (user != null) {
-            return new ResponseEntity<>(user, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<UserResponseDTO> getUserById(@PathVariable Integer userId) {
+        try {
+            UserResponseDTO response = userService.getUserInfo(userId);
+            return ResponseEntity.ok(response);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 }
