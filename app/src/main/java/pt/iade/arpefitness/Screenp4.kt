@@ -1,5 +1,4 @@
-/*
-package pt.iade.arpefitness
+/*package pt.iade.arpefitness
 
 import android.content.Context
 import android.content.Intent

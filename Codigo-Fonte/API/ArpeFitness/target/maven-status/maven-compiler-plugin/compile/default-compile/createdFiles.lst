@@ -33,9 +33,11 @@ pt/iade/ArpeFitness/dto/TrainRequestDTO$ExerciseDTO.class
 pt/iade/ArpeFitness/models/tables/TrainLevel.class
 pt/iade/ArpeFitness/models/enums/UserGoal.class
 pt/iade/ArpeFitness/controller/SerieTrainController.class
+pt/iade/ArpeFitness/config/JacksonConfig.class
 pt/iade/ArpeFitness/models/tables/Serie.class
 pt/iade/ArpeFitness/models/tables/TrainLevel$Level.class
 pt/iade/ArpeFitness/models/enums/TrainGoal.class
+pt/iade/ArpeFitness/dto/UserRequestDTO.class
 pt/iade/ArpeFitness/models/tables/ExerciseCategory.class
 pt/iade/ArpeFitness/controller/AuthController.class
 pt/iade/ArpeFitness/models/tables/UserTrain.class

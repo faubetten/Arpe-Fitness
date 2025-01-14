@@ -27,22 +27,76 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import pt.iade.arpefitness.network.ApiService
+import pt.iade.arpefitness.network.LoginRequest
+import pt.iade.arpefitness.network.LoginResponse
+import pt.iade.arpefitness.network.RetrofitClient
 import pt.iade.arpefitness.ui.theme.ArpefitnessTheme
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ScreenLogin : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
         setContent {
             ArpefitnessTheme {
-                LoginScreen()
+                LoginScreen(onLogin = { email, password ->
+                    performLogin(email, password)
+                })
             }
         }
+    }
+
+    // FUNÇÃO DE LOGIN DENTRO DA CLASSE
+    private fun performLogin(email: String, password: String) {
+        val apiService = RetrofitClient.apiService
+        val loginRequest = LoginRequest(email, password)
+
+        apiService.login(loginRequest).enqueue(object : Callback<LoginResponse> {
+            override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+                if (response.isSuccessful) {
+                    val loginResponse = response.body()
+                    if (loginResponse != null) {
+                        Toast.makeText(
+                            this@ScreenLogin, // ou "applicationContext"
+                            "Bem-vindo, ${loginResponse.userName}!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                        // Salvar token no SharedPreferences (opcional)
+                        saveSession(loginResponse.token)
+                    }
+                } else {
+                    Toast.makeText(
+                        this@ScreenLogin,
+                        "Erro ao fazer login: ${response.message()}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                Toast.makeText(
+                    this@ScreenLogin,
+                    "Erro de rede: ${t.localizedMessage}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
+    }
+
+    // FUNÇÃO PARA SALVAR TOKEN
+    private fun saveSession(token: String) {
+        val sharedPreferences = getSharedPreferences("AppPreferences", MODE_PRIVATE)
+        sharedPreferences.edit().putString("authToken", token).apply()
     }
 }
 
 @Composable
-fun LoginScreen() {
+fun LoginScreen(onLogin: (String, String) -> Unit) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
@@ -61,6 +115,7 @@ fun LoginScreen() {
             modifier = Modifier.fillMaxSize()
         )
 
+        // Gradiente escuro sobre a imagem
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -99,7 +154,7 @@ fun LoginScreen() {
             OutlinedTextField(
                 value = email,
                 onValueChange = { email = it },
-                label = { Text("Email", color = Color.White) },
+                label = { Text("email", color = Color.White) },
                 modifier = Modifier.fillMaxWidth(),
                 textStyle = TextStyle(color = Color.White),
                 colors = OutlinedTextFieldDefaults.colors(
@@ -113,7 +168,7 @@ fun LoginScreen() {
             OutlinedTextField(
                 value = password,
                 onValueChange = { password = it },
-                label = { Text("Password", color = Color.White) },
+                label = { Text("password", color = Color.White) },
                 modifier = Modifier.fillMaxWidth(),
                 textStyle = TextStyle(color = Color.White),
                 visualTransformation = PasswordVisualTransformation(),
@@ -129,9 +184,9 @@ fun LoginScreen() {
             // Link de "Esqueceu a senha?"
             ClickableText(
                 modifier = Modifier.padding(start = 190.dp),
-                text = androidx.compose.ui.text.AnnotatedString("Forgot password?"),
+                text = androidx.compose.ui.text.AnnotatedString("forgot password?"),
                 onClick = {
-                    Toast.makeText(context, "Feature not implemented yet", Toast.LENGTH_SHORT).show()
+                    // Ex: abrir outra tela ou mostrar um diálogo
                 },
                 style = TextStyle(
                     fontSize = 14.sp,
@@ -141,11 +196,11 @@ fun LoginScreen() {
 
             Spacer(modifier = Modifier.height(25.dp))
 
-            // Navega para ScreenCreateAccount
+            // Botão "Criar conta" -> Exemplo: abre Homepage
             Button(
                 onClick = {
-                    //val intent = Intent(context, ScreenCreateAccount::class.java)
-                 //   context.startActivity(intent)
+                    val intent = Intent(context, ScreenCreateAccount::class.java)
+                    context.startActivity(intent)
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -154,7 +209,7 @@ fun LoginScreen() {
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0XFF607D8B))
             ) {
                 Text(
-                    text = "Create Account",
+                    text = "Create account",
                     color = Color.White,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Medium
@@ -174,9 +229,12 @@ fun LoginScreen() {
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            // Botão "GET STARTED"
+            // Botão "GET STARTED" -> Faz login e, se quiser, vai para outra tela
             Button(
                 onClick = {
+                    // Primeiro chama a função de login (no callback do Composable)
+                    onLogin(email, password)
+
                     val intent = Intent(context, Homepage::class.java)
                     context.startActivity(intent)
                 },
@@ -200,5 +258,9 @@ fun LoginScreen() {
 @Preview(showBackground = true)
 @Composable
 fun PreviewLoginScreen() {
-    LoginScreen()
+
+    ArpefitnessTheme {
+        LoginScreen(onLogin = { _, _ ->
+        })
+    }
 }

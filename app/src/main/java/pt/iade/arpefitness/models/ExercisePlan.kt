@@ -5,5 +5,5 @@ class ExercisePlan(
     val sets: Int,
     val reps: IntRange,
     val restTimePlan: Int, // Em segundos
-    val imageResId : Int
+    val imageResId: Int
 )

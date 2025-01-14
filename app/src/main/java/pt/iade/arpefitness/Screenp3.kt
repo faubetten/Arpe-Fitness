@@ -1,7 +1,7 @@
 package pt.iade.arpefitness
 
-import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -21,10 +21,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import pt.iade.arpefitness.models.UserData
+import pt.iade.arpefitness.models.UserResponse
+import pt.iade.arpefitness.models.UserUpdateRequest
+import pt.iade.arpefitness.network.RetrofitClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class Screenp3 : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,13 +39,16 @@ class Screenp3 : ComponentActivity() {
         val userData = intent.getSerializableExtra("UserData") as? UserData
 
         setContent {
-            Screenp_3(userData = userData) // Passando o userData para o composable
+            Screenp_3(userData = userData) { updatedUserData ->
+                // Aqui você pode implementar a lógica para passar à próxima tela ou ação
+                Toast.makeText(this, "Updated User Data: $updatedUserData", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }
 
 @Composable
-fun Screenp_3(userData: UserData?, onNavigateToNextScreen: () -> Unit = {}) {
+fun Screenp_3(userData: UserData?, onNavigateToNextScreen: (UserData) -> Unit = {}) {
     var level by remember { mutableStateOf(userData?.level ?: "") }
 
     val context = LocalContext.current
@@ -62,7 +70,7 @@ fun Screenp_3(userData: UserData?, onNavigateToNextScreen: () -> Unit = {}) {
         Spacer(modifier = Modifier.height(15.dp))
 
         LinearProgressIndicator(
-            progress = 0.6f,
+            progress = 0.9f,
             modifier = Modifier
                 .fillMaxWidth(0.85f)
                 .height(6.dp)
@@ -83,51 +91,32 @@ fun Screenp_3(userData: UserData?, onNavigateToNextScreen: () -> Unit = {}) {
 
         Spacer(modifier = Modifier.height(30.dp))
 
-        ObjetiveCard2(
-            title = "Beginner",
-            description = "Starting practice or less than 6 months experience",
-            onClick = {
-
-              level = "Beginner"
-                val updatedUserData = userData?.copy(level = level)
-                val intent = Intent(context, Homepage::class.java)
-                intent.putExtra("UserData", updatedUserData) // Passa o UserData atualizado
-                context.startActivity(intent)
-            }
+        val levels = listOf(
+            "Beginner" to "Starting practice or less than 6 months experience",
+            "Intermediate" to "Have been practicing bodybuilding for more than 6 months and less than 2 years",
+            "Advanced" to "Have been practicing bodybuilding for more than 2 years consistently"
         )
 
-        Spacer(modifier = Modifier.height(13.dp))
-
-        ObjetiveCard2(
-            title = "Intermediary",
-            description = "Have been practicing bodybuilding for more than 6 months and less than 2 years",
-            onClick = {
-                level = "Intermediary"
-                val updatedUserData = userData?.copy(level = level)
-                val intent = Intent(context, Homepage::class.java)
-                intent.putExtra("UserData", updatedUserData) // Passa o UserData atualizado
-                context.startActivity(intent)
-            }
-        )
-
-        Spacer(modifier = Modifier.height(13.dp))
-
-        ObjetiveCard2(
-            title = "Advanced",
-            description = "Have been practicing bodybuilding for more than 2 years consistently",
-            onClick = {
-                level = "Advanced"
-                val updatedUserData = userData?.copy(level = level)
-                val intent = Intent(context, Homepage::class.java)
-                intent.putExtra("UserData", updatedUserData) // Passa o UserData atualizado
-                context.startActivity(intent)
-            }
-        )
+        levels.forEach { (title, description) ->
+            Spacer(modifier = Modifier.height(13.dp))
+            ObjetiveCard2(
+                title = title,
+                description = description,
+                onClick = {
+                    level = title
+                    userData?.let {
+                        val updatedUserData = it.copy(level = level)
+                        sendUpdatedUserToBackend(updatedUserData, context)
+                        onNavigateToNextScreen(updatedUserData)
+                    }
+                }
+            )
+        }
 
         Spacer(modifier = Modifier.height(60.dp))
 
-        /*Button(
-            onClick = { onNavigateToNextScreen() },
+        Button(
+            onClick = { /* Logic for Next Button */ },
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color(0xFF999999),
                 contentColor = Color.White
@@ -144,8 +133,36 @@ fun Screenp_3(userData: UserData?, onNavigateToNextScreen: () -> Unit = {}) {
                 fontSize = 20.sp,
                 fontWeight = FontWeight.SemiBold
             )
-        }*/
+        }
     }
+}
+
+fun sendUpdatedUserToBackend(userData: UserData, context: android.content.Context) {
+    val userUpdateRequest = UserUpdateRequest(
+        userName = userData.name,
+        userEmail = userData.email,
+        userBirthDate = userData.dob.toString(),
+        userGender = userData.gender,
+        userHeight = userData.height.toDouble(),
+        userWeight = userData.weight.toDouble(),
+        userGoal = userData.objective,
+        userExperience = userData.level
+    )
+
+    RetrofitClient.apiService.updateUser(userData.id, userUpdateRequest)
+        .enqueue(object : Callback<UserResponse> {
+            override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
+                if (response.isSuccessful) {
+                    Toast.makeText(context, "User updated successfully!", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(context, "Failed to update user.", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                Toast.makeText(context, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
 }
 
 @Composable
@@ -174,20 +191,7 @@ fun ObjetiveCard2(title: String, description: String, onClick: () -> Unit) {
             color = Color(0XFFD9D9D9)
         )
     }
+
 }
 
-@Preview(showBackground = true)
-@Composable
-fun Screenp_3Preview() {
-    Screenp_3(userData = UserData( id = 1,
-        name = "John",
-        email = "john@doe.com",
-        password = "password",
-        objective = "Hypertrophy",
-        level = "Beginner",
-        gender = "",
-        dob = 0,
-        weight = 72,
-        height = 176,
-        includeCardio = true))
-}
+

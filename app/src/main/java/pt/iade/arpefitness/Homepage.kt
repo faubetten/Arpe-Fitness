@@ -46,12 +46,11 @@ class Homepage : ComponentActivity() {
                 email = "",
                 password = "",
                 gender = "",
-                dob = 0,
+                dob = null,
                 weight = 0,
                 height = 0,
                 objective = "",
-                level = "",
-                includeCardio = false
+                level = ""
             ))
         }
     }
@@ -70,11 +69,11 @@ fun Home(userData: UserData) {
             modifier = Modifier.padding(padding)
         ) {
             composable("home") { HomeScreen(navController, userData) }
-            composable("profileone") { ProfileOne() }
+            composable("profileone") { UnifiedFormActivity() }
             composable("statistics") { StatisticsContent() }
             composable("select_exercise"){
 
-                ExercisesScreen(viewModel = CategoryViewModel() )
+                ExercisesScreen()
             }
             composable("profile") { UserProfileScreenContent() }
             composable("custom") { CustomWorkoutScreen(navController) }
@@ -267,8 +266,7 @@ fun PreviewHome() {
         email = "john@doe.com",
         password = "password",
         objective = "Hypertrophy",
-        level = "Beginner",
-        includeCardio = true)
+        level = "Beginner")
 
 
     Home(userData = userData )

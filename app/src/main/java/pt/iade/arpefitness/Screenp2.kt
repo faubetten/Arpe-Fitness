@@ -34,10 +34,10 @@ class Screenp2 : ComponentActivity() {
         val userData = intent.getSerializableExtra("UserData") as? UserData
 
         setContent {
-            ProfileTwo(userData) {
+            ProfileTwo(userData) { updatedUserData ->
                 // Ação de navegação para a próxima tela
                 val nextIntent = Intent(this, Screenp3::class.java)
-                nextIntent.putExtra("UserData", userData)
+                nextIntent.putExtra("UserData", updatedUserData)
                 startActivity(nextIntent)
             }
         }
@@ -45,7 +45,7 @@ class Screenp2 : ComponentActivity() {
 }
 
 @Composable
-fun ProfileTwo(userData: UserData?, onNavigateToNextScreen: () -> Unit) {
+fun ProfileTwo(userData: UserData?, onNavigateToNextScreen: (UserData) -> Unit) {
     var objective by remember { mutableStateOf(userData?.objective ?: "") }
 
     val context = LocalContext.current
@@ -61,10 +61,10 @@ fun ProfileTwo(userData: UserData?, onNavigateToNextScreen: () -> Unit) {
             text = "My Profile",
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
-            color = Color(0xFF607D8B))
+            color = Color(0xFF607D8B)
+        )
 
-
-                    Spacer(modifier = Modifier.height(15.dp))
+        Spacer(modifier = Modifier.height(15.dp))
 
         LinearProgressIndicator(
             progress = 0.6f,
@@ -88,63 +88,51 @@ fun ProfileTwo(userData: UserData?, onNavigateToNextScreen: () -> Unit) {
 
         Spacer(modifier = Modifier.height(30.dp))
 
-        ObjetiveCard(
-            title = "Hypertrophy",
-            description = "Gain muscle mass and bulky muscles",
-            onClick = {
-                objective = "Hypertrophy"
-                val updatedUserData = userData?.copy(objective = objective)
-                val intent = Intent(context, Screenp3::class.java)
-                intent.putExtra("UserData", updatedUserData) //atualiza os dados do user
-                context.startActivity(intent)
-            }
+        val options = listOf(
+            "Hypertrophy" to "Gain muscle mass and bulky muscles",
+            "Muscle Definition" to "Stronger, more rigid and visible muscles",
+            "To lose weight" to "Lose body fat"
         )
 
-        Spacer(modifier = Modifier.height(13.dp))
-
-        ObjetiveCard(
-            title = "Muscle Definition",
-            description = "Stronger, more rigid and visible muscles",
-            onClick = {
-                objective = "Muscle Definition"
-                val updatedUserData = userData?.copy(objective = objective)
-                val intent = Intent(context, Screenp3::class.java)
-                intent.putExtra("UserData", updatedUserData) //atualiza os dados do user
-                context.startActivity(intent)
-            }
-        )
-
-        Spacer(modifier = Modifier.height(13.dp))
-
-        ObjetiveCard(
-            title = "To lose weight",
-            description = "Lose body fat",
-            onClick = {
-                objective = "To lose weight"
-                val updatedUserData = userData?.copy(objective = objective)
-                val intent = Intent(context, Screenp3::class.java)
-                intent.putExtra("UserData", updatedUserData) //atualiza os dados do user
-                context.startActivity(intent)
-            }
-        )
+        options.forEach { (title, description) ->
+            Spacer(modifier = Modifier.height(13.dp))
+            ObjetiveCard(
+                title = title,
+                description = description,
+                onClick = {
+                    objective = title
+                    val updatedUserData = userData?.copy(objective = objective)
+                    updatedUserData?.let { onNavigateToNextScreen(it) }
+                }
+            )
+        }
 
         Spacer(modifier = Modifier.height(60.dp))
 
-        /*Button(onClick = { onNavigateToNextScreen() },
+        Button(
+            onClick = {
+                userData?.let {
+                    val updatedUserData = it.copy(objective = objective)
+                    onNavigateToNextScreen(updatedUserData)
+                }
+            },
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFF999999),
+                containerColor = Color(0xFF607D8B),
                 contentColor = Color.White
             ),
             shape = RoundedCornerShape(4.dp),
-            modifier = Modifier.padding(horizontal = 90.dp)
+            modifier = Modifier
+                .padding(horizontal = 90.dp)
                 .fillMaxWidth()
                 .height(60.dp)
-                .border(1.dp, Color.Black, RoundedCornerShape(4.dp)),
+                .border(1.dp, Color.Black, RoundedCornerShape(4.dp))
         ) {
-            Text( text = "Next",
+            Text(
+                text = "Next",
                 fontSize = 20.sp,
-                fontWeight = FontWeight.SemiBold)
-        }*/
+                fontWeight = FontWeight.SemiBold
+            )
+        }
     }
 }
 
@@ -152,7 +140,8 @@ fun ProfileTwo(userData: UserData?, onNavigateToNextScreen: () -> Unit) {
 fun ObjetiveCard(title: String, description: String, onClick: () -> Unit) {
     Column(
         modifier = Modifier
-            .padding(start = 12.dp, end = 12.dp).height(125.dp)
+            .padding(start = 12.dp, end = 12.dp)
+            .height(125.dp)
             .fillMaxWidth()
             .background(Color(0XFF607D8B), shape = RoundedCornerShape(8.dp))
             .clickable { onClick() } // Faz o card ser clicável
@@ -179,17 +168,18 @@ fun ObjetiveCard(title: String, description: String, onClick: () -> Unit) {
 @Preview(showBackground = true)
 @Composable
 fun Screenp2Preview() {
-    ProfileTwo(userData = UserData(
-        id = 1,
-        name = "John",
-        email = "john@doe.com",
-        password = "password",
-        objective = "Hypertrophy",
-        level = "Beginner",
-        gender = "",
-        dob = 0,
-        weight = 72,
-        height = 176,
-        includeCardio = true
-    )) {}
+    ProfileTwo(
+        userData = UserData(
+            id = 1,
+            name = "John",
+            email = "john@doe.com",
+            password = "password",
+            objective = "Hypertrophy",
+            level = "Beginner",
+            gender = "",
+            dob = null,
+            weight = 72,
+            height = 176
+        )
+    ) {}
 }

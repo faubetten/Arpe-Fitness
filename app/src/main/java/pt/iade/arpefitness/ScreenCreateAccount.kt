@@ -1,4 +1,4 @@
-/*package pt.iade.arpefitness
+package pt.iade.arpefitness
 
 import android.content.Context
 import android.content.Intent
@@ -183,7 +183,7 @@ fun createUser(userName: String, userEmail: String, userPassword: String, contex
                 if (response.isSuccessful) {
                     val userId = response.body()?.userId
                     Toast.makeText(context, "Account created! User ID: $userId", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(context, Screenp1::class.java)
+                    val intent = Intent(context, WelcomeScreen::class.java)
                     intent.putExtra("userId", userId)
                     context.startActivity(intent)
                 } else {
@@ -205,4 +205,4 @@ fun createUser(userName: String, userEmail: String, userPassword: String, contex
 @Composable
 fun ScreenCreateAccountPreview() {
     CreateAccount()
-}*/
+}

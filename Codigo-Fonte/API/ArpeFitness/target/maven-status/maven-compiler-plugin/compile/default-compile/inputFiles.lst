@@ -25,6 +25,8 @@
 /Users/arielcosta/AndroidStudioProjects/Arpe-Fitness/Codigo-Fonte/API/ArpeFitness/src/main/java/pt/iade/ArpeFitness/controller/SerieController.java
 /Users/arielcosta/AndroidStudioProjects/Arpe-Fitness/Codigo-Fonte/API/ArpeFitness/src/main/java/pt/iade/ArpeFitness/models/repositories/ExerSerieRepository.java
 /Users/arielcosta/AndroidStudioProjects/Arpe-Fitness/Codigo-Fonte/API/ArpeFitness/src/main/java/pt/iade/ArpeFitness/models/tables/Serie.java
+/Users/arielcosta/AndroidStudioProjects/Arpe-Fitness/Codigo-Fonte/API/ArpeFitness/src/main/java/pt/iade/ArpeFitness/config/JacksonConfig.java
+/Users/arielcosta/AndroidStudioProjects/Arpe-Fitness/Codigo-Fonte/API/ArpeFitness/src/main/java/pt/iade/ArpeFitness/dto/UserRequestDTO.java
 /Users/arielcosta/AndroidStudioProjects/Arpe-Fitness/Codigo-Fonte/API/ArpeFitness/src/main/java/pt/iade/ArpeFitness/models/repositories/TrainRepository.java
 /Users/arielcosta/AndroidStudioProjects/Arpe-Fitness/Codigo-Fonte/API/ArpeFitness/src/main/java/pt/iade/ArpeFitness/models/enums/UserExperience.java
 /Users/arielcosta/AndroidStudioProjects/Arpe-Fitness/Codigo-Fonte/API/ArpeFitness/src/main/java/pt/iade/ArpeFitness/controller/AuthController.java
