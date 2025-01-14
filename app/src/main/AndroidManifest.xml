@@ -81,7 +81,7 @@
             android:label="@string/title_activity_screen_create_account"
             android:theme="@style/Theme.Arpefitness" />
         <activity
-            android:name=".UnifiedFormActivity"
+            android:name=".Screenp1"
             android:exported="false"
             android:label="@string/title_activity_screenp1"
             android:theme="@style/Theme.Arpefitness" />

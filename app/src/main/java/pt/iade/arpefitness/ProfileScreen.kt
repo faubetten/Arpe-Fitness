@@ -1,9 +1,11 @@
 package pt.iade.arpefitness
 
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -24,6 +26,7 @@ import pt.iade.arpefitness.models.UserData
 import java.time.LocalDate
 
 class ProfileScreen : ComponentActivity() {
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -33,17 +36,18 @@ class ProfileScreen : ComponentActivity() {
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun UserProfileScreenContent() {
     var userData by remember {
         mutableStateOf(
             UserData(
                 id = 0,
-                name = "John Doe",
-                email = "john.doe@example.com",
+                name = "John ",
+                email = "johndoe@email.com",
                 password = "",
                 gender = "Male",
-                dob = LocalDate.of(1990, 5, 12),
+                dob = LocalDate.of(2003, 2, 17),
                 weight = 70,
                 height = 175,
                 objective = "Build muscle",
@@ -156,6 +160,7 @@ fun ProfileItem(label: String, value: String) {
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Preview(showBackground = true)
 @Composable
 fun UserProfileScreenPreview() {

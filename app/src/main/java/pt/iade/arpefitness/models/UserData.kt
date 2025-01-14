@@ -4,7 +4,7 @@ import java.io.Serializable
 import java.time.LocalDate
 
 class UserData(
-    val id: Int,
+    var id: Int,
     var name: String,
     var email: String,
     var password: String,

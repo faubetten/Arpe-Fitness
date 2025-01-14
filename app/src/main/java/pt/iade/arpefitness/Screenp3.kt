@@ -1,5 +1,6 @@
 package pt.iade.arpefitness
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -37,6 +38,9 @@ class Screenp3 : ComponentActivity() {
         enableEdgeToEdge()
 
         val userData = intent.getSerializableExtra("UserData") as? UserData
+
+
+
 
         setContent {
             Screenp_3(userData = userData) { updatedUserData ->
@@ -105,38 +109,16 @@ fun Screenp_3(userData: UserData?, onNavigateToNextScreen: (UserData) -> Unit = 
                 onClick = {
                     level = title
                     userData?.let {
-                        val updatedUserData = it.copy(level = level)
-                        sendUpdatedUserToBackend(updatedUserData, context)
-                        onNavigateToNextScreen(updatedUserData)
+                       val intent = Intent(context,Homepage::class.java)
+                        context.startActivity(intent)
                     }
                 }
             )
         }
 
-        Spacer(modifier = Modifier.height(60.dp))
-
-        Button(
-            onClick = { /* Logic for Next Button */ },
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFF999999),
-                contentColor = Color.White
-            ),
-            shape = RoundedCornerShape(4.dp),
-            modifier = Modifier
-                .padding(horizontal = 90.dp)
-                .fillMaxWidth()
-                .height(60.dp)
-                .border(1.dp, Color.Black, RoundedCornerShape(4.dp)),
-        ) {
-            Text(
-                text = "Next",
-                fontSize = 20.sp,
-                fontWeight = FontWeight.SemiBold
-            )
-        }
     }
 }
-
+/*
 fun sendUpdatedUserToBackend(userData: UserData, context: android.content.Context) {
     val userUpdateRequest = UserUpdateRequest(
         userName = userData.name,
@@ -153,6 +135,7 @@ fun sendUpdatedUserToBackend(userData: UserData, context: android.content.Contex
         .enqueue(object : Callback<UserResponse> {
             override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
                 if (response.isSuccessful) {
+
                     Toast.makeText(context, "User updated successfully!", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(context, "Failed to update user.", Toast.LENGTH_SHORT).show()
@@ -164,7 +147,7 @@ fun sendUpdatedUserToBackend(userData: UserData, context: android.content.Contex
             }
         })
 }
-
+*/
 @Composable
 fun ObjetiveCard2(title: String, description: String, onClick: () -> Unit) {
     Column(

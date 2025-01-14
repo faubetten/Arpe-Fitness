@@ -1,9 +1,11 @@
 package pt.iade.arpefitness
 
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -17,19 +19,17 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import pt.iade.arpefitness.models.ExercisePlan
 import pt.iade.arpefitness.models.UserData
 import pt.iade.arpefitness.ui.exercise.ExercisesScreen
-import pt.iade.arpefitness.viewmodel.CategoryViewModel
 
 class Homepage : ComponentActivity() {
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -39,7 +39,7 @@ class Homepage : ComponentActivity() {
 
 
         setContent {
-            
+
             Home(userData ?: UserData(
                 id = 0,
                 name = "",
@@ -50,12 +50,13 @@ class Homepage : ComponentActivity() {
                 weight = 0,
                 height = 0,
                 objective = "",
-                level = ""
+                level = "",
             ))
         }
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun Home(userData: UserData) {
     val navController = rememberNavController()
@@ -69,21 +70,18 @@ fun Home(userData: UserData) {
             modifier = Modifier.padding(padding)
         ) {
             composable("home") { HomeScreen(navController, userData) }
-            composable("profileone") { UnifiedFormActivity() }
+            composable("profileone") { ProfileOne() }
             composable("statistics") { StatisticsContent() }
-            composable("select_exercise"){
-
-                ExercisesScreen()
-            }
+            composable("select_exercise"){ExercisesScreen()}
             composable("profile") { UserProfileScreenContent() }
             composable("custom") { CustomWorkoutScreen(navController) }
             composable("WorkoutPlan") {
                 val workoutPlan = generateWorkoutPlan(userData.objective)
                 WorkoutSelectionScreen(workoutPlan = workoutPlan)
             }
-            }
         }
     }
+}
 
 @Composable
 fun HomeScreen(navController: NavController, userData: UserData) {
@@ -259,15 +257,17 @@ fun BottomNavigationBar(navController: NavController) {
         )
     }
 }
+/*
 @Preview(showBackground = true)
 @Composable
 fun PreviewHome() {
     val userData = UserData( 1, name = "John",
+        dob= null,
         email = "john@doe.com",
         password = "password",
         objective = "Hypertrophy",
-        level = "Beginner")
+        level = "Beginner",
 
 
-    Home(userData = userData )
-}
+    Home(userData = UserData )
+}*/
