@@ -1,154 +1,154 @@
-# Relatório de Projeto: Aplicativo de Treinos Personalizados
+# IADE | Faculdade de Design, Tecnologia e Comunicação
+## 2º ano da Licenciatura de Engenharia Informática | turma D02
 
-## Nome do projeto: Arpe Fitness  
-
-### Equipa:
-
-**Grupo 06 - D02**
-- Ariel Costa (20230895)
-- Fausto Bettencourt (20210819)
-- Pedro Almeida (20231130)
-
-### Hiperligação para o repositório GitHub:
-[GitHub: Arpe Fitness](https://github.com/faubetten/Arpe-Fitness)
-
-### Palavras-chave:
-“App” de fitness, recomendação de exercícios, programas de treino personalizados, estilo de vida saudável, aconselhamento baseado em questionário, fitness do principiante ao avançado.
+# **Arpe Fitness**
 
 ---
 
-## Objetivo do projeto
-Desenvolver um aplicativo móvel intuitivo e acessível que permita o cadastro de clientes e, com base nas informações fornecidas por eles, oferecer planos de treino personalizados. O objetivo é ajudar os utilizadores a atingirem as suas metas de forma prática e eficiente, com um acompanhamento automatizado e sugestões de exercícios específicos para cada perfil.
+**Autores**:  
+- Ariel Costa | 20230895  
+- Pedro Almeida | 20231130  
+
+**Data**: 12 de Janeiro de 2024  
+**Local**: Lisboa  
 
 ---
 
-## Problema identificado
-Atualmente, muitas pessoas enfrentam dificuldades para criar e seguir planos de treino adequados às suas necessidades e objetivos. O acesso a um “personal trainer” nem sempre é possível devido ao custo ou disponibilidade. Além disso, quem treina sozinho pode cometer erros na execução dos exercícios ou na montagem dos treinos, comprometendo os resultados e podendo causar lesões.
+## Projeto Arpe Fitness
+
+### Explicação da contribuição de cada membro da equipe
+
+Desde o início do projeto, cada membro desempenhou um papel fundamental no desenvolvimento do Arpe-Fitness:
+
+**Tarefas compartilhadas**:
+- Levantamento de requisitos e pesquisa de mercado.
+- Análise de aplicativos concorrentes (Gym WP, MyFitnessPal, Fitbod).
+- Relatórios de entregas e bases de dados.
+- Construção de mockups e relatórios de competências.
+
+**Tarefas realizadas por Ariel**:
+- Desenvolvimento de telas e interatividade.
+- Criação de funções e lógica de front-end.
+- Preparação de apresentações e vídeo promocional.
+
+**Tarefas realizadas por Pedro**:
+- Conexão back-end com MySQL.
+- Desenvolvimento de APIs, métodos de CRUD e tela de dados.
+- Criação de diagramas e implementação de regras de negócio.
 
 ---
 
-## Proposta de solução
-A nossa aplicação visa fornecer suporte digital para o utilizador, oferecendo planos de treino individualizados com base em informações como:  
-- **Nível de experiência:** iniciante, intermediário, avançado.  
-- **Objetivos:** emagrecimento, ganho de massa muscular, manutenção, etc.  
-- **Tempo disponível para treinos.**  
-- **Histórico de saúde.**  
+## Breve descrição do App
 
-Desta forma, garantiremos que cada utilizador tenha um plano adequado às suas necessidades e condições físicas, que possa ser seguido de maneira autónoma e eficiente.
+O **Arpe-Fitness** é um aplicativo móvel desenvolvido para:
+- Cadastro de usuários.
+- Geração de planos personalizados.
+- Customização de treinos.
+- Acompanhamento e feedback constantes.
 
----
-
-## Funcionalidades da app
-### Cadastro de utilizador:
-- Coleta de dados pessoais (nome, idade, sexo, peso, altura).  
-- Informações sobre objetivos e nível de experiência.  
-
-### Geração de planos personalizados:
-- Algoritmo que sugere treinos com base nas respostas do cadastro.  
-- Opções de treino com variações de intensidade e duração.  
-
-### Customização de treinos:
-- Seleção de exercícios pelo utilizador.  
-- Ajuste de séries, repetições e cargas.  
-
-### Acompanhamento e feedback:
-- Relatório de progresso (tempo de treino, metas atingidas).  
-- “Feedbacks” personalizados após a conclusão dos treinos.  
-
-### Interface amigável:
-- Design simples e de fácil navegação.  
-- Vídeos e imagens para correta execução dos exercícios.  
+**Objetivo**: Ajudar utilizadores a atingirem suas metas de forma prática e eficiente.  
+**Motivação**: A crescente demanda por soluções digitais na área de saúde e bem-estar.  
+**Público-alvo**:
+- Adultos entre 18 e 50 anos.
+- Iniciantes, atletas intermediários e avançados.
+- Pessoas com agendas lotadas.
 
 ---
 
-## Benefícios do projeto
-- Possibilidade de alcançar mais clientes sem necessidade de interação presencial.  
-- Facilidade em oferecer suporte remoto e monitorização de progresso.  
-- Ferramenta de apoio para otimização de treinos, economizando tempo na criação de planos.
+## Pesquisa de mercado
 
----
+**Aplicações analisadas**:
+- **Gym WP**: Treinos guiados e planos personalizados.
+- **MyFitnessPal**: Nutrição e controle de calorias.
+- **Fitbod**: Planos de treino baseados em metas e equipamentos.
 
-## Próximos passos
-- Alinhar expectativas e coletar feedback com profissionais da área (personal trainers).  
-- Iniciar testes com utilizadores beta para validar a experiência e eficácia dos treinos.  
-- Implementar melhorias com base no feedback e lançar a primeira versão oficial.
-
----
-
-## Motivação do trabalho
-A crescente necessidade de soluções digitais que ajudem as pessoas a manterem-se ativas, especialmente em cenários onde frequentar academias pode não ser uma opção viável. Ao combinar tecnologia e orientação profissional, a Arpe-Fitness busca ser uma aliada na jornada fitness dos seus utilizadores.
-
----
-
-## Identificação do público-alvo
-- Adultos entre 18 e 50 anos que buscam uma maneira prática de se exercitar.  
-- Iniciantes que precisam de orientação para começar as suas rotinas.  
-- Atletas intermediários e avançados que querem aprimorar seus resultados.  
-- Pessoas com agenda lotada que desejam treinos adaptados ao tempo disponível.  
-- Utilizadores que preferem treinar em casa ou na academia com um plano estruturado.  
-
----
-
-## Aplicações base
-- **Gym WP:** variedade de treinos guiados e planos personalizados.  
-- **MyFitnessPal:** nutrição e controle de calorias, com integração para treinos.  
-- **Fitbod:** planos de treino personalizados com base em metas e equipamentos disponíveis.  
-
----
-
-## Diferenciais da Arpe Fitness
-- Avaliação contínua de progresso e ajuste dinâmico dos treinos.  
-- Interface simplificada e orientada para utilizadores com pouco tempo.  
+**Resumo do Arpe-Fitness**:
+O aplicativo utiliza um questionário inicial para mapear necessidades e propõe planos adequados a objetivos e históricos.
 
 ---
 
 ## Enquadramento nas Unidades Curriculares
-- **Programação de dispositivos móveis:** Kotlin e Jetpack Compose.  
-- **Programação orientada a objetos:** Backend com frameworks como Spring Boot.  
-- **Base de dados:** Gestão de perfis de utilizador e histórico de treino.  
-- **Competências comunicacionais:** Apresentação da ideia para utilizadores e investidores.  
-- **Matemática discreta:** Cálculo de IMC e estatísticas de treino.  
+
+### Base de Dados
+- Uso de **Modelo ER** e **Dicionário de Dados**.
+- Implementação de uma base sólida para consultas e gestão eficiente.
+
+### Programação de Dispositivos Móveis
+- **Interface de Usuário**: Simples, responsiva e intuitiva.
+- **Gestão de Navegação**: Estruturas modernas para transições fluidas.
+- **Integração Nativa**: Cronômetros e armazenamento local.
+
+### Competências Comunicacionais
+- Estruturação clara de objetivos e funcionalidades.
+- Construção de personas para melhor comunicação com os utilizadores.
+
+### Programação Orientada a Objetos
+- Uso de classes para modelar entidades como `User`, `Exercise` e `TrainingPlan`.
+- Aplicação de conceitos como encapsulamento e polimorfismo.
+
+### Matemática Discreta
+- Estruturação e organização de dados.
+- Otimização de algoritmos para planos personalizados.
 
 ---
 
-## Guiões de teste
-### Cenário 1: Acesso ao Plano de Treino Personalizado
-**Objetivo:** Testar o acesso do utilizador ao plano de treino gerado automaticamente.  
-**Passo a Passo:**  
-1. Login e acesso à tela inicial.  
-2. Seleção da opção “Plano de Treino”.  
-3. Exibição do plano personalizado.  
-**Resultado Esperado:** Plano exibido corretamente com sessões e exercícios adaptados.  
-
-### Cenário 2: Customização e Execução de Treino
-**Objetivo:** Permitir ao utilizador criar e realizar um treino customizado.  
-**Passo a Passo:**  
-1. Acessar a seção “Customizar Treino”.  
-2. Escolher exercícios, ajustar cargas e definir repetições.  
-3. Salvar e iniciar o treino.  
-**Resultado Esperado:** Treino customizado salvo e executado com feedback em tempo real.  
+## Tecnologias utilizadas
+**Plataformas**: Visual Studio Code, Intellij IDEA, Android Studio, MySQL Workbench, GitHub, Postman, Discord, Canva, Figma.  
 
 ---
 
-## Requisitos técnicos
-- **Funcionais:** Cadastro de utilizador, criação de perfil, planos de treino dinâmicos.  
-- **Não funcionais:** Interface responsiva, integração com serviços externos, segurança de dados.
+## Arquitetura da solução
+**Banco de Dados**:
+- Modelo relacional com tabelas interconectadas por PKs e FKs.
+- Estruturas otimizadas para armazenamento e recuperação.
+
+**Modelo ER**:
+- Estrutura detalhada para representar relacionamentos entre usuários, treinos e exercícios.
 
 ---
 
-## Tecnologias a utilizar
-- Visual Studio Code, Android Studio, MAMP, MySQL Workbench, GitHub.
+## Manual do Utilizador
+
+### Tela: Login
+- **Elementos**: Campos para email e senha, links de recuperação e criação de conta.
+
+### Tela: Create Account
+- Permite registro de novos utilizadores.
+
+### Tela: Welcome to Arpe Fitness
+- Introdução e início do processo de personalização.
+
+### Tela: Body Metrics
+- Inserção de dados corporais: gênero, data de nascimento, peso e altura.
+
+### Tela: Objetivo de Treino
+- Seleção entre **Hypertrophy**, **Muscle Definition** ou **To Lose Weight**.
+
+### Tela: Home Page
+- Acesso centralizado a treinos e estatísticas.
+
+### Tela: Conclusão
+- Resumo do desempenho do treino.
 
 ---
 
-## Planeamento e calendarização
-- **Click Up:** [ClickUp Link](https://app.clickup.com/9012374982/v/li/901205506243)
+## Auto-avaliação
+
+### Divisão de tarefas
+- Ariel: Front-end.
+- Pedro: Back-end e base de dados.
+
+### Desafios encontrados
+- Problemas de comunicação e reorganização após abandono de membro.
+- Dificuldades na implementação e ajustes do banco de dados.
+
+**Resultados**: Apesar dos desafios, o grupo conseguiu entregar um projeto funcional com divisão eficiente de responsabilidades.
+
+---
+
+Para detalhes técnicos adicionais, consulte a [Documentação REST](https://documenter.getpostman.com/view/39423558/2sAYQWKtk9).
 
 ---
 
 ## Conclusão
-O principal objetivo da Arpe-Fitness é oferecer uma ferramenta eficiente e fácil de usar que ajude os utilizadores a manterem um estilo de vida saudável por meio de treinos personalizados. Com desenvolvimento bem estruturado, buscamos maximizar o engajamento e a satisfação dos utilizadores.
-
-# Notas
-
-        android:theme="@style/Theme.ArpeFitness"
+O Arpe-Fitness é uma solução inovadora que combina personalização, simplicidade e eficiência, trazendo valor significativo para o mercado de aplicativos fitness.
